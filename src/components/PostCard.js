@@ -31,16 +31,10 @@ export default function FeaturedPost({ post }) {
             <CardContent>
               <Typography component="h2" variant="h5">
                 {post.title}
-              </Typography>
-              <Typography variant="subtitle1" color="textSecondary">
-                {post.date}
-              </Typography>
+              </Typography>              
               <Typography variant="subtitle1" paragraph>
                 {post.description}
-              </Typography>
-              <Typography variant="subtitle1" style={{ color: "skyblue" }}>
-                Continue reading...
-              </Typography>
+              </Typography>             
             </CardContent>
           </div>
           <Hidden xsDown>

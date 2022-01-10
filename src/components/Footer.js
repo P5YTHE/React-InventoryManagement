@@ -7,8 +7,12 @@ import Link from "@material-ui/core/Link";
 const useStyles = makeStyles((theme) => ({
   footer: {
     backgroundColor: theme.palette.background.paper,
-    marginTop: theme.spacing(4),
+    marginTop: theme.spacing(2),
     padding: theme.spacing(6, 0),
+    position: "fixed",
+    left:0,
+    bottom:0,
+    width:"100%"
   },
 }));
 
@@ -32,7 +36,7 @@ export default function Footer({ description, title }) {
         <Typography variant="body2" color="textSecondary" align="center">
           Copyright ©{" "}
           <Link color="inherit" href="https://material-ui.com/">
-            Your Website
+            Group 4
           </Link>{" "}
           {new Date().getFullYear()}.
         </Typography>

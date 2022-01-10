@@ -35,13 +35,8 @@ function Header() {
           </IconButton>
         </SideDrawer>
         <Typography variant="h6" className={classes.title}>
-          Blogging Website
-        </Typography>
-        <IconButton color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
+          InventStack
+        </Typography>        
         <IconButton color="inherit">
           <AccountCircle />
         </IconButton>
@@ -50,7 +45,7 @@ function Header() {
       <Divider />
 
       <Toolbar className={classes.tagline}>
-        Express your emotions through words
+        
       </Toolbar>
     </>
   );
