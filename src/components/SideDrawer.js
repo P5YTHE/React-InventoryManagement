@@ -8,8 +8,9 @@ import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
+import BookmarksIcon from '@mui/icons-material/Bookmarks';
+import AutoAwesomeMotionIcon from "@mui/icons-material/AutoAwesomeMotion";
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import { sections } from "../Data/Data";
 
 const useStyles = makeStyles({
@@ -53,7 +54,7 @@ export default function TemporaryDrawer({ children }) {
         {sections.map((text, index) => (
           <ListItem button key={text.title}>
             <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              {index === 0 ? <AutoAwesomeMotionIcon /> :(index===1? <BookmarksIcon /> :<ManageAccountsIcon/>) }
             </ListItemIcon>
             <ListItemText primary={text.title} />
           </ListItem>
