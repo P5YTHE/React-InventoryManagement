@@ -10,12 +10,13 @@ const HomeScreen = () => {
   return (
     <>
       <FeaturedPost />
-      <br />
-      <Grid container spacing={4}>
-        {featuredPosts.map((post) => (
-          <PostCard key={post.title} post={post} />
-        ))}
-      </Grid>
+        <br />
+        <Grid container spacing={4}>
+          {featuredPosts.map((post) => (
+            <PostCard key={post.title} post={post} />
+          ))}
+        </Grid>
+        
     </>
   );
 };

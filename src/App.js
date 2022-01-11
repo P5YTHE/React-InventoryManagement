@@ -13,8 +13,9 @@ import { featuredPosts, sidebar } from "./Data/Data";
 import Main from "./components/Main";
 import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
-
-
+import { Route, Routes } from "react-router";
+import HomeScreen from "./screens/HomeScreen";
+import { ProfileScreen } from "./screens/ProfileScreen/ProfileScreen";
 
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
@@ -23,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function App() {
- 
   // const getDesignTokens = (mode) => ({
   //   palette: {
   //     mode,
@@ -52,7 +52,7 @@ function App() {
   //         }),
   //   },
   // });
-   const Theme = createMuiTheme({
+  const Theme = createMuiTheme({
     palette: {
       type: "dark",
     },
@@ -61,19 +61,15 @@ function App() {
   const classes = useStyles();
 
   return (
-    <ThemeProvider theme={Theme}>      
+    <ThemeProvider theme={Theme}>
       <Container>
-        <Header />        
-        <FeaturedPost />
-        <br />
-        <Grid container spacing={4}>
-          {featuredPosts.map((post) => (
-            <PostCard key={post.title} post={post} />
-          ))}
-        </Grid>
-        
+        <Header />
+        <Routes>
+          <Route exact path='/' element={<HomeScreen/> } />
+          <Route  path='/profile' element={<ProfileScreen/> } />
+        </Routes>
       </Container>
-      <Footer/>
+      <Footer />
     </ThemeProvider>
   );
 }

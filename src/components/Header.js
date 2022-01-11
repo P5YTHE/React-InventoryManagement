@@ -9,6 +9,7 @@ import {
 import MenuIcon from "@material-ui/icons/Menu";
 import { AccountCircle } from "@material-ui/icons";
 import SideDrawer from "./SideDrawer";
+import { useNavigate } from "react-router";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -28,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Header() {
   const classes = useStyles();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -40,7 +42,7 @@ function Header() {
         <Typography variant="h6" className={classes.title}>
           
         </Typography>        
-        <IconButton color="inherit">
+        <IconButton color="inherit" onClick={() => navigate("/profile")}>
           <AccountCircle />
         </IconButton>
       </Toolbar>
