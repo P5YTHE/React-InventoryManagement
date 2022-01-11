@@ -13,6 +13,7 @@ import AutoAwesomeMotionIcon from "@mui/icons-material/AutoAwesomeMotion";
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import { sections } from "../Data/Data";
 import { color } from "@mui/system";
+import { useNavigate } from "react-router";
 
 const useStyles = makeStyles({
   list: {
@@ -29,6 +30,7 @@ const useStyles = makeStyles({
 export default function TemporaryDrawer({ children }) {
   const classes = useStyles();
   const [state, setState] = React.useState({ left: false });
+  const navigate = useNavigate();
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -56,9 +58,9 @@ export default function TemporaryDrawer({ children }) {
       <Divider />
       <List>
         {sections.map((text, index) => (
-          <ListItem button key={text.title}>
+          <ListItem button key={text.title} onClick={() => navigate(text.url)}>
             <ListItemIcon>
-              {index === 0 ? <AutoAwesomeMotionIcon /> :(index===1? <BookmarksIcon /> :<ManageAccountsIcon/>) }
+              {index === 0 ? <AutoAwesomeMotionIcon /> :(index===1? <BookmarksIcon /> :<ManageAccountsIcon  />) }
             </ListItemIcon>
             <ListItemText primary={text.title} />
           </ListItem>
