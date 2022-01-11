@@ -4,13 +4,9 @@ import TwitterIcon from "@material-ui/icons/Twitter";
 
 export const sections = [
   { title: "Products", url: "/products" },
-  { title: "Categories", url: "/categories" }, 
-  { title: "User Profile", url: "/profile" }
+  { title: "Categories", url: "/Categories" }, 
+  { title: "User Profile", url: "/Profile" }
 ];
-
-export const mainFeaturedPost = {
-    
-};
 
 export const featuredPosts = [
   {

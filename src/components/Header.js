@@ -39,8 +39,8 @@ function Header() {
             <MenuIcon className={classes.icon}/>
           </IconButton>
         </SideDrawer>
-        <Typography variant="h6" className={classes.title}>
-          
+        <Typography variant="h6" className={classes.title} onClick={()=>{navigate("/")}}>
+          Inventory Track
         </Typography>        
         <IconButton color="inherit" onClick={() => navigate("/profile")}>
           <AccountCircle />
