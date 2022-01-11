@@ -13,9 +13,14 @@ import { featuredPosts, sidebar } from "./Data/Data";
 import Main from "./components/Main";
 import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
-import { Route, Routes } from "react-router";
+import { Route, Routes, useNavigate } from "react-router";
 import HomeScreen from "./screens/HomeScreen";
 import { ProfileScreen } from "./screens/ProfileScreen/ProfileScreen";
+import Auth from "./Auth/Auth";
+import Callback from "./Auth/Callback";
+import ProductsScreen from "./screens/ProductsScreen";
+import {storage} from './firebase';
+
 
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
@@ -24,6 +29,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function App() {
+
+  const navigate = useNavigate();
+  const auth = new Auth(navigate);
+  // const auth = new Auth();
+  
   // const getDesignTokens = (mode) => ({
   //   palette: {
   //     mode,
@@ -58,15 +68,20 @@ function App() {
     },
   });
 
+
   const classes = useStyles();
 
   return (
     <ThemeProvider theme={Theme}>
       <Container>
-        <Header />
+        <Header auth={auth} />
+          <></>
         <Routes>
           <Route exact path='/' element={<HomeScreen/> } />
           <Route  path='/profile' element={<ProfileScreen/> } />
+          <Route  path='/callback' element={<Callback auth={auth}/> } />
+          <Route path='/products' element={<ProductsScreen/>} />
+
         </Routes>
       </Container>
       <Footer />

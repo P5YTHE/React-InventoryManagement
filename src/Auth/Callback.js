@@ -1,9 +1,16 @@
 import React, { Component } from "react";
 
+import withRouter from "./withRouter";
+
+
 class Callback extends Component {
+  constructor(){
+    super();
+  }
   componentDidMount() {
-    if (/access_token|id_token|error/.test(this.props.location.hash)) {
-      this.props.auth.handleAuthentication();
+    const { auth , location } = this.props;   
+    if (/access_token|id_token|error/.test(location.hash)) {
+      auth.handleAuthentication();
     } else {
       throw new Error("Invalid callback URL");
     }
@@ -13,4 +20,4 @@ class Callback extends Component {
   }
 }
 
-export default Callback;
+export default withRouter(Callback);

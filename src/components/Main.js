@@ -13,8 +13,7 @@ export default function Main({ title }) {
       <Typography variant="h6" gutterBottom>
         {title}
       </Typography>
-      <Divider />
-      
+      <Divider />      
     </Grid>
     </>   
   );
