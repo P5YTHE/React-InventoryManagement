@@ -1,20 +1,20 @@
 import auth0 from "auth0-js";
-
 import React, { Component } from "react";
-
 class Auth extends Component {
-  constructor(history) {
+  constructor(navigate) {
     super();
-    this.history = history;
+
     this.profile = null;
+    this.navigate = navigate;
     this.requestedScopes = "openid profile email";
     this.auth0 = new auth0.WebAuth({
-      domain: process.env.REACT_APP_AUTH0_DOMAIN,
-      clientID: process.env.REACT_APP_AUTH0_CLIENTID,
-      redirectUri: process.env.REACT_APP_AUTH0_CALLBACK_URL,
-      audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+      domain: "dev-tapp.us.auth0.com",
+      clientID: "aTtr5NFcQFHgQC3UQ8Qov5eKfS1loV7y",
+      redirectUri: "http://localhost:3000/callback",
+      audience: "https://localhost:7261",
       responseType: "token id_token",
       scope: this.requestedScopes,
+   
     });
   }
 
@@ -31,7 +31,7 @@ class Auth extends Component {
         alert(`Error: ${err.error}, for further info check console.`);
         console.log(err);
       }
-      this.history.push("/");
+      this.navigate("/");
     });
   };
 
@@ -63,12 +63,12 @@ class Auth extends Component {
     localStorage.removeItem("scopes");
     this.profile = null;
     this.auth0.logout({
-      clientID: process.env.REACT_APP_AUTH0_CLIENTID,
-      returnTo: "http://localhost:3000/",
+      clientID: "aTtr5NFcQFHgQC3UQ8Qov5eKfS1loV7y",
+      returnTo: "http://localhost:3000/"
     });
   };
 
-  getAccessToken = () => {
+  static getAccessToken = () => {
     const accessToken = localStorage.getItem("access_token");
     if (!accessToken) throw new Error("Access token not found");
     return accessToken;
@@ -82,6 +82,14 @@ class Auth extends Component {
       callbackFunc(profile, err);
     });
   };
+
+  userHasScopes(scopes) {
+    const grantedScopes = (
+      JSON.parse(localStorage.getItem("scopes")) || ""
+    ).split(" ");
+
+    return scopes.every((scope) => grantedScopes.includes(scope));
+  }
 
   render() {
     return <div></div>;
