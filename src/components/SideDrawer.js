@@ -12,6 +12,7 @@ import BookmarksIcon from '@mui/icons-material/Bookmarks';
 import AutoAwesomeMotionIcon from "@mui/icons-material/AutoAwesomeMotion";
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import { sections } from "../Data/Data";
+import { color } from "@mui/system";
 
 const useStyles = makeStyles({
   list: {
@@ -20,6 +21,9 @@ const useStyles = makeStyles({
   fullList: {
     width: "auto",
   },
+  paper: {
+    background: "#379bff",
+    }
 });
 
 export default function TemporaryDrawer({ children }) {
@@ -47,7 +51,7 @@ export default function TemporaryDrawer({ children }) {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        <ListItem>Categories</ListItem>
+        
       </List>
       <Divider />
       <List>
@@ -72,6 +76,7 @@ export default function TemporaryDrawer({ children }) {
           anchor={"left"}
           open={state["left"]}
           onClose={toggleDrawer("left", false)}
+          classes={{paper: classes.paper}}       
         >
           {list("left")}
         </Drawer>

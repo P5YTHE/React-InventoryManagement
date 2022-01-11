@@ -1,7 +1,5 @@
-import {
-  Button,
-  Card,
-  CardActions,
+import {  
+  Card,  
   CardContent,
   makeStyles,
   Typography,
@@ -9,37 +7,66 @@ import {
 
 const useStyles = makeStyles({
   cover: {
-    backgroundImage: `url(https://www.munters.com/globalassets/industries/airt/emea/distribution-warehouse/at_subindustry_page_hero_distribution_warehouse_845x475.jpg)`,
-    backgroundPosition: "center",
+    backgroundImage: `url(https://i.ibb.co/YDpcKCg/Dark-Warehouses-1.jpg) `,
+    backgroundPosition: "center",   
+    height: "100%",
+    backgroundPosition: "center",        
     padding: "35px 25px",
-    height: "150%",
-    
-    
+    whiteSpace: "nowrap",
+    height: "20vw",   
   },
   title: {
-    fontSize: 40,
-    fontFamily: "Montserrat",
+    fontSize: 50,
+    fontFamily: "Russo One",
+    color:"black",
   },
   textContainer: {
-    color: "black",
+    color: "Black",
+    alignContent:"center",    
+    textShadow:"2px 0px grey",
   },
+  innerBlock : {
+    backgroundColor:"white",
+    fontSize: 50,
+    fontFamily: "Russo One",
+    boxShadow: "4px 4px white"
+  },
+  innerContent: {
+    fontSize: 25,
+    fontFamily: "Roboto",
+    color:"black",
+  }
 });
 
 const FeaturedPost = () => {
-  const classes = useStyles();
+  const classes = useStyles();  
 
   return (
+    <>    
     <Card className={classes.cover}>
-      <CardContent className={classes.textContainer}>
+      <CardContent className={classes.textContainer} >
+        <div></div>
         <Typography className={classes.title} gutterBottom>
-          Inventory Management 
+        <Card>
+          <CardContent className={classes.innerBlock} gutterBottom>
+          <Typography className={classes.title} gutterBottom>
+          INVENTORY MANAGEMENT 
+          </Typography>
+        <Typography className={classes.innerContent}>
+         Inventory management system helps to keep track of the product inventory          
         </Typography>
-        <Typography variant="h5" component="h2">
-         Inventory management system helps to keep track of the product inventory in your warehouse/factory with an interactive Ui and ease of access to the database.
+        <Typography className={classes.innerContent}>         
+         in your warehouse/factory with an interactive Ui and 
         </Typography>
-      </CardContent>
-      
+        <Typography className={classes.innerContent}>         
+        ease of access to the database.
+        </Typography>
+          </CardContent>
+        </Card>
+        </Typography>       
+      </CardContent>      
     </Card>
+    </>
   );
 };
 

@@ -8,8 +8,8 @@ import {
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import { AccountCircle } from "@material-ui/icons";
-import NotificationsIcon from "@material-ui/icons/Notifications";
 import SideDrawer from "./SideDrawer";
+
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     fontFamily: "Montserrat",
   },
+  icon: {    
+    color:"black",
+  }
 }));
 
 function Header() {
@@ -28,14 +31,14 @@ function Header() {
 
   return (
     <>
-      <Toolbar>
+      <Toolbar >
         <SideDrawer>
-          <IconButton color="inherit">
-            <MenuIcon />
+          <IconButton>
+            <MenuIcon className={classes.icon}/>
           </IconButton>
         </SideDrawer>
         <Typography variant="h6" className={classes.title}>
-          InventStack
+          
         </Typography>        
         <IconButton color="inherit">
           <AccountCircle />

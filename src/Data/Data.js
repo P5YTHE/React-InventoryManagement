@@ -16,8 +16,7 @@ export const featuredPosts = [
   {
     title: "Login",    
     description:
-      "Login with existing account",
-    image: 
+      "Login with existing account",     
         
   },
   {
