@@ -19,6 +19,7 @@ import { ProfileScreen } from "./screens/ProfileScreen/ProfileScreen";
 import Auth from "./Auth/Auth";
 import Callback from "./Auth/Callback";
 import ProductsScreen from "./screens/ProductsScreen";
+import {storage} from './firebase';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -74,6 +75,7 @@ function App() {
     <ThemeProvider theme={Theme}>
       <Container>
         <Header auth={auth} />
+          <></>
         <Routes>
           <Route exact path='/' element={<HomeScreen/> } />
           <Route  path='/profile' element={<ProfileScreen/> } />
