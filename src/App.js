@@ -61,9 +61,9 @@ function App() {
   const classes = useStyles();
 
   return (
-    <ThemeProvider theme={Theme}>
+    <ThemeProvider theme={Theme}>      
       <Container>
-        <Header />
+        <Header />        
         <FeaturedPost />
         <br />
         <Grid container spacing={4}>
@@ -71,15 +71,7 @@ function App() {
             <PostCard key={post.title} post={post} />
           ))}
         </Grid>
-        {/* <Grid container spacing={5} className={classes.mainGrid}>
-          <Main title="From the firehose" />
-          <Sidebar
-            title={sidebar.title}
-            description={sidebar.description}
-            archives={sidebar.archives}
-            social={sidebar.social}
-          />
-        </Grid> */}
+        
       </Container>
       <Footer/>
     </ThemeProvider>
