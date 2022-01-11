@@ -43,8 +43,11 @@ function Header({ auth }) {
             <MenuIcon className={classes.icon} />
           </IconButton>
         </SideDrawer>
-        <Typography variant="h6" className={classes.title}></Typography>
-            
+
+        <Typography variant="h6" className={classes.title} onClick={()=>{navigate("/")}}>
+          Inventory Track
+        </Typography>        
+
         <ButtonGroup
           variant="contained"
           aria-label="outlined primary button group"
@@ -58,7 +61,7 @@ function Header({ auth }) {
             </>
           )}
         </ButtonGroup>
-        
+
         <IconButton color="inherit" onClick={() => navigate("/profile")}>
           <AccountCircle />
         </IconButton>
