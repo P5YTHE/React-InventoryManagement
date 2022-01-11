@@ -17,6 +17,7 @@ import { Route, Routes } from "react-router";
 import HomeScreen from "./screens/HomeScreen";
 import { ProfileScreen } from "./screens/ProfileScreen/ProfileScreen";
 import ProductsScreen from "./screens/ProductsScreen";
+import {storage} from './firebase';
 
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
@@ -65,6 +66,7 @@ function App() {
     <ThemeProvider theme={Theme}>
       <Container>
         <Header />
+        <></>
         <Routes>
           <Route exact path='/' element={<HomeScreen/> } />
           <Route  path='/profile' element={<ProfileScreen/> } />
