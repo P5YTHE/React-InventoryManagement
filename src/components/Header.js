@@ -44,8 +44,7 @@ function Header({ auth }) {
           </IconButton>
         </SideDrawer>
         <Typography variant="h6" className={classes.title}></Typography>
-
-        {/* Login/signup/logout buttons */}
+            
         <ButtonGroup
           variant="contained"
           aria-label="outlined primary button group"
@@ -59,8 +58,7 @@ function Header({ auth }) {
             </>
           )}
         </ButtonGroup>
-
-        {/* Profile button */}
+        
         <IconButton color="inherit" onClick={() => navigate("/profile")}>
           <AccountCircle />
         </IconButton>
