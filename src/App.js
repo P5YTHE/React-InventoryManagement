@@ -18,6 +18,8 @@ import HomeScreen from "./screens/HomeScreen";
 import { ProfileScreen } from "./screens/ProfileScreen/ProfileScreen";
 import Auth from "./Auth/Auth";
 import Callback from "./Auth/Callback";
+import ProductsScreen from "./screens/ProductsScreen";
+
 
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
@@ -76,6 +78,8 @@ function App() {
           <Route exact path='/' element={<HomeScreen/> } />
           <Route  path='/profile' element={<ProfileScreen/> } />
           <Route  path='/callback' element={<Callback auth={auth}/> } />
+          <Route path='/products' element={<ProductsScreen/>} />
+
         </Routes>
       </Container>
       <Footer />
