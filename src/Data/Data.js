@@ -3,9 +3,9 @@ import FacebookIcon from "@material-ui/icons/Facebook";
 import TwitterIcon from "@material-ui/icons/Twitter";
 
 export const sections = [
-  { title: "Products", url: "#" },
-  { title: "Categories", url: "#" }, 
-  { title: "User Profile", url: "#" }
+  { title: "Products", url: "/products" },
+  { title: "Categories", url: "/categories" }, 
+  { title: "User Profile", url: "/profile" }
 ];
 
 export const mainFeaturedPost = {
