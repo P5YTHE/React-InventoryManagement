@@ -16,6 +16,7 @@ import Footer from "./components/Footer";
 import { Route, Routes } from "react-router";
 import HomeScreen from "./screens/HomeScreen";
 import { ProfileScreen } from "./screens/ProfileScreen/ProfileScreen";
+import ProductsScreen from "./screens/ProductsScreen";
 
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
@@ -67,6 +68,7 @@ function App() {
         <Routes>
           <Route exact path='/' element={<HomeScreen/> } />
           <Route  path='/profile' element={<ProfileScreen/> } />
+          <Route path='/products' element={<ProductsScreen/>} />
         </Routes>
       </Container>
       <Footer />
