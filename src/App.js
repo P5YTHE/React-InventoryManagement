@@ -36,6 +36,7 @@ function App() {
   const navigate = useNavigate();
   const auth = new Auth(navigate);
   const [progress,setProgress]=useState(0);
+  const [product, setProduct]=useState(null);
 
 
   const formHandler = (e)=>{
@@ -104,11 +105,11 @@ function App() {
       <Container>      
         
         <Header auth={auth} />          
-        <form onSubmit={formHandler}>
+        {/* <form onSubmit={formHandler}>
           <input type="file" className="input"></input>
           <button type="submit">Upload</button>
         </form>
-        <h3>Uploaded {progress} %</h3>
+        <h3>Uploaded {progress} %</h3> */}
         <Routes>
           <Route exact path='/' element={<HomeScreen/> } />
           <Route  path='/profile' element={<ProfileScreen/> } />
