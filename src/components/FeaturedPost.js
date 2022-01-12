@@ -7,7 +7,7 @@ import {
 
 const useStyles = makeStyles({
   cover: {
-    backgroundImage: `url(https://i.ibb.co/YDpcKCg/Dark-Warehouses-1.jpg) `,
+    backgroundImage: `url(https://firebasestorage.googleapis.com/v0/b/react-app-fca28.appspot.com/o/files%2Ffavicon.ico?alt=media&token=9c4b4a34-55de-414c-90f6-851a8edac93d) `,
     backgroundPosition: "center",   
     height: "100%",
     backgroundPosition: "center",        
