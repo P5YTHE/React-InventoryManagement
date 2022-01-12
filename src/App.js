@@ -29,6 +29,9 @@ const useStyles = makeStyles((theme) => ({
   mainGrid: {
     marginTop: theme.spacing(3),
   },
+  mainContainer:{
+    minHeight:"95vh",
+  }
 }));
 
 function App() {
@@ -36,6 +39,7 @@ function App() {
   const navigate = useNavigate();
   const auth = new Auth(navigate);
   const [progress,setProgress]=useState(0);
+  const [product, setProduct]=useState(null);
 
 
   const formHandler = (e)=>{
@@ -101,14 +105,20 @@ function App() {
 
   return (
     <ThemeProvider theme={Theme}>
-      <Container>      
+      <Container className={classes.mainContainer}>      
         
         <Header auth={auth} />          
-        <form onSubmit={formHandler}>
+        {/* <form onSubmit={formHandler}>
           <input type="file" className="input"></input>
           <button type="submit">Upload</button>
         </form>
         <h3>Uploaded {progress} %</h3>
+
+        <form onSubmit={formHandler}>
+          <input type="file" className="input"></input>
+          <button type="submit">Upload</button>
+        </form>        
+        <h3>Uploaded {progress} %</h3> */}
         <Routes>
           <Route exact path='/' element={<HomeScreen/> } />
           <Route  path='/profile' element={<ProfileScreen/> } />
