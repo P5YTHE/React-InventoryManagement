@@ -15,10 +15,11 @@ import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
 import { Route, Routes, useNavigate } from "react-router";
 import HomeScreen from "./screens/HomeScreen";
-import { ProfileScreen } from "./screens/ProfileScreen/ProfileScreen";
+import { ProfileScreen } from "./screens/ProfileScreen";
 import Auth from "./Auth/Auth";
 import Callback from "./Auth/Callback";
 import ProductsScreen from "./screens/ProductsScreen";
+import EditProfileScreen from "./screens/EditProfileScreen";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -77,6 +78,7 @@ function App() {
         <Routes>
           <Route exact path='/' element={<HomeScreen/> } />
           <Route  path='/profile' element={<ProfileScreen/> } />
+          <Route  path='/editprofile' element={<EditProfileScreen /> } />
           <Route  path='/callback' element={<Callback auth={auth}/> } />
           <Route path='/products' element={<ProductsScreen/>} />
 
