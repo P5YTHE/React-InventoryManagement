@@ -1,4 +1,5 @@
 import "./App.css";
+import {storage} from "./firebase";
 import {
   Container,
   createMuiTheme,
@@ -19,7 +20,9 @@ import { ProfileScreen } from "./screens/ProfileScreen/ProfileScreen";
 import Auth from "./Auth/Auth";
 import Callback from "./Auth/Callback";
 import ProductsScreen from "./screens/ProductsScreen";
-import {storage} from './firebase';
+import { getDownloadURL,ref, uploadBytesResumable } from "@firebase/storage";
+import { useState } from "react";
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -32,6 +35,14 @@ function App() {
 
   const navigate = useNavigate();
   const auth = new Auth(navigate);
+  const [progress,setProgress]=useState(0);
+
+
+  const formHandler = (e)=>{
+    e.preventDefault();
+    const file= e.target[0].files[0];
+    uploadFiles(file);
+  }
   // const auth = new Auth();
   
   // const getDesignTokens = (mode) => ({
@@ -62,6 +73,23 @@ function App() {
   //         }),
   //   },
   // });
+  const uploadFiles = (file) => {
+    if(!file) return;
+
+    const storageRef = ref(storage, `/files/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef,file);
+    uploadTask.on("state_changed",(snapshot)=>{
+      const prog = Math.round((snapshot.bytesTransferred/snapshot.totalBytes)*100);
+    
+    setProgress(prog);
+
+    
+  },(err)=>console.log(err),
+  ()=>{
+    getDownloadURL(uploadTask.snapshot.ref).then(url=>console.log(url))
+  });
+  };
+
   const Theme = createMuiTheme({
     palette: {
       type: "dark",
@@ -73,15 +101,19 @@ function App() {
 
   return (
     <ThemeProvider theme={Theme}>
-      <Container>
-        <Header auth={auth} />
-          <></>
+      <Container>      
+        
+        <Header auth={auth} />          
+        <form onSubmit={formHandler}>
+          <input type="file" className="input"></input>
+          <button type="submit">Upload</button>
+        </form>
+        <h3>Uploaded {progress} %</h3>
         <Routes>
           <Route exact path='/' element={<HomeScreen/> } />
           <Route  path='/profile' element={<ProfileScreen/> } />
           <Route  path='/callback' element={<Callback auth={auth}/> } />
-          <Route path='/products' element={<ProductsScreen/>} />
-
+          <Route path='/products' element={<ProductsScreen/>} />       
         </Routes>
       </Container>
       <Footer />
@@ -90,3 +122,4 @@ function App() {
 }
 
 export default App;
+
