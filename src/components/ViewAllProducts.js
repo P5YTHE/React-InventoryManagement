@@ -10,8 +10,8 @@ import { makeStyles } from "@material-ui/core/styles";
 const ViewAllProducts = () => {
     const url='https://localhost:7075/api/Products';
     const[products,setProduct]= useState([]);
-    const[searchTerm,setSearchTerm]=useState('');
 
+    const[searchTerm,setSearchTerm]=useState('');
 
     const useStyles = makeStyles((theme) => ({
         searchbox:{

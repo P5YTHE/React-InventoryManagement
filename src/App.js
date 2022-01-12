@@ -29,6 +29,9 @@ const useStyles = makeStyles((theme) => ({
   mainGrid: {
     marginTop: theme.spacing(3),
   },
+  mainContainer:{
+    minHeight:"95vh",
+  }
 }));
 
 function App() {
@@ -102,13 +105,19 @@ function App() {
 
   return (
     <ThemeProvider theme={Theme}>
-      <Container>      
+      <Container className={classes.mainContainer}>      
         
         <Header auth={auth} />          
         {/* <form onSubmit={formHandler}>
           <input type="file" className="input"></input>
           <button type="submit">Upload</button>
         </form>
+        <h3>Uploaded {progress} %</h3>
+
+        <form onSubmit={formHandler}>
+          <input type="file" className="input"></input>
+          <button type="submit">Upload</button>
+        </form>        
         <h3>Uploaded {progress} %</h3> */}
         <Routes>
           <Route exact path='/' element={<HomeScreen/> } />
