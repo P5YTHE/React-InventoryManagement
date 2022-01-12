@@ -1,35 +1,52 @@
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
+import React, {use,useState, useEffect} from 'react';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import Divider from '@mui/material/Divider';
+import axios from 'axios';
+import { makeStyles } from "@material-ui/core/styles";
 
-const Item = styled(Paper)(({ theme }) => ({
-  ...theme.typography.body2,
-  padding: theme.spacing(2),
-  textAlign: 'left',
-  color: theme.palette.text.secondary,
-  backgroundColor: 'cyan'
-}));
+const CategoryGrid = () => {
+const url='';
+const[categories,setCategory] = useState(null);
 
-export default function CategoryGrid() {
+const useStyles = makeStyles((theme) => ({
+    lists: { width : '100%',
+             maxWidth: 250,
+             bgcolor: 'secondary',
+
+    },
+ }));
+
+ const classes = useStyles();
+
+ useEffect(()=>{
+        axios.get(url).then(response=>{
+           setCategory(response.data);
+        })
+   },[url]);  
+
+
+
   return (
-    <Box sx={{ width: '50%' }}>
-      <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm:1, md: 2 }}>
-
-        <Grid item xs={12}>
-          <Item>Category 1</Item>
-        </Grid>
-        <Grid item xs={12}>
-          <Item>Category 2</Item>
-        </Grid>
-        <Grid item xs={12}>
-          <Item>Category 3</Item>
-        </Grid>
-        <Grid item xs={12}>
-          <Item>Category 4</Item>
-        </Grid>
-      </Grid>
-    </Box>
+    <List className={classes.lists} component="nav" aria-label="mailbox folders">
+      <ListItem button>
+        <ListItemText primary="Accessories" />
+      </ListItem>
+      <Divider />
+      <ListItem button divider>
+        <ListItemText primary="Clothing" />
+      </ListItem>
+      <ListItem button>
+        <ListItemText primary="Footwear" />
+      </ListItem>
+      <Divider light />
+      <ListItem button>
+        <ListItemText primary="CasualWear" />
+      </ListItem>
+    </List>
   );
 }
+
+export default CategoryGrid;
+
