@@ -21,6 +21,10 @@ import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 
 
+import ButtonGroup from '@mui/material/ButtonGroup';
+import { PinDropSharp } from '@material-ui/icons';
+
+
 
 const ProductCard = (props) => {
 
@@ -46,6 +50,12 @@ const ProductCard = (props) => {
         setOpen(!open);
       };
 
+      const deleteItem=()=>{
+
+      }
+
+
+    
     return(
         <>
            
@@ -70,24 +80,46 @@ const ProductCard = (props) => {
                 <Typography variant="body2" color="text.secondary" paddingBottom={"10px"}>
                 {props.productDesc}
                 </Typography>
-                <Stack spacing={5} alignItems="right" >
-                    <Stack direction="row" spacing={5}>
-                    <Chip label={price} color="success" variant="outlined"/>
+                <Stack spacing={2} alignItems="right" >
+                    <Stack direction="row" spacing={2}>
+                    
                 </Stack>
+                <Chip label={price} size="large" color="success" variant="contained"/>
                 </Stack>
                 
             </CardContent>
-            <Backdrop
+            
+            <CardActions  style={{justifyContent: 'right'}}>
+
+
+<CardActions style={{justifyContent: 'left'}}>
+
+
+</CardActions>
+<Backdrop
   sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
   open={open}
   onClick={handleClose}
 >
   <CircularProgress color="inherit" />
 </Backdrop>
-            <CardActions>
-                <Button size="small">Edit</Button>
-                <Button size="small" variant="contained" color="error">Delete</Button>                 
-            </CardActions>            
+
+<ButtonGroup variant="text" aria-label="text button group" >
+    
+<Button size="small" >Edit</Button>
+<Button size="small"  color="error" onClick={deleteItem()}>Delete</Button>
+
+</ButtonGroup>  
+
+
+
+
+    
+
+
+     
+
+</CardActions>           
             </CardActionArea>
             </Card>
         </>

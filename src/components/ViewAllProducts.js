@@ -8,7 +8,7 @@ import { getAuthorizationHeader } from '../utilities';
 import { makeStyles } from "@material-ui/core/styles";
 import { PhonelinkSetupTwoTone } from "@material-ui/icons";
 
-const productContext = React.createContext();
+const ProductContext = React.createContext();
 //Provider(Distributer) and Consumer
 
 
@@ -62,6 +62,7 @@ const ViewAllProducts = () => {
     
     return(
         <>
+        <ProductContext.Provider value={products}>
             <List>
                 <ListItem>
             <span>  
@@ -93,17 +94,17 @@ const ViewAllProducts = () => {
                         productTag = {product.productTag}
                         productDesc = {product.productDesc}
                         productDiscount ={product.productDiscount}
-                        productPrice = {product.productPrice}                        
+                        productPrice = {product.productPrice} 
+                        productId = {product.productId}
                         />
                     </Grid>
-              ))}
+              ))}                  
                    
-                   
-            </Grid>
-            
+            </Grid>            
             </ListItem>
             </List>
             
+        </ProductContext.Provider>
         </>
     )
 };

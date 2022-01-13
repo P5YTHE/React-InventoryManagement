@@ -11,10 +11,8 @@ import { useNavigate } from "react-router";
 const ViewAllCategories = () => {
     const navigate = useNavigate();
     return(
-        
         <>
-            <Button size="small" variant="contained" color="success" onClick={()=>{navigate("/addcategories")}}>Add Category</Button>
-            {/* <div></div> */}
+            <Button size="small" variant="contained" color="success" onClick={()=>{navigate("/addcategories")}}>Add Category</Button>            
             <CategoryGrid/>
         </>
         )
