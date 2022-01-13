@@ -13,17 +13,26 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { Typography } from '@mui/material';
-import { getDownloadURL,ref, uploadBytesResumable } from "@firebase/storage";
-import { storage } from '../firebase';
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
 import { Input } from '@mui/material';
-
-import { useState } from 'react';
+import axios, { Axios } from 'axios';
+import {use,useState, useEffect} from 'react';
+import { getAuthorizationHeader } from '../utilities';
+import Auth from "../Auth/Auth"
 import SizeInputs from './SizeInputs';
 
 
+const useStyles = makeStyles((theme) => ({
+    form: {
+      padding:100,
+    },
+  }));
+
+  //for expanding to fill size form
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
-    return <Switch {...other} />;
+    return <Switch {...other}/>;
   })(({ theme, expand }) => ({
     transition: theme.transitions.create('transform', {
       duration: theme.transitions.duration.shortest,
@@ -33,38 +42,96 @@ const ExpandMore = styled((props) => {
 
 
 function AddProduct(){
-    const [expanded, setExpanded] = React.useState(false);
-    const [progress,setProgress]=useState(0);
+    const classes = useStyles();
+    
+    //to set sizesExist from toggle/switct button
+    const[sizesExist,setSizeExist]=useState(false);
 
+    //to get and set categoryId from dropdown list
+    const[categoryId,setCategoryId]=useState('');
+
+
+    //to fetch catgory in dropdown list
+    const categoryUrl='https://localhost:7157/api/Categories';
+    const[category,setCategory]=useState([]);
+
+    useEffect(()=>{
+        axios.get(categoryUrl,getAuthorizationHeader()).then(response=>{
+            setCategory(response.data);
+        })
+    },[categoryUrl]);
+    //category fetch end
+
+    
+    //to post product
+    const productUrl='https://localhost:7075/api/Products';
+    const[productData,setProductData]=useState({
+      productName: "",
+      productDesc: "",
+      productTag: "",
+      imageUrl1: "",
+      imageUrl2: "",
+      imageUrl3: "",
+      imageUrl4: "",
+      imageUrl5: "",
+      imageUrl6: "",
+      productQuantity: "",
+      productDiscount: "",
+      productPrice: "",
+    });
+
+    function handle(e){
+      const newData={...productData}
+      newData[e.target.id]=e.target.value
+      setProductData(newData)
+      console.log(newData)
+    }
+
+    function handleSubmit(e){
+      e.preventDefault();
+      axios.post(productUrl,{
+        productName: productData.productName,
+        productDesc: productData.productDesc,
+        productTag: productData.productTag,
+        imageUrl1: productData.imageUrl1,
+        imageUrl2: productData.imageUrl2,
+        imageUrl3: productData.imageUrl3,
+        imageUrl4: productData.imageUrl4,
+        imageUrl5: productData.imageUrl5,
+        imageUrl6: productData.imageUrl6,
+        productQuantity: parseInt(productData.productQuantity),
+        productDiscount: parseFloat(productData.productDiscount).toFixed(2),
+        categoryId:parseInt(categoryId),
+        productPrice: parseFloat(productData.productPrice).toFixed(2), //parseInt(productData.productPrice)
+        sizesExist : sizesExist
+      },{
+        headers: {
+          Authorization: `Bearer ${Auth.getAccessToken()}`,
+        }
+      } 
+      )
+      .then(res=>{
+        console.log(res.productData)
+      }).catch(err=>{
+        console.log(err)
+      })
+    }
+    //post product end
+
+    //console logs
+    console.log(category);
+    console.log(sizesExist);
+    console.log(categoryId);
+
+
+    //for expanding 
+    const [expanded, setExpanded] = React.useState(false);
     const handleExpandClick = () => {
          setExpanded(!expanded);
     };
 
-    const formHandler = (e)=>{
-        e.preventDefault();
-        const file= e.target[0].files[0];
-        uploadFiles(file);
-      }
 
-      const uploadFiles = (file) => {
-        if(!file) return;
-    
-        const storageRef = ref(storage, `/files/${file.name}`);
-        const uploadTask = uploadBytesResumable(storageRef,file);
-        uploadTask.on("state_changed",(snapshot)=>{
-          const prog = Math.round((snapshot.bytesTransferred/snapshot.totalBytes)*100);
-        
-        setProgress(prog);
-    
-        
-      },(err)=>console.log(err),
-      ()=>{
-        getDownloadURL(uploadTask.snapshot.ref).then(url=>console.log(url))
-      });
-      };
-    
-
-    //new change
+    //for repeating size  
     const blankSize = { sizeName: '', sizePrice: '' };
     const [sizeState, setSizeState] = useState([
         { ...blankSize },
@@ -79,70 +146,155 @@ function AddProduct(){
         updatedSize[e.target.dataset.idx][e.target.className] = e.target.value;
         setSizeState(updatedSize);
     };
-
-    //change end
+    //repeat size end
 
 
     return(
         <>
+        <div className={classes.form}>
         <div>
             <h3>Add Product</h3>
         </div>
-        <form>
+        <form onSubmit={(e) => handleSubmit(e)}>
         <Box>      
-              <TextField sx={{ width: "45ch" }} size="small" id="outlined-basic" label="Product Name" placeholder="Enter Product name" />
+              <TextField sx={{ width: "45ch" }} 
+                onChange={(e) => handle(e)}
+                id="productName"
+                value={productData.productName}
+                size="small" 
+                label="Product Name" 
+                placeholder="Enter Product name" />
         </Box><br/>
 
         <Box>              
-              <TextField sx={{ width: "45ch" }} id="outlined-multiline-static" multiline rows={3} label="Product Description" placeholder="Enter Product description" />
+              <TextField sx={{ width: "45ch" }} 
+                onChange={(e) => handle(e)}
+                id="productDesc"
+                value={productData.productDesc}
+                multiline rows={3} 
+                label="Product Description" 
+                placeholder="Enter Product description" />
         </Box><br/>
 
         <Box>             
-              <TextField sx={{ width: "45ch" }} size="small" id="outlined-basic" label="Product Tag" placeholder="Enter Product tag" />
+              <TextField sx={{ width: "45ch" }}
+                onChange={(e) => handle(e)}
+                id="productTag"
+                value={productData.productTag} 
+                size="small" 
+                label="Product Tag" 
+                placeholder="Enter Product tag" />
         </Box><br/>
 
-        <Box>  
-        <form onSubmit={formHandler}>
-          <Input id="outlined-basic" type="file" className="input"></Input>
-          <Button type="submit" size="big"  variant="contained">
-              Upload
-          </Button>
-        </form>
-        <h4>Uploaded {progress} %</h4>            
+        <Box>             
+              <TextField sx={{ width: "45ch" }} 
+                onChange={(e) => handle(e)}
+                id="imageUrl1"
+                value={productData.imageUrl1}
+                size="small" 
+                label="Product Image URL1" 
+                placeholder="Product Image URL1" />
+        </Box><br/>
+        <Box>             
+              <TextField sx={{ width: "45ch" }} 
+                onChange={(e) => handle(e)}
+                id="imageUrl2"
+                value={productData.imageUrl2}
+                size="small" 
+                label="Product Image URL2" 
+                placeholder="Product Image URL1" />
+        </Box><br/>
+        <Box>             
+              <TextField sx={{ width: "45ch" }} 
+                onChange={(e) => handle(e)}
+                id="imageUrl3"
+                value={productData.imageUrl3}
+                size="small" 
+                label="Product Image URL3" 
+                placeholder="Product Image URL1" />
+        </Box><br/>
+        <Box>             
+              <TextField sx={{ width: "45ch" }} 
+                onChange={(e) => handle(e)}
+                id="imageUrl4"
+                value={productData.imageUrl4}
+                size="small" 
+                label="Product Image URL4" 
+                placeholder="Product Image URL1" />
+        </Box><br/>
+        <Box>             
+              <TextField sx={{ width: "45ch" }} 
+                onChange={(e) => handle(e)}
+                id="imageUrl5"
+                value={productData.imageUrl5}
+                size="small" 
+                label="Product Image URL5" 
+                placeholder="Product Image URL1" />
+        </Box><br/>
+        <Box>             
+              <TextField sx={{ width: "45ch" }} 
+                onChange={(e) => handle(e)}
+                id="imageUrl6"
+                value={productData.imageUrl6}
+                size="small" 
+                label="Product Image URL6" 
+                placeholder="Product Image URL1" />
         </Box><br/>
 
         <Box>              
-              <TextField sx={{ width: "45ch" }} size="small" id="outlined-number" label="Product Quantity" type="number" placeholder="1" InputLabelProps={{ shrink: true,}}/>
+              <TextField sx={{ width: "45ch" }} 
+                   onChange={(e) => handle(e)}
+                   id="productQuantity"
+                   value={productData.productQuantity}
+                   size="small" 
+                   label="Product Quantity" 
+                   type="number" 
+                   placeholder="1" 
+                   InputLabelProps={{ shrink: true,}}/>
         </Box><br/>
 
         <Box >
-              <TextField sx={{ width: "45ch" }} size="small" id="outlined-number" label="Product Discount" type="number" placeholder="25" InputLabelProps={{ shrink: true,}}/>
+              <TextField sx={{ width: "45ch" }} 
+                    onChange={(e) => handle(e)}
+                    id="productDiscount"
+                    value={productData.productDiscount}
+                    size="small" 
+                    label="Product Discount" 
+                    type="number" 
+                    placeholder="25" 
+                    InputLabelProps={{ shrink: true,}}/>
         </Box><br/>
-
+        
         <Box> 
             <FormControl>
             <InputLabel id="demo-simple-select-label">Product Category</InputLabel>
-            <Select labelId="demo-simple-select-label" label="Product Category" sx={{ width: "45ch" }} id="demo-simple-select">
-              <MenuItem value={10}>Demo-Clothes</MenuItem>
-              <MenuItem value={20}>Demo-Shoes</MenuItem>
-              <MenuItem value={30}>Demo-Appliances</MenuItem>
+            <Select labelId="demo-simple-select-label" 
+               label="Product Category" 
+               sx={{ width: "45ch" }} 
+               onChange={(e)=>setCategoryId(e.target.value)} >
+              {category?.map((item) => {
+                    return (
+                         <MenuItem key={item.categoryName} value={item.categoryId}>
+                               {item.categoryName}
+                         </MenuItem>
+                    );
+              })}
             </Select>          
             </FormControl>
+            
         </Box><br/>
 
-        <div>
+        {/* <div>
         <label>Different Sizes:  </label>
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
           aria-expanded={expanded}
-          aria-label="show more"
-        >
-        </ExpandMore>
-            
+          aria-label="show more">
+        </ExpandMore>     
         </div>
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
-            
+
+        <Collapse in={expanded} timeout="auto" unmountOnExit>   
             <Button variant="outlined" startIcon={<AddIcon />} onClick={addSize}>
                    Add Size
             </Button>
@@ -158,14 +310,29 @@ function AddProduct(){
                     />
                 ))
             }
-        </Collapse>
+        </Collapse> */}
 
         <Box>
-              <TextField sx={{ width: "45ch" }} size="small" id="outlined-basic" label="Product Price" placeholder="Enter Product price" />
+           <TextField sx={{ width: "45ch" }} 
+               onChange={(e) => handle(e)}
+               id="productPrice"
+               value={productData.productPrice}
+               size="small" 
+               type='number'
+               label="Product Price" 
+               placeholder="Enter Product price" />
         </Box><br/>
+        
+        <Box>
+          <Switch onChange={(e)=>setSizeExist(e.target.checked)} id="sizesExist" ></Switch>
+        </Box>
+
+        <Button type="submit" size="big"  variant="contained">
+                Add Product
+        </Button>
         </form>
-            
-            </>
+        </div>
+     </>
     );
 }
 
