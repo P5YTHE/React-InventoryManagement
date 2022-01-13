@@ -1,17 +1,25 @@
-import { Button, Card, Box, Divider, TextField, List, ListItem } from "@material-ui/core";
+import { Button, Card, Box, Divider, TextField, List, ListItem, CircularProgress } from "@material-ui/core";
 import ProductCard from "./ProductCard";
 import {Grid} from "@material-ui/core";
-import axios from 'axios';
-import React, {use,useState, useEffect} from 'react';
-import { getAuthorizationHeader } from '../utilities';
 
+import axios from 'axios';
+import React, {use,useState, useEffect,useContext} from 'react';
+import { getAuthorizationHeader } from '../utilities';
 import { makeStyles } from "@material-ui/core/styles";
+import { PhonelinkSetupTwoTone } from "@material-ui/icons";
+
+const productContext = React.createContext();
+//Provider(Distributer) and Consumer
+
+
 
 const ViewAllProducts = () => {
     const url='https://localhost:7075/api/Products';
     const[products,setProduct]= useState([]);
-
     const[searchTerm,setSearchTerm]=useState('');
+    const[loading,setLoading]=useState(false);
+    const[currentPage,setCurrentPage]=useState(1);
+    const[postsPerPage]=useState(12);
 
     const useStyles = makeStyles((theme) => ({
         searchbox:{
@@ -30,9 +38,13 @@ const ViewAllProducts = () => {
 
     useEffect(()=>{
         axios.get(url,getAuthorizationHeader()).then(response=>{
-            setProduct(response.data);
+            setProduct(response.data);            
         })
+        setLoading(true);
     },[url]);  
+
+    
+      
 
     const filteredProducts = products.filter((product)=>{
         if(searchTerm=="")
@@ -43,7 +55,7 @@ const ViewAllProducts = () => {
         }
     })    
          
-    console.log(products);
+     console.log(products);
     
     
     
@@ -52,7 +64,7 @@ const ViewAllProducts = () => {
         <>
             <List>
                 <ListItem>
-            <span>         
+            <span>  
                 
                 <input type="text" placeholder="Search...." className={classes.searchbox} onChange={event=>{setSearchTerm(event.target.value)}}></input>
             <Button size="big"  variant="contained" color="#379bff">
@@ -65,12 +77,14 @@ const ViewAllProducts = () => {
              <Divider/>
              <ListItem>
              <Divider/>
+             
             <Grid container
                 direction="row"
                 justifyContent="space-evenly"
                 alignItems="center"
                 spacing={4}
-            > 
+            >             
+            {loading?(<></>):(<CircularProgress/>)}            
                 {filteredProducts.map(product =>(
                   <Grid item key={product.productId}>
                       <ProductCard
@@ -82,12 +96,14 @@ const ViewAllProducts = () => {
                         productPrice = {product.productPrice}                        
                         />
                     </Grid>
-              ))}     
+              ))}
                    
                    
             </Grid>
+            
             </ListItem>
             </List>
+            
         </>
     )
 };
