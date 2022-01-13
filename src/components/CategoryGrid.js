@@ -5,10 +5,16 @@ import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import axios from 'axios';
 import { makeStyles } from "@material-ui/core/styles";
+import { Grid } from '@material-ui/core';
+import ProductCard from './ProductCard';
+import { getAuthorizationHeader } from '../utilities';
+import ViewCategoryProducts from "./ViewCategoryProducts";
 
 const CategoryGrid = () => {
-const url='';
-const[categories,setCategory] = useState(null);
+const urlGetCategory='https://localhost:7157/api/Categories';
+
+const[categories,setCategory] = useState([]);
+const[selectCategory,setSelectCategory]=useState(0);
 
 const useStyles = makeStyles((theme) => ({
     lists: { width : '100%',
@@ -21,30 +27,38 @@ const useStyles = makeStyles((theme) => ({
  const classes = useStyles();
 
  useEffect(()=>{
-        axios.get(url).then(response=>{
+        axios.get(urlGetCategory,getAuthorizationHeader()).then(response=>{
            setCategory(response.data);
-        })
-   },[url]);  
+        });       
+   },[urlGetCategory]);  
 
-
+   
+   console.log(categories);
 
   return (
-    <List className={classes.lists} component="nav" aria-label="mailbox folders">
-      <ListItem button>
-        <ListItemText primary="Accessories" />
+    <>
+    <Grid container>
+      <Grid item xs={3}>
+      <List className={classes.lists} component="nav" aria-label="mailbox folders">
+          {categories.map(categories =>(<>
+          
+          <ListItem button>
+        <ListItemText onClick={()=>setSelectCategory(categories.categoryId)}>{categories.categoryName}</ListItemText>
       </ListItem>
-      <Divider />
-      <ListItem button divider>
-        <ListItemText primary="Clothing" />
-      </ListItem>
-      <ListItem button>
-        <ListItemText primary="Footwear" />
-      </ListItem>
-      <Divider light />
-      <ListItem button>
-        <ListItemText primary="CasualWear" />
-      </ListItem>
+      <Divider /> 
+          
+          </>
+              ))}
     </List>
+      </Grid>
+      <Grid item xs={9}>
+      <ViewCategoryProducts categoryId={selectCategory}/>
+      </Grid>
+      
+    </Grid>
+   
+   
+    </>
   );
 }
 
