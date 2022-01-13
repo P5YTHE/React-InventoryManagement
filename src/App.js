@@ -1,5 +1,5 @@
 import "./App.css";
-import {storage} from "./firebase";
+
 import {
   Container,
   createMuiTheme,
@@ -16,6 +16,12 @@ import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
 import { Route, Routes, useNavigate } from "react-router";
 import HomeScreen from "./screens/HomeScreen";
+
+import CategoryScreen from "./screens/CategoryScreen";
+
+import {storage} from './firebase';
+import AddCategoryScreen from "./screens/AddCategoryScreen";
+
 import { ProfileScreen } from "./screens/ProfileScreen";
 import Auth from "./Auth/Auth";
 import Callback from "./Auth/Callback";
@@ -23,6 +29,7 @@ import ProductsScreen from "./screens/ProductsScreen";
 import EditProfileScreen from "./screens/EditProfileScreen";
 import { getDownloadURL,ref, uploadBytesResumable } from "@firebase/storage";
 import { useState } from "react";
+
 
 
 
@@ -123,9 +130,17 @@ function App() {
         <Routes>
           <Route exact path='/' element={<HomeScreen/> } />
           <Route  path='/profile' element={<ProfileScreen/> } />
+
+          <Route path='/categories' element={<CategoryScreen />} />
+          
+          <Route path='/addcategories' element={<AddCategoryScreen />} />
+
+
+
           <Route  path='/editprofile' element={<EditProfileScreen /> } />
           <Route  path='/callback' element={<Callback auth={auth}/> } />
           <Route path='/products' element={<ProductsScreen/>} />       
+
         </Routes>
       </Container>
       <Footer />
