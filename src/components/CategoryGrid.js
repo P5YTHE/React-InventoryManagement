@@ -6,7 +6,6 @@ import Divider from '@mui/material/Divider';
 import axios from 'axios';
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from '@material-ui/core';
-import ProductCard from './ProductCard';
 import { getAuthorizationHeader } from '../utilities';
 import ViewCategoryProducts from "./ViewCategoryProducts";
 
