@@ -1,9 +1,10 @@
-import { Button, Card, Box, Divider, TextField, List, ListItem } from "@material-ui/core";
+import { Button, Card, Box, Divider, TextField, List, ListItem, CircularProgress } from "@material-ui/core";
 import ProductCard from "./ProductCard";
 import {Grid} from "@material-ui/core";
 import axios from 'axios';
 import React, {use,useState, useEffect} from 'react';
 import { getAuthorizationHeader } from '../utilities';
+
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -12,6 +13,8 @@ const ViewAllProducts = () => {
     const[products,setProduct]= useState([]);
 
     const[searchTerm,setSearchTerm]=useState('');
+
+    const[loading,setLoading]=useState(false);
 
     const useStyles = makeStyles((theme) => ({
         searchbox:{
@@ -32,7 +35,10 @@ const ViewAllProducts = () => {
         axios.get(url,getAuthorizationHeader()).then(response=>{
             setProduct(response.data);
         })
+        setLoading(true);
     },[url]);  
+
+    
 
     const filteredProducts = products.filter((product)=>{
         if(searchTerm=="")
@@ -65,12 +71,14 @@ const ViewAllProducts = () => {
              <Divider/>
              <ListItem>
              <Divider/>
+             
             <Grid container
                 direction="row"
                 justifyContent="space-evenly"
                 alignItems="center"
                 spacing={4}
-            > 
+            >             
+            {loading?(<></>):(<CircularProgress/>)}            
                 {filteredProducts.map(product =>(
                   <Grid item key={product.productId}>
                       <ProductCard
