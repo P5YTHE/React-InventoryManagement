@@ -86,10 +86,8 @@ const ProductCard = (props) => {
 </Backdrop>
             <CardActions>
                 <Button size="small">Edit</Button>
-                <Button size="small" variant="contained" color="error">Delete</Button>
-                 
-            </CardActions>
-            
+                <Button size="small" variant="contained" color="error">Delete</Button>                 
+            </CardActions>            
             </CardActionArea>
             </Card>
         </>
