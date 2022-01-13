@@ -61,6 +61,20 @@ function Header({ auth }) {
           )}
         </ButtonGroup>
 
+        <ButtonGroup
+          variant="contained"
+          aria-label="outlined primary button group"
+        >
+          {auth.isAuthenticated() ? (
+            <Button onClick={() => auth.logout()}>Logout</Button>
+          ) : (
+            <>
+              <Button>Signup</Button>
+              <Button onClick={() => auth.login()}>Login</Button>
+            </>
+          )}
+        </ButtonGroup>
+
         {/* Profile button */}
         <IconButton color="inherit" onClick={() => navigate("/profile")}>
           <AccountCircle />
