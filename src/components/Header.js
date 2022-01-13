@@ -41,9 +41,12 @@ function Header({ auth }) {
             <MenuIcon className={classes.icon} />
           </IconButton>
         </SideDrawer>
-        <Typography variant="h6" className={classes.title} onClick={()=>{navigate("/")}}>
-          Inventory Track
-        </Typography>        
+
+        <Typography variant="h6" className={classes.title} onClick={() => navigate("/")}>Inventory Track</Typography>
+        
+
+        {/* Login/signup/logout buttons */}
+
         <ButtonGroup
           variant="contained"
           aria-label="outlined primary button group"
@@ -52,11 +55,15 @@ function Header({ auth }) {
             <Button onClick={() => auth.logout()}>Logout</Button>
           ) : (
             <>
-              <Button>Signup</Button>
+
+              <Button onClick={()=>auth.login()}>Signup</Button>
               <Button onClick={() => auth.login()}>Login</Button>
             </>
           )}
-        </ButtonGroup>
+        </ButtonGroup>       
+
+        {/* Profile button */}
+
         <IconButton color="inherit" onClick={() => navigate("/profile")}>
           <AccountCircle />
         </IconButton>
@@ -66,4 +73,6 @@ function Header({ auth }) {
     </>
   );
 }
+
+
 export default Header;
