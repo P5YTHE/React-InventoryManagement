@@ -19,16 +19,24 @@ import shadows from '@material-ui/core/styles/shadows';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
-
-
+import AlertDialog from "./Profile/AlertDialog";
 import ButtonGroup from '@mui/material/ButtonGroup';
 import { PinDropSharp } from '@material-ui/icons';
+import { useNavigate } from 'react-router';
 
 
 
 const ProductCard = (props) => {
 
     const [open, setOpen] = React.useState(false);
+    const productkey = props.productId;
+    const [deleteStatus,setDeleteStatus]=useState(false);
+    const navigate = useNavigate();
+
+
+
+    const url=`https://localhost:7075/api/Products/${productkey}`;
+    
 
     const useStyles = makeStyles((theme) => ({
         root: {    
@@ -49,11 +57,20 @@ const ProductCard = (props) => {
       const handleToggle = () => {
         setOpen(!open);
       };
+      
 
       const deleteItem=()=>{
-
+        console.log(productkey);
+        console.log(url);
+        
+          axios.delete(url,getAuthorizationHeader()).
+          then((res)=> res.status === 200 ? navigate("/products") : navigate("/error")            
+          ).catch((err)=>(
+            console.log(err)
+          ))
+          
       }
-
+      
 
     
     return(
@@ -96,28 +113,27 @@ const ProductCard = (props) => {
 
 
 </CardActions>
-<Backdrop
+{/* <Backdrop
   sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
   open={open}
   onClick={handleClose}
 >
   <CircularProgress color="inherit" />
-</Backdrop>
+</Backdrop> */}
 
 <ButtonGroup variant="text" aria-label="text button group" >
     
 <Button size="small" >Edit</Button>
-<Button size="small"  color="error" onClick={deleteItem()}>Delete</Button>
+{/* <Button size="small"  color="error" >Delete</Button> */}
 
 </ButtonGroup>  
-
-
-
-
-    
-
-
-     
+<AlertDialog
+                title="Proceed to update profile"
+                desc="Verify the data before proceeding"
+                button="Delete"
+                dialogButton="Delete"
+                clickHandler={deleteItem}
+              />     
 
 </CardActions>           
             </CardActionArea>
