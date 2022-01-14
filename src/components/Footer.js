@@ -8,8 +8,10 @@ const useStyles = makeStyles((theme) => ({
   footer: {
     backgroundColor: "#379bff",
     marginTop: theme.spacing(2) ,
-    padding: theme.spacing(6, 0),
-    //position: "fixed",
+
+    padding: theme.spacing(3, 0),
+    position: "relative",
+
     left:"0",
     bottom:"0",
     width:"100%"
