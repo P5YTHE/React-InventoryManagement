@@ -20,7 +20,7 @@ import axios, { Axios } from 'axios';
 import {use,useState, useEffect} from 'react';
 import { getAuthorizationHeader } from '../utilities';
 import Auth from "../Auth/Auth"
-import SizeInputs from './SizeInputs';
+import SizesInput from './SizesInput';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -29,10 +29,9 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-  //for expanding to fill size form
-const ExpandMore = styled((props) => {
+  const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
-    return <Switch {...other}/>;
+    return <Switch {...other} />;
   })(({ theme, expand }) => ({
     transition: theme.transitions.create('transform', {
       duration: theme.transitions.duration.shortest,
@@ -43,6 +42,15 @@ const ExpandMore = styled((props) => {
 
 function AddProduct(){
     const classes = useStyles();
+      //for expanding to fill size form
+    // const ExpandMore = styled((props) => {
+    //  const { expand, ...other } = props;
+    //     return <Switch onChange={(e)=>setSizeExist(e.target.checked)} id="sizesExist" ></Switch>;
+    //     })(({ theme, expand }) => ({
+    //     transition: theme.transitions.create('transform', {
+    //     duration: theme.transitions.duration.shortest,
+    //  }),
+    // }));
     
     //to set sizesExist from toggle/switct button
     const[sizesExist,setSizeExist]=useState(false);
@@ -66,6 +74,7 @@ function AddProduct(){
     //to post product
     const productUrl='https://localhost:7075/api/Products';
     const[productData,setProductData]=useState({
+      productId:"",
       productName: "",
       productDesc: "",
       productTag: "",
@@ -90,6 +99,7 @@ function AddProduct(){
     function handleSubmit(e){
       e.preventDefault();
       axios.post(productUrl,{
+        productId:productData.productId,
         productName: productData.productName,
         productDesc: productData.productDesc,
         productTag: productData.productTag,
@@ -128,25 +138,46 @@ function AddProduct(){
     const [expanded, setExpanded] = React.useState(false);
     const handleExpandClick = () => {
          setExpanded(!expanded);
+         setSizeExist(!expanded);
     };
 
 
-    //for repeating size  
-    const blankSize = { sizeName: '', sizePrice: '' };
-    const [sizeState, setSizeState] = useState([
-        { ...blankSize },
-    ]);
+    //for repeating size 
+    // const sizeUrl='https://localhost:7177/api/Sizes/CreateSize'; 
+    // const blankSize = { sizeName: '', sizePrice: '' };
+    // const [sizeState, setSizeState] = useState([
+    //     { ...blankSize },
+    // ]);
 
-    const addSize = () => {
-        setSizeState([...sizeState, { ...blankSize }]);
-    };
+    // const addSize = () => {
+    //     setSizeState([...sizeState, { ...blankSize }]);
+    // };
 
-    const handleSizeChange = (e) => {
-        const updatedSize = [...sizeState];
-        updatedSize[e.target.dataset.idx][e.target.className] = e.target.value;
-        setSizeState(updatedSize);
-    };
-    //repeat size end
+    // function handleSizeSubmit(e){
+    //   e.preventDefault();
+    //   axios.post(sizeUrl,{
+    //     productId:productData.productId,
+    //     sizeName:sizeState.sizeName,
+    //     sizePrice:sizeState.sizePrice
+    //   },{
+    //     headers: {
+    //       Authorization: `Bearer ${Auth.getAccessToken()}`,
+    //     }
+    //   } 
+    //   )
+    //   .then(res=>{
+    //     console.log(res.sizeState)
+    //   }).catch(err=>{
+    //     console.log(err)
+    //   })
+    // }
+
+    // const handleSizeChange = (e) => {
+    //     const updatedSize = [...sizeState];
+    //     updatedSize[e.target.dataset.idx][e.target.className] = e.target.value;
+    //     setSizeState(updatedSize);
+    // };
+    // //repeat size end
 
 
     return(
@@ -156,6 +187,16 @@ function AddProduct(){
             <h3>Add Product</h3>
         </div>
         <form onSubmit={(e) => handleSubmit(e)}>
+        <Box >
+              <TextField sx={{ width: "45ch" }} 
+                    onChange={(e) => handle(e)}
+                    id="productId"
+                    value={productData.productId}
+                    size="small" 
+                    label="Product Id" 
+                    type="number" 
+                    InputLabelProps={{ shrink: true,}}/>
+        </Box><br/>
         <Box>      
               <TextField sx={{ width: "45ch" }} 
                 onChange={(e) => handle(e)}
@@ -284,7 +325,7 @@ function AddProduct(){
             
         </Box><br/>
 
-        {/* <div>
+        <div>
         <label>Different Sizes:  </label>
         <ExpandMore
           expand={expanded}
@@ -294,7 +335,10 @@ function AddProduct(){
         </ExpandMore>     
         </div>
 
-        <Collapse in={expanded} timeout="auto" unmountOnExit>   
+        {/* <Collapse in={expanded} timeout="auto" unmountOnExit>   
+
+          
+          <br/>
             <Button variant="outlined" startIcon={<AddIcon />} onClick={addSize}>
                    Add Size
             </Button>
@@ -323,14 +367,20 @@ function AddProduct(){
                placeholder="Enter Product price" />
         </Box><br/>
         
-        <Box>
+        {/* <Box>
           <Switch onChange={(e)=>setSizeExist(e.target.checked)} id="sizesExist" ></Switch>
-        </Box>
+        </Box> */}
 
         <Button type="submit" size="big"  variant="contained">
                 Add Product
         </Button>
         </form>
+        <br/>
+        <br/>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <SizesInput/>
+        </Collapse>
+
         </div>
      </>
     );

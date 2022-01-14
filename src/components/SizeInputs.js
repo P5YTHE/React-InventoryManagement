@@ -2,11 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Box from "@mui/material/Box";
 import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+//import {handleSizeSubmit} from "./AddProduct";
 
 const SizeInputs = ({ idx, sizeState, handleSizeChange }) => {
     const sizeNameId = `sizeName-${idx}`;
     const sizePriceId = `sizePrice-${idx}`;
     return (
+        <>
+        <form>
         <div key={`size-${idx}`}>
             <label>{`Size #${idx + 1}`}</label> 
             <br/>
@@ -15,24 +19,29 @@ const SizeInputs = ({ idx, sizeState, handleSizeChange }) => {
                <TextField sx={{ width: "45ch" }} 
                 name={sizeNameId}
                 data-idx={idx}
-                id={sizeNameId}
+                id="sizeName"
                 className="sizeName"
                 value={sizeState[idx].sizeName}
                 onChange={handleSizeChange} 
-                size="small" id="outlined-basic" label="Size Name" placeholder="Enter Size name" />
+                size="small" label="Size Name" placeholder="Enter Size name" />
              </Box>
              <br/>
              <Box>      
               <TextField sx={{ width: "45ch" }} name={sizePriceId}
                 data-idx={idx}
-                id={sizePriceId}
+                id="sizePrice"
                 className="sizePrice"
                 value={sizeState[idx].sizePrice}
-                onChange={handleSizeChange} size="small" id="outlined-basic" label="Size Price" placeholder="Enter Size price" />
+                onChange={handleSizeChange} size="small" label="Size Price" placeholder="Enter Size price" />
              </Box><br/>
+             {/* <Button type="submit" size="big"  variant="contained">
+                Add Size
+             </Button> */}
 
 
         </div>
+        </form>
+        </>
     );
 };
 

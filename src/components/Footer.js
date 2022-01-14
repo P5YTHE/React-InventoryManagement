@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#379bff",
     marginTop: theme.spacing(2) ,
     padding: theme.spacing(6, 0),
-    position: "fixed",
+    //position: "fixed",
     left:"0",
     bottom:"0",
     width:"100%"
