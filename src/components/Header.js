@@ -13,7 +13,6 @@ import { AccountCircle } from "@material-ui/icons";
 import SideDrawer from "./SideDrawer";
 import { useNavigate } from "react-router";
 import Auth from "../Auth/Auth";
-
 const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
@@ -28,7 +27,6 @@ const useStyles = makeStyles((theme) => ({
     color: "black",
   },
 }));
-
 function Header({ auth }) {
   const classes = useStyles();
   const navigate = useNavigate();
@@ -43,15 +41,12 @@ function Header({ auth }) {
             <MenuIcon className={classes.icon} />
           </IconButton>
         </SideDrawer>
-        <Typography
-          variant="h6"
-          className={classes.title}
-          onClick={() => navigate("/")}
-        >
-          Inventory Track
-        </Typography>
+
+        <Typography variant="h6" className={classes.title} onClick={() => navigate("/")}>Inventory Track</Typography>
+        
 
         {/* Login/signup/logout buttons */}
+
         <ButtonGroup
           variant="contained"
           aria-label="outlined primary button group"
@@ -71,12 +66,11 @@ function Header({ auth }) {
           )}
         </ButtonGroup>
       </Toolbar>
-
       <Divider />
-
       <Toolbar className={classes.tagline}></Toolbar>
     </>
   );
 }
+
 
 export default Header;

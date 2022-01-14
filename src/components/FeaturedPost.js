@@ -7,14 +7,15 @@ import {
 
 const useStyles = makeStyles({
   cover: {
-    backgroundImage: `url(https://i.ibb.co/YDpcKCg/Dark-Warehouses-1.jpg) `,
+    // backgroundImage: `url(https://i.ibb.co/YDpcKCg/Dark-Warehouses-1.jpg) `,
+    backgroundColor:"#379bff",
     backgroundPosition: "center",   
     height: "200%",
     backgroundPosition: "center",        
     padding: "35px 25px",
     whiteSpace: "nowrap",
-    height: "525vw", 
-    width: "100%"  
+    height: "125vw", 
+    width: "90%"  
   },
   title: {
     fontSize: 50,
