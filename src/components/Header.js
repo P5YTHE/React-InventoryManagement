@@ -32,8 +32,8 @@ const useStyles = makeStyles((theme) => ({
 function Header({ auth }) {
   const classes = useStyles();
   const navigate = useNavigate();
-  if(auth.isAuthenticated()){
-    console.log(`Access token : ${Auth.getAccessToken()}`)
+  if (auth.isAuthenticated()) {
+    console.log(`Access token : ${Auth.getAccessToken()}`);
   }
   return (
     <>
@@ -43,8 +43,13 @@ function Header({ auth }) {
             <MenuIcon className={classes.icon} />
           </IconButton>
         </SideDrawer>
-        <Typography variant="h6" className={classes.title} onClick={() => navigate("/")}>Inventory Track</Typography>
-        
+        <Typography
+          variant="h6"
+          className={classes.title}
+          onClick={() => navigate("/")}
+        >
+          Inventory Track
+        </Typography>
 
         {/* Login/signup/logout buttons */}
         <ButtonGroup
@@ -52,33 +57,19 @@ function Header({ auth }) {
           aria-label="outlined primary button group"
         >
           {auth.isAuthenticated() ? (
-            <Button onClick={() => auth.logout()}>Logout</Button>
+            <>
+              <Button onClick={() => auth.logout()}>Logout</Button>
+              <IconButton color="inherit" onClick={() => navigate("/profile")}>
+                <AccountCircle />
+              </IconButton>
+            </>
           ) : (
             <>
-              <Button onClick={()=>auth.login()}>Signup</Button>
+              <Button onClick={() => auth.login()}>Signup</Button>
               <Button onClick={() => auth.login()}>Login</Button>
             </>
           )}
         </ButtonGroup>
-
-        <ButtonGroup
-          variant="contained"
-          aria-label="outlined primary button group"
-        >
-          {auth.isAuthenticated() ? (
-            <Button onClick={() => auth.logout()}>Logout</Button>
-          ) : (
-            <>
-              <Button>Signup</Button>
-              <Button onClick={() => auth.login()}>Login</Button>
-            </>
-          )}
-        </ButtonGroup>
-
-        {/* Profile button */}
-        <IconButton color="inherit" onClick={() => navigate("/profile")}>
-          <AccountCircle />
-        </IconButton>
       </Toolbar>
 
       <Divider />

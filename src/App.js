@@ -122,8 +122,8 @@ function App() {
         <h3>Uploaded {progress} %</h3> */}
         <Routes>
           <Route exact path='/' element={<HomeScreen/> } />
-          <Route  path='/profile' element={<ProfileScreen/> } />
-          <Route  path='/editprofile' element={<EditProfileScreen /> } />
+          <Route  path='/profile' element={<ProfileScreen auth={auth}/> } />
+          {/* <Route  path='/editprofile' element={<EditProfileScreen /> } /> */}
           <Route  path='/callback' element={<Callback auth={auth}/> } />
           <Route path='/products' element={<ProductsScreen/>} />       
         </Routes>
