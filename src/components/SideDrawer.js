@@ -12,7 +12,6 @@ import BookmarksIcon from '@mui/icons-material/Bookmarks';
 import AutoAwesomeMotionIcon from "@mui/icons-material/AutoAwesomeMotion";
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import { sections } from "../Data/Data";
-import { color } from "@mui/system";
 import { useNavigate } from "react-router";
 
 const useStyles = makeStyles({
@@ -51,10 +50,7 @@ export default function TemporaryDrawer({ children }) {
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
-    >
-      <List>
-        
-      </List>
+    >      
       <Divider />
       <List>
         {sections.map((text, index) => (
@@ -70,8 +66,7 @@ export default function TemporaryDrawer({ children }) {
   );
 
   return (
-    <div>
-      {/* {["left", "right", "top", "bottom"].map((anchor) => ( */}
+    <div>      
       <React.Fragment key={"left"}>
         <Button onClick={toggleDrawer("left", true)}>{children}</Button>
         <Drawer
@@ -82,8 +77,7 @@ export default function TemporaryDrawer({ children }) {
         >
           {list("left")}
         </Drawer>
-      </React.Fragment>
-      {/* ))} */}
+      </React.Fragment>      
     </div>
   );
 }
