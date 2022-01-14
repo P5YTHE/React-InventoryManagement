@@ -1,7 +1,5 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import EditProfileForm from "../components/Profile/EditProfileForm";
-import { getAuthorizationHeader } from "../utilities";
 
 const EditProfileScreen = () => {
   return (
@@ -13,8 +11,7 @@ const EditProfileScreen = () => {
       }}
     >
       <div
-        style={{
-          // backgroundColor: 'cyan',
+        style={{          
           border: "2px solid cyan",
           minHeight: "80vh",
           display: "flex",
