@@ -21,12 +21,7 @@ export default function AddCategory() {
         id="outlined-required"
         label="Required"
         defaultValue="Category Name"
-      />
-      
-      
-      
-      
-     
+      />     
     </div>
     {/* <div>
     <TextField
