@@ -2,3 +2,28 @@ body {
   background-color: white;
   color: black;
 }
+.paginationButton {
+  width: 80%;
+  height: 40px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+.paginationButton a{
+  padding: 10px;
+  margin:8px;
+  border-radius: 5px;
+  border: 1px solid #379bff;
+  color: #379bff;
+  cursor: pointer;
+}
+.paginationButton a:hover{
+  background-color: #97c7f6;
+  color: white;
+}
+.paginationActive a{
+  background-color: #379bff;
+  color: white;
+}
+
+
