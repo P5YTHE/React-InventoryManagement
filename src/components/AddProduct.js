@@ -21,12 +21,29 @@ import {use,useState, useEffect} from 'react';
 import { getAuthorizationHeader } from '../utilities';
 import Auth from "../Auth/Auth"
 import SizesInput from './SizesInput';
+import Grid from '@mui/material/Grid';
 
 
 const useStyles = makeStyles((theme) => ({
-    form: {
-      padding:100,
-    },
+  formContainer: {
+    width: "100%",
+    borderRadius: "50px",
+    border: "2.5px solid #1976D2 ",
+    boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"
+  },
+  gridItem: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+  },
+  gridContent: {
+    width: "60vh",
+    margin: "0px",
+  },
+  gridStyle:{
+    border: "3px",
+  }
   }));
 
   const ExpandMore = styled((props) => {
@@ -42,22 +59,12 @@ const useStyles = makeStyles((theme) => ({
 
 function AddProduct(){
     const classes = useStyles();
-      //for expanding to fill size form
-    // const ExpandMore = styled((props) => {
-    //  const { expand, ...other } = props;
-    //     return <Switch onChange={(e)=>setSizeExist(e.target.checked)} id="sizesExist" ></Switch>;
-    //     })(({ theme, expand }) => ({
-    //     transition: theme.transitions.create('transform', {
-    //     duration: theme.transitions.duration.shortest,
-    //  }),
-    // }));
     
     //to set sizesExist from toggle/switct button
     const[sizesExist,setSizeExist]=useState(false);
 
     //to get and set categoryId from dropdown list
     const[categoryId,setCategoryId]=useState('');
-
 
     //to fetch catgory in dropdown list
     const categoryUrl='https://localhost:7157/api/Categories';
@@ -121,7 +128,8 @@ function AddProduct(){
       } 
       )
       .then(res=>{
-        console.log(res.productData)
+        console.log(res)
+        //console.log(res.productData)
       }).catch(err=>{
         console.log(err)
       })
@@ -142,53 +150,26 @@ function AddProduct(){
     };
 
 
-    //for repeating size 
-    // const sizeUrl='https://localhost:7177/api/Sizes/CreateSize'; 
-    // const blankSize = { sizeName: '', sizePrice: '' };
-    // const [sizeState, setSizeState] = useState([
-    //     { ...blankSize },
-    // ]);
-
-    // const addSize = () => {
-    //     setSizeState([...sizeState, { ...blankSize }]);
-    // };
-
-    // function handleSizeSubmit(e){
-    //   e.preventDefault();
-    //   axios.post(sizeUrl,{
-    //     productId:productData.productId,
-    //     sizeName:sizeState.sizeName,
-    //     sizePrice:sizeState.sizePrice
-    //   },{
-    //     headers: {
-    //       Authorization: `Bearer ${Auth.getAccessToken()}`,
-    //     }
-    //   } 
-    //   )
-    //   .then(res=>{
-    //     console.log(res.sizeState)
-    //   }).catch(err=>{
-    //     console.log(err)
-    //   })
-    // }
-
-    // const handleSizeChange = (e) => {
-    //     const updatedSize = [...sizeState];
-    //     updatedSize[e.target.dataset.idx][e.target.className] = e.target.value;
-    //     setSizeState(updatedSize);
-    // };
-    // //repeat size end
-
 
     return(
-        <>
-        <div className={classes.form}>
+      <>
+      <div className={classes.formContainer}>
         <div>
-            <h3>Add Product</h3>
+            <h3 style={{color:"#1976D2",textAlign:"center"}}>Add Product</h3>
         </div>
         <form onSubmit={(e) => handleSubmit(e)}>
-        <Box >
-              <TextField sx={{ width: "45ch" }} 
+          <Grid container alignItems="center" columnSpacing={2} className={classes.gridStyle} >
+            <Grid item
+              xs={7.3}
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
+              }}>
+                <Box >
+                 <TextField  
+                    className={classes.gridContent}
                     onChange={(e) => handle(e)}
                     id="productId"
                     value={productData.productId}
@@ -196,191 +177,197 @@ function AddProduct(){
                     label="Product Id" 
                     type="number" 
                     InputLabelProps={{ shrink: true,}}/>
-        </Box><br/>
-        <Box>      
-              <TextField sx={{ width: "45ch" }} 
-                onChange={(e) => handle(e)}
-                id="productName"
-                value={productData.productName}
-                size="small" 
-                label="Product Name" 
-                placeholder="Enter Product name" />
-        </Box><br/>
-
-        <Box>              
-              <TextField sx={{ width: "45ch" }} 
-                onChange={(e) => handle(e)}
-                id="productDesc"
-                value={productData.productDesc}
-                multiline rows={3} 
-                label="Product Description" 
-                placeholder="Enter Product description" />
-        </Box><br/>
-
-        <Box>             
-              <TextField sx={{ width: "45ch" }}
-                onChange={(e) => handle(e)}
-                id="productTag"
-                value={productData.productTag} 
-                size="small" 
-                label="Product Tag" 
-                placeholder="Enter Product tag" />
-        </Box><br/>
-
-        <Box>             
-              <TextField sx={{ width: "45ch" }} 
-                onChange={(e) => handle(e)}
-                id="imageUrl1"
-                value={productData.imageUrl1}
-                size="small" 
-                label="Product Image URL1" 
-                placeholder="Product Image URL1" />
-        </Box><br/>
-        <Box>             
-              <TextField sx={{ width: "45ch" }} 
-                onChange={(e) => handle(e)}
-                id="imageUrl2"
-                value={productData.imageUrl2}
-                size="small" 
-                label="Product Image URL2" 
-                placeholder="Product Image URL1" />
-        </Box><br/>
-        <Box>             
-              <TextField sx={{ width: "45ch" }} 
-                onChange={(e) => handle(e)}
-                id="imageUrl3"
-                value={productData.imageUrl3}
-                size="small" 
-                label="Product Image URL3" 
-                placeholder="Product Image URL1" />
-        </Box><br/>
-        <Box>             
-              <TextField sx={{ width: "45ch" }} 
-                onChange={(e) => handle(e)}
-                id="imageUrl4"
-                value={productData.imageUrl4}
-                size="small" 
-                label="Product Image URL4" 
-                placeholder="Product Image URL1" />
-        </Box><br/>
-        <Box>             
-              <TextField sx={{ width: "45ch" }} 
-                onChange={(e) => handle(e)}
-                id="imageUrl5"
-                value={productData.imageUrl5}
-                size="small" 
-                label="Product Image URL5" 
-                placeholder="Product Image URL1" />
-        </Box><br/>
-        <Box>             
-              <TextField sx={{ width: "45ch" }} 
-                onChange={(e) => handle(e)}
-                id="imageUrl6"
-                value={productData.imageUrl6}
-                size="small" 
-                label="Product Image URL6" 
-                placeholder="Product Image URL1" />
-        </Box><br/>
-
-        <Box>              
-              <TextField sx={{ width: "45ch" }} 
-                   onChange={(e) => handle(e)}
-                   id="productQuantity"
-                   value={productData.productQuantity}
-                   size="small" 
-                   label="Product Quantity" 
-                   type="number" 
-                   placeholder="1" 
-                   InputLabelProps={{ shrink: true,}}/>
-        </Box><br/>
-
-        <Box >
-              <TextField sx={{ width: "45ch" }} 
-                    onChange={(e) => handle(e)}
-                    id="productDiscount"
-                    value={productData.productDiscount}
-                    size="small" 
-                    label="Product Discount" 
-                    type="number" 
-                    placeholder="25" 
+                </Box><br/>
+                <Box>      
+                  <TextField className={classes.gridContent} 
+                     onChange={(e) => handle(e)}
+                     id="productName"
+                     value={productData.productName}
+                     size="small" 
+                     label="Product Name" 
+                     placeholder="Enter Product name" />
+                </Box><br/>
+                 <Box>             
+                   <TextField className={classes.gridContent}
+                      onChange={(e) => handle(e)}
+                      id="productTag"
+                      value={productData.productTag} 
+                      size="small" 
+                      label="Product Tag" 
+                      placeholder="Enter Product tag" />
+                  </Box><br/>
+                <Box>              
+                  <TextField className={classes.gridContent} 
+                     onChange={(e) => handle(e)}
+                     id="productQuantity"
+                     value={productData.productQuantity}
+                     size="small" 
+                     label="Product Quantity" 
+                     type="number" 
+                      placeholder="1" 
                     InputLabelProps={{ shrink: true,}}/>
-        </Box><br/>
-        
-        <Box> 
-            <FormControl>
-            <InputLabel id="demo-simple-select-label">Product Category</InputLabel>
-            <Select labelId="demo-simple-select-label" 
-               label="Product Category" 
-               sx={{ width: "45ch" }} 
-               onChange={(e)=>setCategoryId(e.target.value)} >
-              {category?.map((item) => {
-                    return (
-                         <MenuItem key={item.categoryName} value={item.categoryId}>
+                </Box><br/>
+
+                <Box >
+                  <TextField className={classes.gridContent}
+                      onChange={(e) => handle(e)}
+                      id="productDiscount"
+                      value={productData.productDiscount}
+                      size="small" 
+                      label="Product Discount" 
+                      type="number" 
+                      placeholder="25" 
+                      InputLabelProps={{ shrink: true,}}/>
+                </Box><br/>
+                <Box>
+                  <TextField className={classes.gridContent}
+                    onChange={(e) => handle(e)}
+                    id="productPrice"
+                    value={productData.productPrice}
+                    size="small" 
+                    type='number'
+                    label="Product Price" 
+                    placeholder="Enter Product price" />
+                </Box><br/>
+            </Grid>
+            <Grid item
+              xs={2}
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
+              }}>
+                <Box>             
+                  <TextField className={classes.gridContent} 
+                    onChange={(e) => handle(e)}
+                    id="imageUrl1"
+                    value={productData.imageUrl1}
+                    size="small" 
+                   label="Product Image URL1" 
+                   placeholder="Product Image URL1" />
+               </Box><br/>
+               <Box>             
+                 <TextField className={classes.gridContent} 
+                  onChange={(e) => handle(e)}
+                  id="imageUrl2"
+                  value={productData.imageUrl2}
+                  size="small" 
+                  label="Product Image URL2" 
+                  placeholder="Product Image URL2" />
+              </Box><br/>
+              <Box>             
+                 <TextField className={classes.gridContent} 
+                   onChange={(e) => handle(e)}
+                   id="imageUrl3"
+                   value={productData.imageUrl3}
+                   size="small" 
+                   label="Product Image URL3" 
+                   placeholder="Product Image URL3" />
+              </Box><br/>
+              <Box>             
+                 <TextField className={classes.gridContent} 
+                   onChange={(e) => handle(e)}
+                   id="imageUrl4"
+                   value={productData.imageUrl4}
+                   size="small" 
+                   label="Product Image URL4" 
+                   placeholder="Product Image URL1" />
+              </Box><br/>
+              <Box>             
+                  <TextField className={classes.gridContent} 
+                    onChange={(e) => handle(e)}
+                    id="imageUrl5"
+                    value={productData.imageUrl5}
+                    size="small" 
+                   label="Product Image URL5" 
+                   placeholder="Product Image URL1" />
+              </Box><br/>
+              <Box>             
+                <TextField className={classes.gridContent}
+                   onChange={(e) => handle(e)}
+                   id="imageUrl6"
+                   value={productData.imageUrl6}
+                   size="small" 
+                   label="Product Image URL6" 
+                   placeholder="Product Image URL1" />
+              </Box><br/>
+            </Grid>
+            <Grid item
+              xs={7.3}
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",}}>
+              <Box>              
+                 <TextField className={classes.gridContent} 
+                   onChange={(e) => handle(e)}
+                   id="productDesc"
+                   value={productData.productDesc}
+                   multiline rows={2} 
+                   label="Product Description" 
+                   placeholder="Enter Product description" />
+            </Box><br/>
+          </Grid>
+          <Grid item
+              xs={2}
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
+              }}>
+               <Box> 
+                  <FormControl>
+                    <InputLabel id="demo-simple-select-label">Product Category</InputLabel>
+                    <Select labelId="demo-simple-select-label" 
+                       label="Product Category" 
+                       className={classes.gridContent} 
+                       onChange={(e)=>setCategoryId(e.target.value)} >
+                        {category?.map((item) => {
+                           return (
+                              <MenuItem key={item.categoryName} value={item.categoryId}>
                                {item.categoryName}
-                         </MenuItem>
-                    );
-              })}
-            </Select>          
-            </FormControl>
-            
-        </Box><br/>
-
-        <div>
-        <label>Different Sizes:  </label>
-        <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more">
-        </ExpandMore>     
-        </div>
-
-        {/* <Collapse in={expanded} timeout="auto" unmountOnExit>   
-
-          
-          <br/>
-            <Button variant="outlined" startIcon={<AddIcon />} onClick={addSize}>
-                   Add Size
-            </Button>
-            <br/>
-            <br/>
-            {
-                sizeState.map((val, idx) => (
-                    <SizeInputs
-                        key={`size-${idx}`}
-                        idx={idx}
-                        sizeState={sizeState}
-                        handleSizeChange={handleSizeChange}
-                    />
-                ))
-            }
-        </Collapse> */}
-
-        <Box>
-           <TextField sx={{ width: "45ch" }} 
-               onChange={(e) => handle(e)}
-               id="productPrice"
-               value={productData.productPrice}
-               size="small" 
-               type='number'
-               label="Product Price" 
-               placeholder="Enter Product price" />
-        </Box><br/>
-        
-        {/* <Box>
-          <Switch onChange={(e)=>setSizeExist(e.target.checked)} id="sizesExist" ></Switch>
-        </Box> */}
-
-        <Button type="submit" size="big"  variant="contained">
-                Add Product
-        </Button>
+                              </MenuItem>
+                           );
+                        })}
+                     </Select>          
+                  </FormControl>
+                </Box><br/>
+            </Grid>
+            <Grid item
+              xs={12}
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
+              }}>
+              <div>
+                 <label> Different Sizes:  </label>
+                  <ExpandMore
+                   expand={expanded}
+                   onClick={handleExpandClick}
+                   aria-expanded={expanded}
+                   aria-label="show more">
+                 </ExpandMore>     
+              </div>
+              <br/>
+             <Button type="submit" size="big"  variant="contained">
+                 Add Product
+             </Button>
+            </Grid>
+          </Grid>
         </form>
         <br/>
         <br/>
+     </div>
+        <br/>
+        <div >
         <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <SizesInput/>
+          <SizesInput />
         </Collapse>
-
         </div>
      </>
     );
