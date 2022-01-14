@@ -22,6 +22,7 @@ import { getDownloadURL,ref, uploadBytesResumable } from "@firebase/storage";
 import { useState } from "react";
 import AddProduct from "./components/AddProduct";
 import { CssBaseline } from "@mui/material";
+import SizesInput from "./components/SizesInput";
 
 
 
@@ -97,7 +98,8 @@ function App() {
                 <Route  path='/callback' element={<Callback auth={auth}/> } />
                 <Route path='/products' element={<ProductsScreen/>} /> 
                 <Route path='/addProduct' element={<AddProduct/>} />
-                
+                <Route path='/addProduct/addSize' element={<SizesInput/>} />
+                <Route path='/addProduct/addSize' element={<SizesInput/>} />
               </Routes>
             </Container>
           <Footer />
