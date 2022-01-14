@@ -8,7 +8,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import ReactPaginate from 'react-paginate';
 import { display } from "@mui/system";
 
-const ViewAllProducts = () => {
+const ViewCategoryProducts = (props) => {
     const url='https://localhost:7075/api/Products';
     const[products,setProduct]= useState([]);
     const[searchTerm,setSearchTerm]=useState('');
@@ -26,12 +26,10 @@ const ViewAllProducts = () => {
     },[url]); 
 
     const filteredProducts = products.filter((product)=>{
-        if(searchTerm=="")
+        if(product.categoryId==props.categoryId)
         {
             return product;
-        } else if (product.productName.toLowerCase().includes(searchTerm.toLowerCase())){
-            return product;
-        }
+        }        
     })    
 
     const displayProducts = filteredProducts
@@ -83,19 +81,8 @@ const changePage = ({selected}) => {
     return(
         <>        
             <List>
-                <ListItem>
-                    <span>                        
-                        <input type="text" placeholder="Search...." className={classes.searchbox} onChange={event=>{setSearchTerm(event.target.value)}}></input>
-                            <Button size="big"  variant="contained" color="#379bff">
-                                Add Product
-                            </Button>
-                    </span>            
-                    <Box textAlign='center' padding={"40px"} color={"green"}>                       
-                    </Box>
-                </ListItem>
-                <Divider/>
-                <ListItem>
-                <Divider/>             
+                
+                <ListItem>                
                     <Grid container
                         direction="row"
                         justifyContent="space-evenly"
@@ -124,4 +111,4 @@ const changePage = ({selected}) => {
 };
 
 
-export default ViewAllProducts;
+export default ViewCategoryProducts;

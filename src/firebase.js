@@ -1,7 +1,9 @@
-
 import { initializeApp } from "firebase/app";
 import { getStorage } from "firebase/storage";
 
+
+
+//configuration file for firebase storage
 const firebaseConfig = {
     apiKey: "AIzaSyC1jobt2H-NKTvdWAx3Yv6gFHCMYTsbLHg",
     authDomain: "react-app-fca28.firebaseapp.com",
