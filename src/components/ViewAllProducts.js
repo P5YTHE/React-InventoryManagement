@@ -51,6 +51,7 @@ const ViewAllProducts = () => {
                                     productPrice = {product.productPrice} 
                                     productId = {product.productId}
                                     productObj = {product}
+                                    sizesExist ={product.sizesExist}
                                     />
                                 </Grid>
                         </>
@@ -62,7 +63,7 @@ const ViewAllProducts = () => {
 const pageCount = Math.ceil(filteredProducts.length/productsPerPage);   
 
 const handleAddProduct = () =>{
-    navigate('/addProduct');
+    navigate('/addProductDesign');
 }
 
 const changePage = ({selected}) => {    

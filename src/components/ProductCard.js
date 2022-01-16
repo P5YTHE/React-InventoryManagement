@@ -42,7 +42,16 @@ const ProductCard = (props) => {
       }));
       
     const classes = useStyles();
-    const price = `₹ ${props.productPrice*(1-(props.productDiscount/100))}`;
+    let price;
+    
+    if(props.sizesExist)
+    {
+      let price = "Available in many sizes";
+    }
+    else{
+      let price = `₹ ${props.productPrice*(1-(props.productDiscount/100))}`;
+    }
+    
     const handleOpen = () => {
         setOpen(true);
       };
@@ -53,8 +62,7 @@ const ProductCard = (props) => {
 
       const deleteItem=()=>{
         console.log(productkey);
-        console.log(url);
-        
+        console.log(url);        
           axios.delete(url,getAuthorizationHeader()).
           then((res)=> res.status === 200 ? navigate("/products") : navigate("/error")            
           ).catch((err)=>(
@@ -109,8 +117,6 @@ const ProductCard = (props) => {
     <Viewsingleproduct1 productObj={props.productObj}/>
     </ListItem>
   </List>
-  
- 
  
  
 </Backdrop>

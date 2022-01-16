@@ -29,7 +29,7 @@ let imageUrl3="";
 let imageUrl4="";
 let imageUrl5="";
 let imageUrl6="";
-let hasSizes = true;
+let hasSizes = false;
 let productKey="";
 
 const SizesPart=()=>{
@@ -53,7 +53,7 @@ const SizesPart=()=>{
     return(      
       <TableRow>  
                   <TableCell align="left">{size.sizeName}</TableCell>
-                  <TableCell align="left">{`${size.sizePrice}%`}</TableCell> 
+                  <TableCell align="left">{size.sizePrice}</TableCell> 
       </TableRow>      
     )
   })
@@ -72,6 +72,11 @@ const SizesPart=()=>{
     )
     console.log(productKey);
     console.log(displaySizes);
+  }
+  else{
+    return (
+      <></>
+    )
   }
 
 }
