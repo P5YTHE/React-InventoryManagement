@@ -32,7 +32,7 @@ function AddCategory() {
         ...categoryData,
       [name] : value
       }
-      // newData[e.target.id]=e.target.value
+      
       setCategoryData(newData)
       console.log(newData)
     }
@@ -61,7 +61,7 @@ function AddCategory() {
     <>
     <div className={classes.Box}>
       <div>
-        <h3>Add Category</h3>
+        <h3 >Add Category</h3>
       </div>
       
     <form onSubmit={handleSubmit}>
@@ -85,7 +85,7 @@ function AddCategory() {
     {/* </Box> */}
     <br/>
     <div>
-    <Button type="submit" size="small" variant="contained" color="inherit"
+    <Button type="submit" size="small" variant="contained" color="inherit" style={{ color: "white",backgroundColor:"#379bff" }}
     // onClick={()=>{navigate("/categories")}}
     >Save</Button>
     </div>
