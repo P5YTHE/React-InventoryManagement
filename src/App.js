@@ -20,7 +20,10 @@ import ProductsScreen from "./screens/ProductsScreen";
 import EditProfileScreen from "./screens/EditProfileScreen";
 import { getDownloadURL,ref, uploadBytesResumable } from "@firebase/storage";
 import { useState } from "react";
+import AddProduct from "./components/AddProduct";
 import { CssBaseline } from "@mui/material";
+import SizesInput from "./components/SizesInput";
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -42,6 +45,7 @@ function App() {
 
   const navigate = useNavigate();
   const auth = new Auth(navigate);
+
   // const [progress,setProgress]=useState(0);
   // const [product, setProduct]=useState(null);
 
@@ -69,6 +73,7 @@ function App() {
   // });
   // };
 
+
   const Theme = createMuiTheme({
     palette: {
       type: "light",
@@ -86,17 +91,20 @@ function App() {
             <Header auth={auth} />                 
               <Routes>
                 <Route exact path='/' element={<HomeScreen/> } />
-                <Route  path='/profile' element={<ProfileScreen/> } />
+                <Route  path='/profile' element={<ProfileScreen auth={auth} /> } />
                 <Route path='/categories' element={<CategoryScreen />} />          
                 <Route path='/addcategories' element={<AddCategoryScreen />} />
-                <Route  path='/editprofile' element={<EditProfileScreen /> } />
                 <Route  path='/callback' element={<Callback auth={auth}/> } />
-                <Route path='/products' element={<ProductsScreen/>} />       
+                <Route path='/products' element={<ProductsScreen/>} /> 
+                <Route path='/addProduct' element={<AddProduct/>} />
+                <Route path='/addProduct/addSize' element={<SizesInput/>} />
+                <Route path='/addProduct/addSize' element={<SizesInput/>} />
               </Routes>
             </Container>
           <Footer />
         </ThemeProvider>
     </div>
+
   );
 }
 
