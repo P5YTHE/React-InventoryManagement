@@ -150,9 +150,9 @@ function AddProduct2() {
             )
             .then(res=>{
               setSizeData({
-          productId:newProductId,
-          sizeName:"",
-          sizePrice:""
+             productId:newProductId,
+             sizeName:"",
+             sizePrice:""
       });
               console.log(res)
             }).catch(err=>{
