@@ -15,7 +15,7 @@ const ViewAllProducts = () => {
     const[searchTerm,setSearchTerm]=useState('');
     const[loading,setLoading]=useState(false);
     const[pageNumber,setPageNumber]=useState(0);
-    const productsPerPage=1;
+    const productsPerPage=10;
     const pagesVisited=pageNumber*productsPerPage;
     const navigate = useNavigate();
     
@@ -91,10 +91,15 @@ const changePage = ({selected}) => {
     console.log(products);    
     
     return(
-        <>        
-            <List>
-                <ListItem>
-                    <span style={{ alignContent:"center", alignItems:"center" }}>                        
+        <> 
+        <Grid container
+        spacing={0}
+        direction="column"
+        alignItems="center"
+        justify="center"
+        >
+            <Grid item xs={10}>
+            <span style={{ alignContent:"center", alignItems:"center" }}>                        
                         <input type="text" placeholder="Search...." className={classes.searchbox} alignItems="center" onChange={event=>{setSearchTerm(event.target.value)}}></input>
                             <Button size="big"  variant="contained" color="#379bff" onClick={handleAddProduct} className={classes.root}>
                                 Add Product
@@ -102,10 +107,8 @@ const changePage = ({selected}) => {
                     </span>            
                     <Box textAlign='center' padding={"40px"} color={"green"}>                       
                     </Box>
-                </ListItem>
-                <Divider/>
-                <ListItem>
-                <Divider/>             
+            </Grid>
+                <Grid item >
                     <Grid container
                         direction="row"
                         justifyContent="space-evenly"
@@ -113,10 +116,15 @@ const changePage = ({selected}) => {
                         spacing={4}
                     >             
                         {displayProducts}                    
-                    </Grid>            
-                </ListItem>
-                <ListItem>
+                    </Grid>
+                </Grid> 
+                
+                <Grid item style={{minHeight:'5vh'}}>                
+
+                </Grid>   
+                <Grid item padding="30px">              
                     <ReactPaginate
+                        alignItems="center"
                         previousLabel={"Previous"}
                         nextLabel={"Next"}
                         pageCount={pageCount}
@@ -127,8 +135,12 @@ const changePage = ({selected}) => {
                         disabledClassName={"paginationDisable"}
                         activeClassName={"paginationActive"}
                     />
-                </ListItem>
-            </List>        
+                </Grid>
+                <Grid item style={{minHeight:'5vh'}}>                 
+
+                    </Grid>
+                           
+            </Grid>       
         </>
     )
 };

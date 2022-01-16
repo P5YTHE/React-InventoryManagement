@@ -80,9 +80,14 @@ const changePage = ({selected}) => {
     
     return(
         <>        
-            <List>
-                
-                <ListItem>                
+            <Grid container
+        spacing={0}
+        direction="column"
+        alignItems="center"
+        justify="center"
+        >
+            
+                <Grid item >
                     <Grid container
                         direction="row"
                         justifyContent="space-evenly"
@@ -90,10 +95,15 @@ const changePage = ({selected}) => {
                         spacing={4}
                     >             
                         {displayProducts}                    
-                    </Grid>            
-                </ListItem>
-                <ListItem>
+                    </Grid>
+                </Grid> 
+                
+                <Grid item style={{minHeight:'5vh'}}>                
+
+                </Grid>   
+                <Grid item padding="30px">              
                     <ReactPaginate
+                        alignItems="center"
                         previousLabel={"Previous"}
                         nextLabel={"Next"}
                         pageCount={pageCount}
@@ -104,8 +114,12 @@ const changePage = ({selected}) => {
                         disabledClassName={"paginationDisable"}
                         activeClassName={"paginationActive"}
                     />
-                </ListItem>
-            </List>        
+                </Grid>
+                <Grid item style={{minHeight:'5vh'}}>                 
+
+                    </Grid>
+                           
+            </Grid>        
         </>
     )
 };
