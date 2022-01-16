@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Button} from "@material-ui/core";
@@ -8,6 +9,11 @@ import {useState} from 'react';
 import Auth from "../Auth/Auth"
 import { makeStyles } from "@material-ui/core/styles";
 import { getAuthorizationHeader } from '../utilities'
+import Notification from './Notification';
+import {Grid} from "@material-ui/core";
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
 
 const useStyles = makeStyles((theme) => ({
     form : {
@@ -20,11 +26,16 @@ function AddCategory() {
     const classes = useStyles();
 
     const navigate = useNavigate();
+    
 
     const categoryUrl='https://localhost:7157/api/Categories';
     const[categoryData,setCategoryData]=useState({
       categoryName: "",
     });
+
+
+    const[notify,setNotify] = useState({isOpen:false,message:'',type:''});
+    
 
     function handle(e){
       const { name , value } = e.target;
@@ -32,7 +43,7 @@ function AddCategory() {
         ...categoryData,
       [name] : value
       }
-      // newData[e.target.id]=e.target.value
+      
       setCategoryData(newData)
       console.log(newData)
     }
@@ -49,9 +60,16 @@ function AddCategory() {
       //   }
       // } 
       )
-      .then(res=>{
-        console.log(res)
-        res.status === 201 ? (navigate('/categories')) : ( navigate('/error'))
+      .then(res=>{              
+        res.status === 201 ? (setNotify({
+          isOpen:true,
+          message:'Operation successful',
+          type:'success'
+        } ) ) : (setNotify({
+          isOpen:true,
+          message:'Error Encountered, check logs for more information',
+          type:'error'
+        } ) ) 
       }).catch(err=>{
         console.log(err)
       })
@@ -59,9 +77,15 @@ function AddCategory() {
 
   return (
     <>
+    <Grid
+     spacing={0}
+     direction="row"
+     alignItems="center"
+     justify="center">
+      <Grid item xs={6}>
     <div className={classes.Box}>
       <div>
-        <h3>Add Category</h3>
+        <h3 >Add Category</h3>
       </div>
       
     <form onSubmit={handleSubmit}>
@@ -85,13 +109,24 @@ function AddCategory() {
     {/* </Box> */}
     <br/>
     <div>
-    <Button type="submit" size="small" variant="contained" color="inherit"
+    <Button type="submit" size="small" variant="contained" color="inherit" style={{ color: "white",backgroundColor:"#379bff" }}
     // onClick={()=>{navigate("/categories")}}
     >Save</Button>
-    </div>
+    <Button onClick={()=>navigate('/Categories')} style={{color:"white",backgroundColor:"#379bff",padding:"5px"}}>Back to categories page</Button>
+    </div>    
     
     </form>
+    <Notification 
+    notify={notify} 
+    setNotify={setNotify}
+    />
   </div>
+  </Grid>
+  <Grid item xs={6}>
+     
+  </Grid>
+  </Grid>
+ 
   </>
   );
 }
