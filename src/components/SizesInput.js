@@ -3,23 +3,22 @@ import Box from "@mui/material/Box";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
-//import {productData} from './AddProduct';
 import axios from 'axios';
 import { getAuthorizationHeader } from '../utilities';
 import Auth from "../Auth/Auth";
+import Grid from '@mui/material/Grid';
 
-function SizesInput(){
-    const [showsForm, setShowForm] = useState(false);
 
-    const showForm = () => {
-       setShowForm(!showsForm);
-    }
+
+function SizesInput({productId}){
+    console.log(productId);
     const sizeUrl='https://localhost:7177/api/Sizes/CreateSize';
     const[sizeData,setSizeData]=useState({
-        productId:"",
+        productId:{productId},
         sizeName:"",
         sizePrice:""
     })
+    
 
     function handleSize(e){
         const newData={...sizeData}
@@ -27,6 +26,7 @@ function SizesInput(){
         setSizeData(newData)
         console.log(newData)
       }
+      
 
       function handleSizeSubmit(e){
         e.preventDefault();
@@ -41,7 +41,7 @@ function SizesInput(){
         } 
         )
         .then(res=>{
-          console.log(res.sizeData)
+          console.log(res)
         }).catch(err=>{
           console.log(err)
         })
@@ -50,8 +50,14 @@ function SizesInput(){
 
     return(
         <>
-        <Box >
-              <TextField sx={{ width: "45ch" }} 
+        
+        <br/>
+        <form onSubmit={(e) => handleSizeSubmit(e)}>
+           <Grid container spacing={3}>
+            
+                {/* <Grid item xs={12} >
+                  <TextField fullWidth
+                  variant="standard"
                     onChange={(e) => handleSize(e)}
                     id="productId"
                     value={sizeData.productId}
@@ -59,37 +65,40 @@ function SizesInput(){
                     label="Product Id" 
                     type="number" 
                     InputLabelProps={{ shrink: true,}}/>
-        </Box><br/>
-        {/* <Button variant="outlined" onClick={showForm}> <AddIcon /></Button> */}
-          
-            <form onSubmit={(e) => handleSizeSubmit(e)}>
-            <Box>      
-              <TextField sx={{ width: "45ch" }} 
-                onChange={(e) => handleSize(e)}
-                id="sizeName"
-                value={sizeData.sizeName}
-                size="small" 
-                label="Size Name" 
-                placeholder="Enter Size name" />
-            </Box><br/>
+                </Grid> */}
+                <Grid item xs={12} sm={6}>      
+                  <TextField fullWidth
+                  variant="standard"
+                   onChange={(e) => handleSize(e)}
+                    id="sizeName"
+                   value={sizeData.sizeName}
+                    size="small" 
+                    label="Size Name" 
+                    placeholder="Enter Size name" />
+               </Grid>
 
-             <Box>              
-              <TextField sx={{ width: "45ch" }} 
-                onChange={(e) => handleSize(e)}
-                id="sizePrice"
-                value={sizeData.sizePrice}
-                size="small"
-                label="Size Price" 
-                placeholder="Enter size price" />
-            </Box><br/>
-             <Button type="submit" size="small"  variant="contained">
-                Add Size
-            </Button>
-            
-         </form>
-         
+               <Grid item xs={12} sm={6}>              
+                 <TextField fullWidth
+                 variant="standard"
+                     onChange={(e) => handleSize(e)}
+                     id="sizePrice"
+                     value={sizeData.sizePrice}
+                     size="small"
+                     label="Size Price" 
+                     placeholder="Enter size price" />
+              </Grid>
+              <Grid item xs={12}>
+              <Button type="submit" size="small"  variant="contained">
+                   Add Size
+               </Button>
+
+              </Grid>
+              
+            <br/>
+        </Grid>
+      </form>   
+    
         </>
-
     );
 }
 

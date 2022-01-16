@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useEffect,useState} from 'react';
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -10,6 +11,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { useTheme } from '@mui/material/styles';
+import axios from 'axios';
+import { getAuthorizationHeader } from '../utilities';
 import Box from '@mui/material/Box';
 import MobileStepper from '@mui/material/MobileStepper';
 import Button from '@mui/material/Button';
@@ -26,10 +29,63 @@ let imageUrl3="";
 let imageUrl4="";
 let imageUrl5="";
 let imageUrl6="";
+let hasSizes = false;
+let productKey="";
 
-function SwipeableTextMobileStepper(product) {
+const SizesPart=()=>{
+  const url="https://localhost:7177/api/Sizes/GetSizes";
+  const[sizes,setSizes]= useState([]);
+
+  useEffect(()=>{
+    axios.get(url,getAuthorizationHeader()).then(response=>{
+        setSizes(response.data);            
+    })    
+    },[url]);
+    
+    const filteredSizes = sizes.filter((size)=>{
+      if(size.productId==productKey)
+      {
+          return size;
+      }        
+  });
+
+  const displaySizes = filteredSizes.map((size)=>{
+    return(      
+      <TableRow>  
+                  <TableCell align="left">{size.sizeName}</TableCell>
+                  <TableCell align="left">{size.sizePrice}</TableCell> 
+      </TableRow>      
+    )
+  })
+
+
+  if(hasSizes)
+  {
+    return(
+      <>
+      <TableRow>  
+                  <TableCell align="left">Size</TableCell>
+                  <TableCell align="left">Price</TableCell> 
+      </TableRow>
+      {displaySizes}
+      </>
+    )
+    console.log(productKey);
+    console.log(displaySizes);
+  }
+  else{
+    return (
+      <></>
+    )
+  }
+
+}
+
+
+function SwipeableTextMobileStepper() {
     const theme = useTheme();
-    const [activeStep, setActiveStep] = React.useState(0);    
+    const [activeStep, setActiveStep] = React.useState(0);   
+    
 
     const images = [];
     if(imageUrl1!="")
@@ -177,8 +233,8 @@ const Viewsingleproduct1 = (props) => {
   imageUrl4=product.imageUrl4;
   imageUrl5=product.imageUrl5;
   imageUrl6=product.imageUrl6; 
-
- 
+  hasSizes=product.sizesExist;
+  productKey =product.productId;
 
   return (
     <Paper sx={{ p: 1,  maxWidth: '100%', flexGrow: 1 }}>
@@ -196,7 +252,6 @@ const Viewsingleproduct1 = (props) => {
                 <TableCell align="left">{product.productId}</TableCell>
               </TableRow>
             </TableHead>
-
             <TableBody>        
                 <TableRow>  
                   <TableCell align="left">Product Name</TableCell>
@@ -232,8 +287,9 @@ const Viewsingleproduct1 = (props) => {
                   <TableCell align="left">Product Discount</TableCell>
                   <TableCell align="left">{`${product.productDiscount}%`}</TableCell> 
                 </TableRow>
+                <SizesPart/>
             </TableBody>
-          </Table>
+          </Table>          
         </TableContainer>
             </Grid>
             <Grid item>              

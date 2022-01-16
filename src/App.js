@@ -22,6 +22,8 @@ import { getDownloadURL,ref, uploadBytesResumable } from "@firebase/storage";
 import { useState } from "react";
 import AddProduct from "./components/AddProduct";
 import { CssBaseline } from "@mui/material";
+import Checkout from './components/AddProductDesign';
+import SizesInput from "./components/SizesInput";
 
 
 
@@ -90,14 +92,15 @@ function App() {
             <Header auth={auth} />                 
               <Routes>
                 <Route exact path='/' element={<HomeScreen/> } />
-                <Route  path='/profile' element={<ProfileScreen/> } />
+                <Route  path='/profile' element={<ProfileScreen auth={auth} /> } />
                 <Route path='/categories' element={<CategoryScreen />} />          
                 <Route path='/addcategories' element={<AddCategoryScreen />} />
-                <Route  path='/editprofile' element={<EditProfileScreen /> } />
                 <Route  path='/callback' element={<Callback auth={auth}/> } />
                 <Route path='/products' element={<ProductsScreen/>} /> 
                 <Route path='/addProduct' element={<AddProduct/>} />
-                
+                <Route path='/addProductDesign' element={<Checkout/>}/>
+                <Route path='/addProduct/addSize' element={<SizesInput/>} />
+                <Route path='/addProduct/addSize' element={<SizesInput/>} />
               </Routes>
             </Container>
           <Footer />

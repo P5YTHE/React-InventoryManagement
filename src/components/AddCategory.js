@@ -7,6 +7,7 @@ import axios, { Axios } from 'axios';
 import {useState} from 'react';
 import Auth from "../Auth/Auth"
 import { makeStyles } from "@material-ui/core/styles";
+import { getAuthorizationHeader } from '../utilities'
 
 const useStyles = makeStyles((theme) => ({
     form : {
@@ -26,8 +27,12 @@ function AddCategory() {
     });
 
     function handle(e){
-      const newData={...categoryData}
-      newData[e.target.id]=e.target.value
+      const { name , value } = e.target;
+      const newData={
+        ...categoryData,
+      [name] : value
+      }
+      
       setCategoryData(newData)
       console.log(newData)
     }
@@ -37,14 +42,16 @@ function AddCategory() {
       axios.post(categoryUrl,{
         categoryName: categoryData.categoryName,
         
-      },{
-        headers: {
-          Authorization: `Bearer ${Auth.getAccessToken()}`,
-        }
-      } 
+      },getAuthorizationHeader()
+      // {
+      //   headers: {
+      //     Authorization: `Bearer ${Auth.getAccessToken()}`,
+      //   }
+      // } 
       )
       .then(res=>{
-        console.log(res.categoryData)
+        console.log(res)
+        res.status === 201 ? (navigate('/categories')) : ( navigate('/error'))
       }).catch(err=>{
         console.log(err)
       })
@@ -54,31 +61,33 @@ function AddCategory() {
     <>
     <div className={classes.Box}>
       <div>
-        <h3>Add Category</h3>
+        <h3 >Add Category</h3>
       </div>
       
-    <form onSubmit={(e) => handleSubmit(e)}>
-    <Box
+    <form onSubmit={handleSubmit}>
+    {/* <Box
     component="form"
     sx={{
       '& .MuiTextField-root': { m: 1, width: '25ch' },
     }}
     noValidate
     autoComplete="off"
-  >
+  > */}
     <div>
       <TextField
         onChange={(e) => handle(e)}
         required
-        id="outlined-required"
-        label="Required"
-        //defaultValue="Category Name"
+        name="categoryName"
+        label="Category Name"
+        value={categoryData.categoryName}
       />
     </div>
-    </Box>
+    {/* </Box> */}
     <br/>
     <div>
-    <Button type="submit" size="small" variant="contained" color="inherit" onClick={()=>{navigate("/categories")}}>Save</Button>
+    <Button type="submit" size="small" variant="contained" color="inherit" style={{ color: "white",backgroundColor:"#379bff" }}
+    // onClick={()=>{navigate("/categories")}}
+    >Save</Button>
     </div>
     
     </form>

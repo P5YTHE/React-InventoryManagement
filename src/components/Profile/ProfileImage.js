@@ -8,7 +8,7 @@ import { getAuthorizationHeader } from "../../utilities";
 import { useNavigate } from "react-router";
 
 const ProfileImage = ({ profileInfo }) => {
-  const [progress, setProgress] = useState(0);
+//   const [progress, setProgress] = useState(0);
   const navigate = useNavigate();
   const uploadFiles = (file) => {
     if (!file) return;
@@ -22,7 +22,7 @@ const ProfileImage = ({ profileInfo }) => {
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         );
 
-        setProgress(prog);
+        // setProgress(prog);
       },
       (err) => console.log(err),
       () => {

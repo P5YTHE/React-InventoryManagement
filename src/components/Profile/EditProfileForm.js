@@ -56,9 +56,9 @@ const EditProfileForm = () => {
   let selectedCountry = profile.userCountry;
   const [statesList, setStatesList] = useState(null);
   // let statesList = null;
-//   console.log(profile);
+  //   console.log(profile);
   useEffect(() => {
-    const getProfiles = async () => {
+    const getProfile = async () => {
       try {
         const { data } = await axios.get(
           `https://localhost:7249/api/userprofiles`,
@@ -69,7 +69,7 @@ const EditProfileForm = () => {
         console.log(`API ${err}`);
       }
     };
-    getProfiles();
+    getProfile();
   }, []);
 
   const handleOnChange = (e) => {
@@ -80,16 +80,11 @@ const EditProfileForm = () => {
     });
   };
 
-  const getStateRequestBody = (country) => ({
-    country: `${country}`,
-  });
-
   if (!statesList && selectedCountry) {
     axios
-      .post(
-        "https://countriesnow.space/api/v0.1/countries/states",
-        getStateRequestBody(selectedCountry)
-      )
+      .post("https://countriesnow.space/api/v0.1/countries/states", {
+        country: `${selectedCountry}`,
+      })
       //   .then((res) => res.json())
       .then((data) => setStatesList(data.data.data.states))
       .catch((err) => console.log(err));
@@ -166,7 +161,7 @@ const EditProfileForm = () => {
                   name="userCountry"
                   value={profile.userCountry}
                   onChange={(e) => handleOnChange(e)}
-                   //   style={{
+                  //   style={{
 
                   //   }}
                 >
@@ -214,6 +209,8 @@ const EditProfileForm = () => {
                 value={profile.companyName}
                 onChange={(e) => handleOnChange(e)}
                 style={gridContent}
+                error
+                helperText='Incorrect value'
               />
 
               <TextField

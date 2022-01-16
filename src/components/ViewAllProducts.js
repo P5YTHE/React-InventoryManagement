@@ -7,6 +7,7 @@ import { getAuthorizationHeader } from '../utilities';
 import { makeStyles } from "@material-ui/core/styles";
 import ReactPaginate from 'react-paginate';
 import { display } from "@mui/system";
+import { useNavigate } from "react-router";
 
 const ViewAllProducts = () => {
     const url='https://localhost:7075/api/Products';
@@ -16,6 +17,7 @@ const ViewAllProducts = () => {
     const[pageNumber,setPageNumber]=useState(0);
     const productsPerPage=1;
     const pagesVisited=pageNumber*productsPerPage;
+    const navigate = useNavigate();
     
 
     useEffect(()=>{
@@ -49,6 +51,7 @@ const ViewAllProducts = () => {
                                     productPrice = {product.productPrice} 
                                     productId = {product.productId}
                                     productObj = {product}
+                                    sizesExist ={product.sizesExist}
                                     />
                                 </Grid>
                         </>
@@ -59,6 +62,9 @@ const ViewAllProducts = () => {
 
 const pageCount = Math.ceil(filteredProducts.length/productsPerPage);   
 
+const handleAddProduct = () =>{
+    navigate('/addProductDesign');
+}
 
 const changePage = ({selected}) => {    
     setPageNumber(selected);
@@ -73,7 +79,11 @@ const changePage = ({selected}) => {
             padding: "8px",
             background: "none",
             boxShadow:"0 2px 2px #379bff",
-        }  
+        }, 
+        root:{
+            color:"white",
+            backgroundColor:"#379bff",
+        }
       }));
 
     const classes = useStyles(); 
@@ -84,9 +94,9 @@ const changePage = ({selected}) => {
         <>        
             <List>
                 <ListItem>
-                    <span>                        
-                        <input type="text" placeholder="Search...." className={classes.searchbox} onChange={event=>{setSearchTerm(event.target.value)}}></input>
-                            <Button size="big"  variant="contained" color="#379bff">
+                    <span style={{ alignContent:"center", alignItems:"center" }}>                        
+                        <input type="text" placeholder="Search...." className={classes.searchbox} alignItems="center" onChange={event=>{setSearchTerm(event.target.value)}}></input>
+                            <Button size="big"  variant="contained" color="#379bff" onClick={handleAddProduct} className={classes.root}>
                                 Add Product
                             </Button>
                     </span>            
