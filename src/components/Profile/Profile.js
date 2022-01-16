@@ -29,7 +29,7 @@ import { storage } from "../../firebase";
 
 const useStyles = makeStyles(componentStyles);
 
-const Profile = () => {
+const Profile = ({ auth }) => {
   const classes = useStyles();
 
   const initProfile = {
@@ -46,13 +46,18 @@ const Profile = () => {
   };
   const navigate = useNavigate();
   const [profile, setProfile] = useState(initProfile);
-  let selectedCountry = profile.userCountry;
   const [statesList, setStatesList] = useState(null);
   const [isChanged, setIsChanged] = useState(false);
+  const [errors, setErrors] = useState({});
+  let selectedCountry = profile.userCountry;
 
   useEffect(() => {
-    getProfileDetails().then((data) => setProfile(data));
+    getProfileDetails(auth).then((data) => setProfile(data));
   }, []);
+
+  if (!statesList && selectedCountry) {
+    getStateByCountry(selectedCountry).then((data) => setStatesList(data));
+  }
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -60,7 +65,34 @@ const Profile = () => {
       ...profile,
       [name]: value,
     });
+    if (name === "userCountry") {
+      getStateByCountry(value).then((data) => setStatesList(data));
+    }
     setIsChanged(true);
+    validate({ [name]: value });
+  };
+
+  const validate = (obj = profile) => {
+    let messages = { ...errors };
+    if ("userFirstName" in obj) {
+      messages.userFirstName = /^&|^[a-zA-Z]*$/.test(obj.userFirstName)
+        ? ""
+        : "First name must only have alphabets";
+    }
+    if ("userLastName" in obj) {
+      messages.userLastName = /^[a-zA-Z]*$/.test(obj.userLastName)
+        ? ""
+        : "Last name must only have alphabets";
+    }
+    if ("userPhoneNo" in obj) {
+      messages.userPhoneNo =
+        obj.userPhoneNo.length == 10 || obj.userPhoneNo.length == 0 ? "" : "Phone number must have 10 digits";
+    }
+    setErrors(messages);
+
+    if ((obj == profile)) {
+      return Object.values(messages).every((value) => value == "");
+    }
   };
 
   const uploadFiles = (file) => {
@@ -88,17 +120,14 @@ const Profile = () => {
 
   const updateProfile = () => {
     updateProfileAsync(profile).then((res) => {
-      console.log(res);
       res?.status === 200 ? navigate("/profile") : navigate("/error");
     });
   };
 
-  if (!statesList && selectedCountry) {
-    getStateByCountry(selectedCountry).then((data) => setStatesList(data));
-  }
-
   const formHandler = (e) => {
-    updateProfile();
+    if (validate()) {
+      updateProfile();
+    }
   };
 
   const uploadHandler = (e) => {
@@ -125,7 +154,7 @@ const Profile = () => {
               xl={8}
               component={Box}
               marginBottom="2rem"
-              classes={{ root: classes.gridItemRoot + " " + classes.order2 }}
+              classes={{ root: classes.gridItemRoot }}
             >
               <Card
                 classes={{
@@ -196,6 +225,8 @@ const Profile = () => {
                             name="userFirstName"
                             value={profile.userFirstName}
                             handleChange={handleOnChange}
+                            error={!!errors.userFirstName}
+                            helperText={errors.userFirstName}
                           />
                           <GridComp
                             textField
@@ -204,6 +235,8 @@ const Profile = () => {
                             name="userLastName"
                             value={profile.userLastName}
                             handleChange={handleOnChange}
+                            error={!!errors.userLastName}
+                            helperText={errors.userLastName}
                           />
                         </Grid>
                         <Grid container>
@@ -214,6 +247,9 @@ const Profile = () => {
                             name="userPhoneNo"
                             value={profile.userPhoneNo}
                             handleChange={handleOnChange}
+                            type="number"
+                            error={!!errors.userPhoneNo}
+                            helperText={errors.userPhoneNo}
                           />
                           <GridComp
                             radioButton
@@ -233,6 +269,7 @@ const Profile = () => {
                             name="userEmail"
                             value={profile.userEmail}
                             handleChange={handleOnChange}
+                            disabled
                           />
                         </Grid>
                       </Grid>

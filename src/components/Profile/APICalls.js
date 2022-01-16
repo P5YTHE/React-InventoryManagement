@@ -1,8 +1,9 @@
 import axios from "axios";
-import {getAuthorizationHeader, getStatesArray} from '../../utilities'
+import { getAuthHeaderWithEmail, getAuthorizationHeader, getStatesArray } from "../../utilities";
 
 export const getProfileDetails = async () => {
   try {
+    console.log('inside get profile api')
     const { data } = await axios.get(
       `https://localhost:7249/api/userprofiles`,
       getAuthorizationHeader()
