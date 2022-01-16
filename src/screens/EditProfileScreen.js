@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import EditProfileForm from "../components/Profile/EditProfileForm";
+import Profile from "../components/Profile/Profile";
+import { getAuthorizationHeader } from "../utilities";
 
 const EditProfileScreen = () => {
   return (
@@ -21,6 +23,7 @@ const EditProfileScreen = () => {
         }}
       >
         <EditProfileForm />
+        {/* <Profile /> */}
       </div>
     </div>
   );

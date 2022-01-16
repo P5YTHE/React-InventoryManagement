@@ -74,14 +74,26 @@ class Auth extends Component {
     return accessToken;
   };
 
+  // getProfile = (callbackFunc) => {
+  //   if (this.profile) return callbackFunc(this.profile);
+  //   this.auth0.client.userInfo(this.getAccessToken(), (err, profile) => {
+  //     if (profile) this.profile = profile;
+  //     console.log("Profile:" + profile);
+  //     callbackFunc(profile, err);
+  //   });
+  // };
+
+  
   getProfile = (callbackFunc) => {
     if (this.profile) return callbackFunc(this.profile);
-    this.auth0.client.userInfo(this.getAccessToken(), (err, profile) => {
+    this.auth0.client.userInfo(Auth.getAccessToken(), (err, profile) => {
       if (profile) this.profile = profile;
       console.log("Profile:" + profile);
       callbackFunc(profile, err);
     });
   };
+
+  
 
   userHasScopes(scopes) {
     const grantedScopes = (

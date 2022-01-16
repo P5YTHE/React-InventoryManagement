@@ -22,6 +22,7 @@ import { getAuthorizationHeader } from '../utilities';
 import Auth from "../Auth/Auth"
 import SizesInput from './SizesInput';
 import Grid from '@mui/material/Grid';
+import { Link } from 'react-router-dom'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -366,7 +367,10 @@ function AddProduct(){
         <br/>
         <div >
         <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <SizesInput />
+          <Button component={Link} to="/addProduct/addSize">
+            Add Size
+          </Button>
+          {/* <SizesInput /> */}
         </Collapse>
         </div>
      </>

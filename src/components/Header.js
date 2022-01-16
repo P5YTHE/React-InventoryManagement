@@ -30,8 +30,8 @@ const useStyles = makeStyles((theme) => ({
 function Header({ auth }) {
   const classes = useStyles();
   const navigate = useNavigate();
-  if(auth.isAuthenticated()){
-    console.log(`Access token : ${Auth.getAccessToken()}`)
+  if (auth.isAuthenticated()) {
+    console.log(`Access token : ${Auth.getAccessToken()}`);
   }
   return (
     <>
@@ -52,21 +52,19 @@ function Header({ auth }) {
           aria-label="outlined primary button group"
         >
           {auth.isAuthenticated() ? (
-            <Button onClick={() => auth.logout()}>Logout</Button>
+            <>
+              <Button onClick={() => auth.logout()}>Logout</Button>
+              <IconButton color="inherit" onClick={() => navigate("/profile")}>
+                <AccountCircle />
+              </IconButton>
+            </>
           ) : (
             <>
-
-              <Button onClick={()=>auth.login()}>Signup</Button>
+              <Button onClick={() => auth.login()}>Signup</Button>
               <Button onClick={() => auth.login()}>Login</Button>
             </>
           )}
-        </ButtonGroup>       
-
-        {/* Profile button */}
-
-        <IconButton color="inherit" onClick={() => navigate("/profile")}>
-          <AccountCircle />
-        </IconButton>
+        </ButtonGroup>
       </Toolbar>
       <Divider />
       <Toolbar className={classes.tagline}></Toolbar>
