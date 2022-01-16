@@ -20,6 +20,8 @@ import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
+import { Divider } from '@mui/material';
+import { List, ListItem } from '@material-ui/core';
 
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
@@ -63,12 +65,14 @@ const SizesPart=()=>{
   {
     return(
       <>
+        
       <TableRow>  
-                  <TableCell align="left">Size</TableCell>
+                  <TableCell align="left" color>Size</TableCell>
                   <TableCell align="left">Price</TableCell> 
       </TableRow>
       {displaySizes}
       </>
+      
     )
     console.log(productKey);
     console.log(displaySizes);
@@ -240,12 +244,13 @@ const Viewsingleproduct1 = (props) => {
     <Paper sx={{ p: 1,  maxWidth: '100%', flexGrow: 1 }}>
       <Grid container spacing={5}>
         <Grid item>
-        <SwipeableTextMobileStepper/>      </Grid>
+        <SwipeableTextMobileStepper/>      
+        </Grid>
         <Grid item xs={12} sm container>
           <Grid item xs container direction="column" spacing={5}>
             <Grid item xs>
             <TableContainer component={Paper}>
-          <Table sx={{ minWidth: '100%' ,maxWidth:'50%' }} aria-label="simple table">
+          <Table sx={{ minWidth: '100%' ,maxWidth:'50%',padding:'10px' }} aria-label="simple table">
             <TableHead>
               <TableRow>
                 <TableCell align="left">Product Id</TableCell>
@@ -257,31 +262,22 @@ const Viewsingleproduct1 = (props) => {
                   <TableCell align="left">Product Name</TableCell>
                   <TableCell align="left">{product.productName}</TableCell> 
                 </TableRow>
-
                 <TableRow>  
                   <TableCell align="left">Product Description</TableCell>
                   <TableCell align="left">{product.productDesc}</TableCell> 
-                </TableRow>
-
-                <TableRow>  
-                  <TableCell align="left">Product Category</TableCell>
-                  <TableCell align="left">Clothing</TableCell> 
-                </TableRow>
-
+                </TableRow>                
                 <TableRow>  
                   <TableCell align="left">Product Tag</TableCell>
                   <TableCell align="left">{product.productTag}</TableCell> 
                 </TableRow>
-
                 <TableRow>  
                   <TableCell align="left">Product Quantity</TableCell>
                   <TableCell align="left">{product.productQuantity}</TableCell> 
                 </TableRow>
-
-                <TableRow>  
+                {product.sizesExist?<></>:<><TableRow>  
                   <TableCell align="left">Product Price</TableCell>
                   <TableCell align="left">{product.productPrice}</TableCell> 
-                </TableRow>
+                </TableRow></>}               
 
                 <TableRow>  
                   <TableCell align="left">Product Discount</TableCell>

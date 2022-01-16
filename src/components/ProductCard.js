@@ -17,6 +17,7 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import { useNavigate } from 'react-router';
 import Viewsingleproduct1 from './ViewSingleProduct1';
 import { Backdrop, List, ListItem } from '@mui/material';
+import Notification from './Notification'
 
 
 
@@ -27,6 +28,7 @@ const ProductCard = (props) => {
     const productkey = props.productId;
     const [deleteStatus,setDeleteStatus]=useState(false);
     const navigate = useNavigate();
+    const[notify,setNotify] = useState({isOpen:false,message:'',type:''});
 
     const url=`https://localhost:7075/api/Products/${productkey}`;    
 
@@ -40,31 +42,38 @@ const ProductCard = (props) => {
           borderRadius: "14px",
         },        
       }));
+
+
       
     const classes = useStyles();
     let price;
     
     if(props.sizesExist)
     {
-      let price = "Available in many sizes";
+      price = "Available in different sizes";
     }
     else{
-      let price = `₹ ${props.productPrice*(1-(props.productDiscount/100))}`;
+      price = `₹ ${props.productPrice*(1-(props.productDiscount/100))}`;
     }
     
-    const handleOpen = () => {
-        setOpen(true);
-      };
+  
       const handleToggle = () => {
         setOpen(!open);
       };
       
 
       const deleteItem=()=>{
-        console.log(productkey);
-        console.log(url);        
+              
           axios.delete(url,getAuthorizationHeader()).
-          then((res)=> res.status === 200 ? navigate("/products") : navigate("/error")            
+          then((res)=> res.status === 200 ? (setNotify({
+            isOpen:true,
+            message:'Operation successful, refresh page to view changes',
+            type:'success'
+          } ) ) : (setNotify({
+            isOpen:true,
+            message:'Error was encountered',
+            type:'error'
+          } ) )            
           ).catch((err)=>(
             console.log(err)
           ))          
@@ -84,7 +93,7 @@ const ProductCard = (props) => {
             />
             <cardHeader>
                 <Box textAlign='right' backgroundColor='pink'>
-            <Typography gutterBottom variant="h7" component="div" color="text.primary">
+            <Typography gutterBottom variant="h7" component="div" align='center' color="text.primary" style={{color:"white",backgroundColor:"#379bff",alignItems:"center"}}>
                 {props.productTag}
                 </Typography>
                 </Box>
@@ -133,7 +142,12 @@ const ProductCard = (props) => {
                 button="Delete"
                 dialogButton="Delete"
                 clickHandler={deleteItem}
-              />     
+              />
+              
+              <Notification 
+    notify={notify} 
+    setNotify={setNotify}
+    />
 
 </CardActions>           
             </CardActionArea>
