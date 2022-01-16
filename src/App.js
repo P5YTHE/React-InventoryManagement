@@ -22,8 +22,7 @@ import { getDownloadURL,ref, uploadBytesResumable } from "@firebase/storage";
 import { useState } from "react";
 import AddProduct from "./components/AddProduct";
 import { CssBaseline } from "@mui/material";
-
-
+import Checkout from './components/AddProductDesign';
 
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
@@ -97,6 +96,7 @@ function App() {
                 <Route  path='/callback' element={<Callback auth={auth}/> } />
                 <Route path='/products' element={<ProductsScreen/>} /> 
                 <Route path='/addProduct' element={<AddProduct/>} />
+                <Route path='/addProductDesign' element={<Checkout/>}/>
                 
               </Routes>
             </Container>
