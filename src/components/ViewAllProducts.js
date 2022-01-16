@@ -36,6 +36,7 @@ const ViewAllProducts = () => {
         }
     })    
 
+    console.log(filteredProducts);
     const displayProducts = filteredProducts
                 .slice(pagesVisited,pagesVisited+productsPerPage)
                 .map((product)=>{

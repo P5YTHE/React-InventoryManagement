@@ -39,24 +39,19 @@ const useStyles = makeStyles((theme) => ({
     <Grid container>
       <Grid item xs={3}>
       <List className={classes.lists} component="nav" aria-label="mailbox folders">
-          {categories.map(categories =>(<>
-          
+          {categories.map(categories =>(<>          
           <ListItem button>
         <ListItemText onClick={()=>setSelectCategory(categories.categoryId)}>{categories.categoryName}</ListItemText>
       </ListItem>
-      <Divider /> 
-          
+      <Divider />          
           </>
               ))}
     </List>
       </Grid>
       <Grid item xs={9}>
       <ViewCategoryProducts categoryId={selectCategory}/>
-      </Grid>
-      
-    </Grid>
-   
-   
+      </Grid>      
+    </Grid>  
     </>
   );
 }

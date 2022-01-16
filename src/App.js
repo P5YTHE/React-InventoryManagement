@@ -24,6 +24,7 @@ import AddProduct from "./components/AddProduct";
 import { CssBaseline } from "@mui/material";
 import Checkout from './components/AddProductDesign';
 import SizesInput from "./components/SizesInput";
+import ErrorPage  from "./components/ErrorPage";
 
 
 
@@ -100,7 +101,8 @@ function App() {
                 <Route path='/addProduct' element={<AddProduct/>} />
                 <Route path='/addProductDesign' element={<Checkout/>}/>
                 <Route path='/addProduct/addSize' element={<SizesInput/>} />
-                <Route path='/addProduct/addSize' element={<SizesInput/>} />
+                <Route path='/error' element={<ErrorPage/>} />
+                
               </Routes>
             </Container>
           <Footer />

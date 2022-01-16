@@ -36,8 +36,7 @@ export default function FeaturedPost({ post }) {
   const classes = useStyles();
 
   return (
-    <Grid item xs={15} md={5}  >
-      
+    <Grid item xs={6}>    
       
         <Card className={classes.card}>
         <CardActionArea component="a" href="#">
@@ -54,13 +53,13 @@ export default function FeaturedPost({ post }) {
             
           </div>
           
-          <Hidden xsDown>
+          {/* <Hidden xsDown>
             <CardMedia
               className={classes.cardMedia}
               image={post.image}
               title={post.imageTitle}
             />
-          </Hidden>
+          </Hidden> */}
           </CardActionArea>
         </Card>
       

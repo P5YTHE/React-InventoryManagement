@@ -15,10 +15,10 @@ const HomeScreen = () => {
         <Grid container 
         container
         spacing={0}
-        direction="column"
+        direction="row"
         alignItems="center"
         justify="center"
-        style={{ minHeight: '100vh' }}>        
+        >        
         {featuredPosts.map((post) => (
           <PostCard key={post.title} post={post} />
         ))}

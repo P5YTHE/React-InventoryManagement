@@ -47,6 +47,7 @@ const ViewCategoryProducts = (props) => {
                                     productPrice = {product.productPrice} 
                                     productId = {product.productId}
                                     productObj = {product}
+                                    sizesExist ={product.sizesExist}
                                     />
                                 </Grid>
                         </>

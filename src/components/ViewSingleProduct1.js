@@ -20,6 +20,8 @@ import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
+import { Divider } from '@mui/material';
+import { List, ListItem } from '@material-ui/core';
 
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
@@ -63,12 +65,14 @@ const SizesPart=()=>{
   {
     return(
       <>
+        
       <TableRow>  
-                  <TableCell align="left">Size</TableCell>
+                  <TableCell align="left" color>Size</TableCell>
                   <TableCell align="left">Price</TableCell> 
       </TableRow>
       {displaySizes}
       </>
+      
     )
     console.log(productKey);
     console.log(displaySizes);
@@ -261,11 +265,7 @@ const Viewsingleproduct1 = (props) => {
                 <TableRow>  
                   <TableCell align="left">Product Description</TableCell>
                   <TableCell align="left">{product.productDesc}</TableCell> 
-                </TableRow>
-                <TableRow>  
-                  <TableCell align="left">Product CategoryId</TableCell>
-                  <TableCell align="left">{product.categoryId}</TableCell> 
-                </TableRow>
+                </TableRow>                
                 <TableRow>  
                   <TableCell align="left">Product Tag</TableCell>
                   <TableCell align="left">{product.productTag}</TableCell> 
@@ -274,10 +274,10 @@ const Viewsingleproduct1 = (props) => {
                   <TableCell align="left">Product Quantity</TableCell>
                   <TableCell align="left">{product.productQuantity}</TableCell> 
                 </TableRow>
-                <TableRow>  
+                {product.sizesExist?<></>:<><TableRow>  
                   <TableCell align="left">Product Price</TableCell>
                   <TableCell align="left">{product.productPrice}</TableCell> 
-                </TableRow>
+                </TableRow></>}               
 
                 <TableRow>  
                   <TableCell align="left">Product Discount</TableCell>
