@@ -17,6 +17,7 @@ import Alert from '@mui/material/Alert';
 import SizesInput from './SizesInput';
 import Collapse from '@mui/material/Collapse';
 import { styled } from '@mui/material/styles';
+import Notification from './Notification'
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -29,13 +30,7 @@ const ExpandMore = styled((props) => {
 
 function AddProduct2() {
 
-  const successAlert = () => {
-    return (
-      <Alert onClose={() => { }} variant="filled" severity="success">
-        Product added!
-      </Alert>
-    );
-  }
+  const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
 
   //to set sizesExist from toggle/switct button
   const [sizesExist, setSizeExist] = useState(false);
@@ -104,18 +99,25 @@ function AddProduct2() {
         Authorization: `Bearer ${Auth.getAccessToken()}`,
       }
     }
-    )
-      .then(res => {
-        setNewProductId(res.data.productId);
-        console.log(res)
-        //console.log(res.productData)
-      }).catch(err => {
-        console.log(err)
-      })
+    ).then((res) => res.status === 201 ? (setNotify({
+      isOpen: true,
+      message: 'Successful!',
+      type: 'success'
+    })) : (setNotify({
+      isOpen: true,
+      message: 'Error was encountered',
+      type: 'error'
+    }))).then(response =>{
+      setNewProductId(response.data.productId);
+      console.log(response)
+    }).catch(err => {
+      console.log(err)
+    })
   }
   //post product end
 
   console.log(newProductId);
+
   //post size
   const sizeUrl = 'https://localhost:7177/api/Sizes/CreateSize';
   const [sizeData, setSizeData] = useState({
@@ -123,9 +125,6 @@ function AddProduct2() {
     sizeName: "",
     sizePrice: ""
   })
-
-
-
 
   function handleSize(e) {
     const newData = { ...sizeData }
@@ -147,20 +146,25 @@ function AddProduct2() {
         Authorization: `Bearer ${Auth.getAccessToken()}`,
       }
     }
-    )
-      .then(res => {
-        setSizeData({
-          productId: newProductId,
-          sizeName: "",
-          sizePrice: ""
-        });
-        console.log(res)
-      }).catch(err => {
-        console.log(err)
-      })
+    ).then((res) => res.status === 201 ? (setNotify({
+      isOpen: true,
+      message: 'Successful!',
+      type: 'success'
+    })) : (setNotify({
+      isOpen: true,
+      message: 'Error was encountered',
+      type: 'error'
+    }))).then(res => {
+      setSizeData({
+        productId: newProductId,
+        sizeName: "",
+        sizePrice: ""
+      });
+      console.log(res)
+    }).catch(err => {
+      console.log(err)
+    })
   }
-
-
   //post size end
 
   //console logs
@@ -348,7 +352,7 @@ function AddProduct2() {
 
           </Grid>
           <Grid item xs={12}>
-            <Button onClick={() => alert("Product added!")} type="submit" size="medium" variant="contained">
+            <Button type="submit" size="medium" variant="contained">
               Add Product
             </Button>
 
@@ -356,6 +360,7 @@ function AddProduct2() {
         </Grid>
 
       </form>
+
       <br />
       <div>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
@@ -387,17 +392,22 @@ function AddProduct2() {
                   placeholder="Enter size price" />
               </Grid>
               <Grid item xs={12}>
-                <Button type="submit" size="small" onClick={() => alert("Size added!")} variant="contained">
+                <Button type="submit" size="small"  variant="contained">
                   Add Size
                 </Button>
               </Grid>
               <br />
             </Grid>
           </form>
+         
 
         </Collapse>
 
       </div>
+      <Notification
+            notify={notify}
+            setNotify={setNotify}
+          />
 
 
     </React.Fragment>

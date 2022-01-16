@@ -30,14 +30,16 @@ import SizesInput from './SizesInput';
 import Collapse from '@mui/material/Collapse';
 import { styled } from '@mui/material/styles';
 import { useParams } from 'react-router-dom';
+import Notification from './Notification'
 
 const theme = createTheme();
 
 function EditProducts() {
-  
+
   let { id } = useParams();
   console.log(id);
-  
+
+  const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
   //to set sizesExist from toggle/switct button
   const [sizesExist, setSizeExist] = useState(false);
 
@@ -118,11 +120,16 @@ function EditProducts() {
       }
     }
     )
-      .then(res => {
-        //setNewProductId(res.data.productId);
-        console.log(res)
-        //console.log(res.productData)
-      }).catch(err => {
+      .then((res) => res.status === 204 ? (setNotify({
+        isOpen: true,
+        message: 'Product Updated!',
+        type: 'success'
+      })) : (setNotify({
+        isOpen: true,
+        message: 'Error was encountered',
+        type: 'error'
+      }))
+      ).catch(err => {
         console.log(err)
       })
   }
@@ -362,13 +369,17 @@ function EditProducts() {
           
         </Grid> */}
                 <Grid item xs={12} align="center">
-                  <Button onClick={() => alert("Product updated!")} type="submit" size="medium" variant="contained">
-                    Update Product
+                  <Button type="submit" size="medium" variant="contained">
+                    Update
                   </Button>
 
                 </Grid>
               </Grid>
             </form>
+            <Notification
+              notify={notify}
+              setNotify={setNotify}
+            />
 
           </React.Fragment>
         </Paper>

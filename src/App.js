@@ -100,12 +100,8 @@ function App() {
                 <Route path='/addcategories' element={<AddCategoryScreen />} />
                 <Route  path='/callback' element={<Callback auth={auth}/> } />
                 <Route path='/products' element={<ProductsScreen/>} /> 
-                <Route path='/addProductold' element={<AddProduct/>} />
                 <Route path='/products/addProduct' element={<Checkout/>}/>
                 <Route path='/products/editProduct/:id' element={<EditProducts/>}/>
-                <Route path='/addProduct/addSize' element={<SizesInput/>} />
-                <Route path='/addProduct' element={<AddProduct/>} />
-                <Route path='/addProductDesign' element={<Checkout/>}/>
                 <Route path='/addProduct/addSize' element={<SizesInput/>} />
                 <Route path='/error' element={<ErrorPage/>} />
                 

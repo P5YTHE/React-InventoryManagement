@@ -64,7 +64,7 @@ const ViewAllProducts = () => {
 const pageCount = Math.ceil(filteredProducts.length/productsPerPage);   
 
 const handleAddProduct = () =>{
-    navigate('/addProductDesign');
+    navigate('/products/addProduct');
 }
 
 const changePage = ({selected}) => {    
