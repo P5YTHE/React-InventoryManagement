@@ -19,7 +19,7 @@ import Viewsingleproduct1 from './ViewSingleProduct1';
 import { Backdrop, List, ListItem } from '@mui/material';
 import Notification from './Notification'
 
-
+import {Link} from 'react-router-dom';
 
 const ProductCard = (props) => {
   
@@ -132,7 +132,11 @@ const ProductCard = (props) => {
 
 <ButtonGroup variant="text" aria-label="text button group" >
     
-<Button size="small" >Edit</Button>
+    <Link to={"editProduct/"+props.productId}>
+      <Button size="small" >Edit</Button>
+    </Link>
+
+
 {/* <Button size="small"  color="error" >Delete</Button> */}
 
 </ButtonGroup>  
