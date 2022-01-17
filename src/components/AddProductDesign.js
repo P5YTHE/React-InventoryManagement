@@ -109,36 +109,6 @@ export default function Checkout() {
         </DialogActions>
       </Dialog>
     </div>
-      {/* <Box
-        sx={{
-          display: 'flex',
-          '& > :not(style)': {
-            width: "48vh",
-            height: "70vh",
-            float: "left"
-          },
-        }}
-      >
-        <Paper variant="outlined" elevation={3}>
-          <Typography variant="h6" gutterBottom style={{ color: "#1976D2" }}>
-            <DescriptionIcon fontSize="small"/> Steps:
-          </Typography>
-          <Typography>
-          <Typography variant="p" style={{color:"#444444"}}><FiberManualRecordIcon fontSize="small"/>Add Product</Typography>
-          <p style={{color:"#585858"}}>1.Fill the details <br/>
-             2.Upload product pictures<br/>
-             3.Click on Add Product button<br/>
-             4.If product has more sizes select checkbox and follow the steps below</p>
-          <Typography variant="p" style={{color:"#444444"}}><FiberManualRecordIcon fontSize="small"/>Add Size</Typography>
-          <p style={{color:"#585858"}}>1.Follw the steps above to Add Product first and click Add Product<br/>
-             2.Size details form will appear<br/>
-             3.Fill size details<br/>
-             4.Click Add Size<br/>
-             5.Click Confirm to finish
-          </p>
-          </Typography>
-        </Paper>
-      </Box> */}
       <CssBaseline />
 
       <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
