@@ -34,7 +34,7 @@ function AddProduct2() {
 
   const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
 
-  //to set sizesExist from toggle/switct button
+  //to set sizesExist from checkbox
   const [sizesExist, setSizeExist] = useState(false);
 
   //to get and set categoryId from dropdown list
@@ -43,12 +43,12 @@ function AddProduct2() {
   //to fetch catgory in dropdown list
   const categoryUrl = 'https://localhost:7157/api/Categories';
   const [category, setCategory] = useState([]);
-  const [url1,setUrl1]=useState("");
-  const [url2,setUrl2]=useState("");
-  const [url3,setUrl3]=useState("");
-  const [url4,setUrl4]=useState("");
-  const [url5,setUrl5]=useState("");
-  const [url6,setUrl6]=useState("");
+  const [url1, setUrl1] = useState("");
+  const [url2, setUrl2] = useState("");
+  const [url3, setUrl3] = useState("");
+  const [url4, setUrl4] = useState("");
+  const [url5, setUrl5] = useState("");
+  const [url6, setUrl6] = useState("");
 
   useEffect(() => {
     axios.get(categoryUrl, getAuthorizationHeader()).then(response => {
@@ -56,6 +56,8 @@ function AddProduct2() {
     })
   }, [categoryUrl]);
   //category fetch end
+
+  //to set new generated product id after adding the product
   const [newProductId, setNewProductId] = useState('');
 
 
@@ -100,28 +102,30 @@ function AddProduct2() {
       productQuantity: parseInt(productData.productQuantity),
       productDiscount: parseFloat(productData.productDiscount).toFixed(2),
       categoryId: parseInt(categoryId),
-      productPrice: parseFloat(productData.productPrice).toFixed(2), //parseInt(productData.productPrice)
+      productPrice: parseFloat(productData.productPrice).toFixed(2),
       sizesExist: sizesExist
     }, {
       headers: {
         Authorization: `Bearer ${Auth.getAccessToken()}`,
       }
     }
-    ).then((res) => res.status === 201 ? (setNotify({
-      isOpen: true,
-      message: 'Product was added successfully',
-      type: 'success'
-    })) : (setNotify({
-      isOpen: true,
-      message: 'Error was encountered',
-      type: 'error'
-    }))).then(response =>{
-      setNewProductId(response.data.productId);
-      console.log(response)
-    }).catch(err => {
+    ).then((res) => {
+      res.status === 201 ? (setNotify({
+        isOpen: true,
+        message: 'Product was added successfully',
+        type: 'success'
+      })) : (setNotify({
+        isOpen: true,
+        message: 'Error was encountered',
+        type: 'error'
+      }))
+      setNewProductId(res.data.productId)
+    }
+    ).catch(err => {
       console.log(err)
     })
   }
+
   //post product end
 
   console.log(newProductId);
@@ -154,21 +158,21 @@ function AddProduct2() {
         Authorization: `Bearer ${Auth.getAccessToken()}`,
       }
     }
-    ).then((res) => res.status === 201 ? (setNotify({
-      isOpen: true,
-      message: 'Size added successfully',
-      type: 'success'
-    })) : (setNotify({
-      isOpen: true,
-      message: 'Error was encountered',
-      type: 'error'
-    }))).then(res => {
+    ).then((res) => {
+      res.status === 201 ? (setNotify({
+        isOpen: true,
+        message: 'Size added successfully',
+        type: 'success'
+      })) : (setNotify({
+        isOpen: true,
+        message: 'Error was encountered',
+        type: 'error'
+      }))
       setSizeData({
         productId: newProductId,
         sizeName: "",
         sizePrice: ""
-      });
-      console.log(res)
+      })
     }).catch(err => {
       console.log(err)
     })
@@ -242,7 +246,7 @@ function AddProduct2() {
               type="number"
               placeholder="25"
               InputLabelProps={{ shrink: true, }} />
-          </Grid>          
+          </Grid>
           <Grid item xs={12} sm={6}>
             <FormControl>
               <InputLabel id="demo-simple-select-label">Product Category</InputLabel>
@@ -286,7 +290,6 @@ function AddProduct2() {
           </Grid>
 
           <Grid item xs={12}>
-
             {/* control={<Checkbox  onChange={(e)=>setSizeExist(e.target.checked)} id="sizesExist" />} */}
             <div>
               <ExpandMore
@@ -296,20 +299,16 @@ function AddProduct2() {
                 aria-label="show more">
               </ExpandMore> <label>Product has different sizes</label>
             </div>
-
-
           </Grid>
           <Grid item xs={12}>
             <Button type="submit" size="medium" variant="contained">
               Add Product
             </Button>
-
           </Grid>
         </Grid>
-
       </form>
-
       <br />
+
       <div>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <form onSubmit={(e) => handleSizeSubmit(e)}>
@@ -328,7 +327,6 @@ function AddProduct2() {
                   label="Size Name"
                   placeholder="Enter Size name" />
               </Grid>
-
               <Grid item xs={12} sm={6}>
                 <TextField fullWidth
                   variant="standard"
@@ -341,7 +339,7 @@ function AddProduct2() {
                   placeholder="Enter size price" />
               </Grid>
               <Grid item xs={12}>
-                <Button type="submit" size="small"  variant="contained">
+                <Button type="submit" size="small" variant="contained">
                   Add Size
                 </Button>
               </Grid>
@@ -350,56 +348,54 @@ function AddProduct2() {
           </form>
         </Collapse>
       </div>
-      <br/>
-        <Grid container
+      <br />
+
+      <Grid container
         justifyContent={"center"}
         direction={"column"}>
-        
+
         <Grid item>
-        <Typography style={{color:"red"}}>Kindly upload images below before clicking the add product button</Typography>
-        <Typography>Image 1</Typography>
+          <Typography style={{ color: "red" }}>Kindly upload images below before clicking the add product button</Typography>
+          <Typography>Image 1</Typography>
           <UploadFile
-                  url={url1}
-                  setUrl={setUrl1}/>          
-            </Grid>
-            <Grid item xs={12}>
-            <Typography>Image 2</Typography>
-            <UploadFile
-              url={url2}
-              setUrl={setUrl2}/>
-            </Grid>
-            <Grid item>
-            <Typography>Image 3</Typography>
-            <UploadFile
-              url={url3}
-              setUrl={setUrl3}/>
-            </Grid>
-            <Grid item>
-            <Typography>Image 4</Typography>
-            <UploadFile
-              url={url4}
-              setUrl={setUrl4}/>
-            </Grid>
-            <Grid item>
-            <Typography>Image 5</Typography>
-            <UploadFile
-              url={url5}
-              setUrl={setUrl5}/>
-            </Grid>
-            <Grid item>
-            <Typography>Image 6</Typography>
-            <UploadFile
-              url={url6}
-              setUrl={setUrl6}/>
-            </Grid>
-            
+            url={url1}
+            setUrl={setUrl1} />
         </Grid>
+        <Grid item xs={12}>
+          <Typography>Image 2</Typography>
+          <UploadFile
+            url={url2}
+            setUrl={setUrl2} />
+        </Grid>
+        <Grid item>
+          <Typography>Image 3</Typography>
+          <UploadFile
+            url={url3}
+            setUrl={setUrl3} />
+        </Grid>
+        <Grid item>
+          <Typography>Image 4</Typography>
+          <UploadFile
+            url={url4}
+            setUrl={setUrl4} />
+        </Grid>
+        <Grid item>
+          <Typography>Image 5</Typography>
+          <UploadFile
+            url={url5}
+            setUrl={setUrl5} />
+        </Grid>
+        <Grid item>
+          <Typography>Image 6</Typography>
+          <UploadFile
+            url={url6}
+            setUrl={setUrl6} />
+        </Grid>
+      </Grid>
       <Notification
-            notify={notify}
-            setNotify={setNotify}
-          />    
-
-
+        notify={notify}
+        setNotify={setNotify}
+      />
     </React.Fragment>
   );
 }
