@@ -1,5 +1,6 @@
 import themeColors from "./colors";
 
+// classes for profile page
 const componentStyles = () => ({
   containerRoot: {
     margin: "0",

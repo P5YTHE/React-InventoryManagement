@@ -3,10 +3,10 @@ import React, { Component } from "react";
 class Auth extends Component {
   constructor(navigate) {
     super();
-
-    this.profile = null;
     this.navigate = navigate;
+    // scopes that is expected from auth0
     this.requestedScopes = "openid profile email";
+    //new auth0 web auth setup
     this.auth0 = new auth0.WebAuth({
       domain: "dev-tapp.us.auth0.com",
       clientID: "aTtr5NFcQFHgQC3UQ8Qov5eKfS1loV7y",
@@ -14,7 +14,6 @@ class Auth extends Component {
       audience: "https://localhost:7261",
       responseType: "token id_token",
       scope: this.requestedScopes,
-   
     });
   }
 
@@ -23,8 +22,8 @@ class Auth extends Component {
   };
 
   handleAuthentication = () => {
+    // extract access and id tokens from url hash
     this.auth0.parseHash((err, authResult) => {
-      // console.log("authResult:" + JSON.stringify(authResult));
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
       } else if (err) {
@@ -35,19 +34,18 @@ class Auth extends Component {
     });
   };
 
+  // set local storage with auth tokens and expiry
   setSession = (authResult) => {
     const expiresAt = authResult.expiresIn * 1000 + new Date().getTime();
-    const scopes = authResult.scope || this.requestedScopes || "";
-    console.log(
-      "id token:" +
-        authResult.idToken +
-        ", access token:" +
-        authResult.accessToken
-    );
+    // console.log(
+    //   "id token:" +
+    //     authResult.idToken +
+    //     ", access token:" +
+    //     authResult.accessToken
+    // );
     localStorage.setItem("access_token", authResult.accessToken);
     localStorage.setItem("id_token", authResult.idToken);
     localStorage.setItem("expires_at", expiresAt);
-    localStorage.setItem("scopes", scopes);
   };
 
   isAuthenticated = () => {
@@ -60,48 +58,20 @@ class Auth extends Component {
     localStorage.removeItem("access_token");
     localStorage.removeItem("id_token");
     localStorage.removeItem("expires_at");
-    localStorage.removeItem("scopes");
-    this.profile = null;
     this.auth0.logout({
       clientID: "aTtr5NFcQFHgQC3UQ8Qov5eKfS1loV7y",
-      returnTo: "http://localhost:3000/"
+      returnTo: "http://localhost:3000/",
     });
   };
 
   static getAccessToken = () => {
     const accessToken = localStorage.getItem("access_token");
-    if (!accessToken) throw new Error("Access token not found");
+    if (!accessToken) {
+      console.log("Access token not found");
+      this.navigate("/error");
+    }
     return accessToken;
   };
-
-  // getProfile = (callbackFunc) => {
-  //   if (this.profile) return callbackFunc(this.profile);
-  //   this.auth0.client.userInfo(this.getAccessToken(), (err, profile) => {
-  //     if (profile) this.profile = profile;
-  //     console.log("Profile:" + profile);
-  //     callbackFunc(profile, err);
-  //   });
-  // };
-
-  
-  getProfile = (callbackFunc) => {
-    if (this.profile) return callbackFunc(this.profile);
-    this.auth0.client.userInfo(Auth.getAccessToken(), (err, profile) => {
-      if (profile) this.profile = profile;
-      console.log("Profile:" + profile);
-      callbackFunc(profile, err);
-    });
-  };
-
-  
-
-  userHasScopes(scopes) {
-    const grantedScopes = (
-      JSON.parse(localStorage.getItem("scopes")) || ""
-    ).split(" ");
-
-    return scopes.every((scope) => grantedScopes.includes(scope));
-  }
 
   render() {
     return <div></div>;

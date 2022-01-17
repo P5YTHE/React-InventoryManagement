@@ -1,5 +1,5 @@
 
-
+import {useNavigate} from 'react-router-dom';
 import WarningTwoToneIcon from '@mui/icons-material/WarningTwoTone';
 import { Box ,Button} from '@material-ui/core';
 import * as React from 'react';
@@ -11,6 +11,7 @@ import Stack from '@mui/material/Stack';
   
 
 const ErrorPage = () => {
+    const navigate = useNavigate();
     return(
         <>
         
@@ -21,7 +22,7 @@ const ErrorPage = () => {
             </div>
             <div  align='center'>
             
-                <Button variant="contained" color="#379bff" startIcon={<ArrowBackIcon />} >
+                <Button variant="contained" color="#379bff" startIcon={<ArrowBackIcon />} onClick={() => navigate('/')}>
                 Back
                 </Button>
             </div>

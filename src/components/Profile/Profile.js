@@ -26,6 +26,10 @@ import { countriesList } from "../../Data/CountriesList";
 import AlertDialog from "./AlertDialog";
 import { getDownloadURL, ref, uploadBytesResumable } from "@firebase/storage";
 import { storage } from "../../firebase";
+import Notification from "../Notification";
+import Loading from "./Loading";
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
 
 const useStyles = makeStyles(componentStyles);
 
@@ -49,16 +53,33 @@ const Profile = ({ auth }) => {
   const [statesList, setStatesList] = useState(null);
   const [isChanged, setIsChanged] = useState(false);
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [notify, setNotify] = useState({
+    isOpen: false,
+    message: "",
+    type: "",
+  });
   let selectedCountry = profile.userCountry;
 
+  // loading profile details
   useEffect(() => {
-    getProfileDetails(auth).then((data) => setProfile(data));
+    getProfileDetails(auth)
+      .then((data) => {
+        setProfile(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log("Error while loading profile details : " + err);
+        navigate("/error");
+      });
   }, []);
 
+  // geting list of states for selected country
   if (!statesList && selectedCountry) {
     getStateByCountry(selectedCountry).then((data) => setStatesList(data));
   }
 
+  // handle changes of value of form fields
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setProfile({
@@ -72,6 +93,7 @@ const Profile = ({ auth }) => {
     validate({ [name]: value });
   };
 
+  // Real time validation of user inputs
   const validate = (obj = profile) => {
     let messages = { ...errors };
     if ("userFirstName" in obj) {
@@ -86,15 +108,18 @@ const Profile = ({ auth }) => {
     }
     if ("userPhoneNo" in obj) {
       messages.userPhoneNo =
-        obj.userPhoneNo.length == 10 || obj.userPhoneNo.length == 0 ? "" : "Phone number must have 10 digits";
+        obj.userPhoneNo.length == 10 || obj.userPhoneNo == ""
+          ? ""
+          : "Phone number must have 10 digits";
     }
     setErrors(messages);
 
-    if ((obj == profile)) {
+    if (obj == profile) {
       return Object.values(messages).every((value) => value == "");
     }
   };
 
+  // upload profile image file to firebase and generate image url
   const uploadFiles = (file) => {
     if (!file) return;
     const storageRef = ref(storage, `/files/${file.name}`);
@@ -118,18 +143,41 @@ const Profile = ({ auth }) => {
     );
   };
 
+  // handle update profile api response
   const updateProfile = () => {
-    updateProfileAsync(profile).then((res) => {
-      res?.status === 200 ? navigate("/profile") : navigate("/error");
-    });
+    updateProfileAsync(profile)
+      .then((res) => {
+        navigate("/profile");
+        setNotify({
+          isOpen: true,
+          message: "Profile updated successfully !!!",
+          type: "success",
+        });
+      })
+      .catch((err) => {
+        console.log("Error while updating profile : " + err);
+        setNotify({
+          isOpen: true,
+          message: "Error occured while updating profile",
+          type: "error",
+        });
+      });
   };
 
+  // when update profile form is submited, validate and proceed
   const formHandler = (e) => {
     if (validate()) {
       updateProfile();
+    } else {
+      setNotify({
+        isOpen: true,
+        message: "Enter valid fields to submit changes",
+        type: "warning",
+      });
     }
   };
 
+  //handler to upload images
   const uploadHandler = (e) => {
     e.preventDefault();
     console.log(e, e.target[0], e.target[0].files[0]);
@@ -140,6 +188,7 @@ const Profile = ({ auth }) => {
 
   return (
     <>
+      {loading && <Loading />}
       <Paper elevation={6}>
         <Container
           maxWidth="lg"
@@ -148,6 +197,7 @@ const Profile = ({ auth }) => {
           classes={{ root: classes.containerRoot }}
         >
           <Grid container>
+            <Notification notify={notify} setNotify={setNotify} />
             <Grid
               item
               xs={12}
