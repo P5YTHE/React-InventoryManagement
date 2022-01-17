@@ -1,4 +1,4 @@
-    import React from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
@@ -36,8 +36,7 @@ export default function FeaturedPost({ post }) {
   const classes = useStyles();
 
   return (
-    <Grid item xs={6}>    
-      
+    <Grid>   
         <Card className={classes.card}>
         <CardActionArea component="a" href="#">
           <div className={classes.cardDetails}>
@@ -53,13 +52,13 @@ export default function FeaturedPost({ post }) {
             
           </div>
           
-          {/* <Hidden xsDown>
+          <Hidden xsDown>
             <CardMedia
               className={classes.cardMedia}
               image={post.image}
               title={post.imageTitle}
             />
-          </Hidden> */}
+          </Hidden>
           </CardActionArea>
         </Card>
       
