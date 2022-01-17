@@ -10,7 +10,12 @@ import {
 const HomeScreen = () => {
   return (
     <>
+    <div style={{width:"100%"}}>
+    <img src="https://i.ibb.co/3zxtyzd/Background.png" style={{width:"100%"}}></img>
+    </div>
+    
       <FeaturedPost />
+      
         
         <Grid container 
         container
