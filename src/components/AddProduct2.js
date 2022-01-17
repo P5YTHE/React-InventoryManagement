@@ -17,7 +17,9 @@ import Alert from '@mui/material/Alert';
 import SizesInput from './SizesInput';
 import Collapse from '@mui/material/Collapse';
 import { styled } from '@mui/material/styles';
-import Notification from './Notification'
+import Notification from './Notification';
+import UploadFile from './UploadFile';
+import Card from '@mui/material/Card';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -41,6 +43,12 @@ function AddProduct2() {
   //to fetch catgory in dropdown list
   const categoryUrl = 'https://localhost:7157/api/Categories';
   const [category, setCategory] = useState([]);
+  const [url1,setUrl1]=useState("");
+  const [url2,setUrl2]=useState("");
+  const [url3,setUrl3]=useState("");
+  const [url4,setUrl4]=useState("");
+  const [url5,setUrl5]=useState("");
+  const [url6,setUrl6]=useState("");
 
   useEffect(() => {
     axios.get(categoryUrl, getAuthorizationHeader()).then(response => {
@@ -83,12 +91,12 @@ function AddProduct2() {
       productName: productData.productName,
       productDesc: productData.productDesc,
       productTag: productData.productTag,
-      imageUrl1: productData.imageUrl1,
-      imageUrl2: productData.imageUrl2,
-      imageUrl3: productData.imageUrl3,
-      imageUrl4: productData.imageUrl4,
-      imageUrl5: productData.imageUrl5,
-      imageUrl6: productData.imageUrl6,
+      imageUrl1: url1,
+      imageUrl2: url2,
+      imageUrl3: url3,
+      imageUrl4: url4,
+      imageUrl5: url5,
+      imageUrl6: url6,
       productQuantity: parseInt(productData.productQuantity),
       productDiscount: parseFloat(productData.productDiscount).toFixed(2),
       categoryId: parseInt(categoryId),
@@ -101,7 +109,7 @@ function AddProduct2() {
     }
     ).then((res) => res.status === 201 ? (setNotify({
       isOpen: true,
-      message: 'Successful!',
+      message: 'Product was added successfully',
       type: 'success'
     })) : (setNotify({
       isOpen: true,
@@ -148,7 +156,7 @@ function AddProduct2() {
     }
     ).then((res) => res.status === 201 ? (setNotify({
       isOpen: true,
-      message: 'Successful!',
+      message: 'Size added successfully',
       type: 'success'
     })) : (setNotify({
       isOpen: true,
@@ -234,67 +242,7 @@ function AddProduct2() {
               type="number"
               placeholder="25"
               InputLabelProps={{ shrink: true, }} />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField fullWidth
-              variant="standard"
-              onChange={(e) => handle(e)}
-              id="imageUrl1"
-              value={productData.imageUrl1}
-              size="small"
-              label="Product Image URL1"
-              placeholder="Product Image URL1" />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField fullWidth
-              variant="standard"
-              onChange={(e) => handle(e)}
-              id="imageUrl2"
-              value={productData.imageUrl2}
-              size="small"
-              label="Product Image URL2"
-              placeholder="Product Image URL2" />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField fullWidth
-              variant="standard"
-              onChange={(e) => handle(e)}
-              id="imageUrl3"
-              value={productData.imageUrl3}
-              size="small"
-              label="Product Image URL3"
-              placeholder="Product Image URL3" />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField fullWidth
-              variant="standard"
-              onChange={(e) => handle(e)}
-              id="imageUrl4"
-              value={productData.imageUrl4}
-              size="small"
-              label="Product Image URL4"
-              placeholder="Product Image URL4" />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField fullWidth
-              variant="standard"
-              onChange={(e) => handle(e)}
-              id="imageUrl5"
-              value={productData.imageUrl5}
-              size="small"
-              label="Product Image URL5"
-              placeholder="Product Image URL5" />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField fullWidth
-              variant="standard"
-              onChange={(e) => handle(e)}
-              id="imageUrl6"
-              value={productData.imageUrl6}
-              size="small"
-              label="Product Image URL6"
-              placeholder="Product Image URL6" />
-          </Grid>
+          </Grid>          
           <Grid item xs={12} sm={6}>
             <FormControl>
               <InputLabel id="demo-simple-select-label">Product Category</InputLabel>
@@ -389,6 +337,7 @@ function AddProduct2() {
                   value={sizeData.sizePrice}
                   size="small"
                   label="Size Price"
+                  type="number"
                   placeholder="Enter size price" />
               </Grid>
               <Grid item xs={12}>
@@ -400,14 +349,60 @@ function AddProduct2() {
             </Grid>
           </form>
          
+         
 
         </Collapse>
 
       </div>
+      
+        <Grid container
+        justifyContent={"center"}
+        direction={"column"}>
+          <Card>
+        <Grid item>
+        <Typography style={{color:"red"}}>Kindly upload images below before clicking the add product button</Typography>
+        <Typography>Image 1:</Typography>
+          
+          <UploadFile
+                  url={url1}
+                  setUrl={setUrl1}/>          
+            </Grid>
+            <Grid item xs={12}>
+            <Typography>Image 2:</Typography>
+            <UploadFile
+              url={url2}
+              setUrl={setUrl2}/>
+            </Grid>
+            <Grid item>
+            <Typography>Image 3:</Typography>
+            <UploadFile
+              url={url3}
+              setUrl={setUrl3}/>
+            </Grid>
+            <Grid item>
+            <Typography>Image 4:</Typography>
+            <UploadFile
+              url={url4}
+              setUrl={setUrl4}/>
+            </Grid>
+            <Grid item>
+            <Typography>Image 5:</Typography>
+            <UploadFile
+              url={url5}
+              setUrl={setUrl5}/>
+            </Grid>
+            <Grid item>
+            <Typography>Image 6:</Typography>
+            <UploadFile
+              url={url6}
+              setUrl={setUrl6}/>
+            </Grid>
+            </Card>
+        </Grid>
       <Notification
             notify={notify}
             setNotify={setNotify}
-          />
+          />    
 
 
     </React.Fragment>
