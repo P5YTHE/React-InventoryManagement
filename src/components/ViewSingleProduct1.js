@@ -92,32 +92,32 @@ function SwipeableTextMobileStepper() {
     
 
     const images = [];
-    if(imageUrl1!="")
+    if(imageUrl1 && imageUrl1 != null && imageUrl1 != "" && imageUrl1.length != 0)
     {
         images.push({label:'1',
         imgPath:imageUrl1})
     }
-    if(imageUrl2!="")
+    if(imageUrl2 && imageUrl2 != null && imageUrl2 != "" && imageUrl2.length != 0)
     {
         images.push({label:'2',
         imgPath:imageUrl2})
     }
-    if(imageUrl3!="")
+    if(imageUrl3 && imageUrl3 != null && imageUrl3 != "" && imageUrl3.length != 0)
     {
         images.push({label:'3',
         imgPath:imageUrl3})
     }
-    if(imageUrl4!="")
+    if(imageUrl4  && imageUrl4 != null  && imageUrl4 != ""  && imageUrl4.length != 0)
     {
         images.push({label:'4',
         imgPath:imageUrl4})
     }
-    if(imageUrl5!="")
+    if(imageUrl5  && imageUrl5 != null  && imageUrl5 != ""  && imageUrl5.length != 0)
     {
         images.push({label:'5',
         imgPath:imageUrl5})
     }
-    if(imageUrl6!="")
+    if(imageUrl6 && imageUrl6 != null  && imageUrl6 != ""  && imageUrl6.length != 0)
     {
         images.push({label:'6',
         imgPath:imageUrl6})

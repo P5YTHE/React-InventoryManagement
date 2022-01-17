@@ -14,7 +14,7 @@ const ViewCategoryProducts = (props) => {
     const[searchTerm,setSearchTerm]=useState('');
     const[loading,setLoading]=useState(false);
     const[pageNumber,setPageNumber]=useState(0);
-    const productsPerPage=1;
+    const productsPerPage=9;
     const pagesVisited=pageNumber*productsPerPage;
     
 

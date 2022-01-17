@@ -36,6 +36,7 @@ const ProductCard = (props) => {
         root: {    
           minWidth: 345,
           maxWidth: 345,
+          // minHeight: 500,
           cursor:"pointer",
           boxShadow: "0 2px 10px skyblue",
           transition: "transform 200ms ease-in",
