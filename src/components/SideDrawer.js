@@ -23,6 +23,7 @@ const useStyles = makeStyles({
   },
   paper: {
     background: "#379bff",
+    color: "white",
     }
 });
 
@@ -56,7 +57,7 @@ export default function TemporaryDrawer({ children }) {
         {sections.map((text, index) => (
           <ListItem button key={text.title} onClick={() => navigate(text.url)}>
             <ListItemIcon>
-              {index === 0 ? <AutoAwesomeMotionIcon /> :(index===1? <BookmarksIcon /> :<ManageAccountsIcon  />) }
+              {index === 0 ? <AutoAwesomeMotionIcon style={{ color: "white" }} /> :(index===1? <BookmarksIcon style={{ color: "white" }}/> :<ManageAccountsIcon  style={{ color: "white" }}/>) }
             </ListItemIcon>
             <ListItemText primary={text.title} />
           </ListItem>

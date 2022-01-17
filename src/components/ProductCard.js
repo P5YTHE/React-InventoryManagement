@@ -17,8 +17,9 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import { useNavigate } from 'react-router';
 import Viewsingleproduct1 from './ViewSingleProduct1';
 import { Backdrop, List, ListItem } from '@mui/material';
+import Notification from './Notification'
 
-
+import {Link} from 'react-router-dom';
 
 const ProductCard = (props) => {
   
@@ -27,6 +28,7 @@ const ProductCard = (props) => {
     const productkey = props.productId;
     const [deleteStatus,setDeleteStatus]=useState(false);
     const navigate = useNavigate();
+    const[notify,setNotify] = useState({isOpen:false,message:'',type:''});
 
     const url=`https://localhost:7075/api/Products/${productkey}`;    
 
@@ -34,29 +36,45 @@ const ProductCard = (props) => {
         root: {    
           minWidth: 345,
           maxWidth: 345,
+          // minHeight: 500,
           cursor:"pointer",
           boxShadow: "0 2px 10px skyblue",
           transition: "transform 200ms ease-in",
           borderRadius: "14px",
         },        
       }));
+
+
       
     const classes = useStyles();
-    const price = `₹ ${props.productPrice*(1-(props.productDiscount/100))}`;
-    const handleOpen = () => {
-        setOpen(true);
-      };
+    let price;
+    
+    if(props.sizesExist)
+    {
+      price = "Available in different sizes";
+    }
+    else{
+      price = `₹ ${props.productPrice*(1-(props.productDiscount/100))}`;
+    }
+    
+  
       const handleToggle = () => {
         setOpen(!open);
       };
       
 
       const deleteItem=()=>{
-        console.log(productkey);
-        console.log(url);
-        
+              
           axios.delete(url,getAuthorizationHeader()).
-          then((res)=> res.status === 200 ? navigate("/products") : navigate("/error")            
+          then((res)=> res.status === 200 ? (setNotify({
+            isOpen:true,
+            message:'Operation successful, refresh page to view changes',
+            type:'success'
+          } ) ) : (setNotify({
+            isOpen:true,
+            message:'Error was encountered',
+            type:'error'
+          } ) )            
           ).catch((err)=>(
             console.log(err)
           ))          
@@ -76,7 +94,7 @@ const ProductCard = (props) => {
             />
             <cardHeader>
                 <Box textAlign='right' backgroundColor='pink'>
-            <Typography gutterBottom variant="h7" component="div" color="text.primary">
+            <Typography gutterBottom variant="h7" component="div" align='center' color="text.primary" style={{color:"white",backgroundColor:"#379bff",alignItems:"center"}}>
                 {props.productTag}
                 </Typography>
                 </Box>
@@ -109,15 +127,17 @@ const ProductCard = (props) => {
     <Viewsingleproduct1 productObj={props.productObj}/>
     </ListItem>
   </List>
-  
- 
  
  
 </Backdrop>
 
 <ButtonGroup variant="text" aria-label="text button group" >
     
-<Button size="small" >Edit</Button>
+    <Link to={"editProduct/"+props.productId}>
+      <Button size="small" >Edit</Button>
+    </Link>
+
+
 {/* <Button size="small"  color="error" >Delete</Button> */}
 
 </ButtonGroup>  
@@ -127,7 +147,12 @@ const ProductCard = (props) => {
                 button="Delete"
                 dialogButton="Delete"
                 clickHandler={deleteItem}
-              />     
+              />
+              
+              <Notification 
+    notify={notify} 
+    setNotify={setNotify}
+    />
 
 </CardActions>           
             </CardActionArea>

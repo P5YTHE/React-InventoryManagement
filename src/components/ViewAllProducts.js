@@ -7,6 +7,7 @@ import { getAuthorizationHeader } from '../utilities';
 import { makeStyles } from "@material-ui/core/styles";
 import ReactPaginate from 'react-paginate';
 import { display } from "@mui/system";
+import { useNavigate } from "react-router";
 
 const ViewAllProducts = () => {
     const url='https://localhost:7075/api/Products';
@@ -14,8 +15,9 @@ const ViewAllProducts = () => {
     const[searchTerm,setSearchTerm]=useState('');
     const[loading,setLoading]=useState(false);
     const[pageNumber,setPageNumber]=useState(0);
-    const productsPerPage=1;
+    const productsPerPage=9;
     const pagesVisited=pageNumber*productsPerPage;
+    const navigate = useNavigate();
     
 
     useEffect(()=>{
@@ -34,6 +36,7 @@ const ViewAllProducts = () => {
         }
     })    
 
+    console.log(filteredProducts);
     const displayProducts = filteredProducts
                 .slice(pagesVisited,pagesVisited+productsPerPage)
                 .map((product)=>{
@@ -49,6 +52,7 @@ const ViewAllProducts = () => {
                                     productPrice = {product.productPrice} 
                                     productId = {product.productId}
                                     productObj = {product}
+                                    sizesExist ={product.sizesExist}
                                     />
                                 </Grid>
                         </>
@@ -59,6 +63,9 @@ const ViewAllProducts = () => {
 
 const pageCount = Math.ceil(filteredProducts.length/productsPerPage);   
 
+const handleAddProduct = () =>{
+    navigate('/products/addProduct');
+}
 
 const changePage = ({selected}) => {    
     setPageNumber(selected);
@@ -73,7 +80,11 @@ const changePage = ({selected}) => {
             padding: "8px",
             background: "none",
             boxShadow:"0 2px 2px #379bff",
-        }  
+        }, 
+        root:{
+            color:"white",
+            backgroundColor:"#379bff",
+        }
       }));
 
     const classes = useStyles(); 
@@ -81,21 +92,24 @@ const changePage = ({selected}) => {
     console.log(products);    
     
     return(
-        <>        
-            <List>
-                <ListItem>
-                    <span>                        
-                        <input type="text" placeholder="Search...." className={classes.searchbox} onChange={event=>{setSearchTerm(event.target.value)}}></input>
-                            <Button size="big"  variant="contained" color="#379bff">
+        <> 
+        <Grid container
+        spacing={0}
+        direction="column"
+        alignItems="center"
+        justify="center"
+        >
+            <Grid item xs={10}>
+            <span style={{ alignContent:"center", alignItems:"center" }}>                        
+                        <input type="text" placeholder="Search...." className={classes.searchbox} alignItems="center" onChange={event=>{setSearchTerm(event.target.value)}}></input>
+                            <Button size="big"  variant="contained" color="#379bff" onClick={handleAddProduct} className={classes.root}>
                                 Add Product
                             </Button>
                     </span>            
                     <Box textAlign='center' padding={"40px"} color={"green"}>                       
                     </Box>
-                </ListItem>
-                <Divider/>
-                <ListItem>
-                <Divider/>             
+            </Grid>
+                <Grid item >
                     <Grid container
                         direction="row"
                         justifyContent="space-evenly"
@@ -103,10 +117,15 @@ const changePage = ({selected}) => {
                         spacing={4}
                     >             
                         {displayProducts}                    
-                    </Grid>            
-                </ListItem>
-                <ListItem>
+                    </Grid>
+                </Grid> 
+                
+                <Grid item style={{minHeight:'5vh'}}>                
+
+                </Grid>   
+                <Grid item padding="30px">              
                     <ReactPaginate
+                        alignItems="center"
                         previousLabel={"Previous"}
                         nextLabel={"Next"}
                         pageCount={pageCount}
@@ -117,8 +136,12 @@ const changePage = ({selected}) => {
                         disabledClassName={"paginationDisable"}
                         activeClassName={"paginationActive"}
                     />
-                </ListItem>
-            </List>        
+                </Grid>
+                <Grid item style={{minHeight:'5vh'}}>                 
+
+                    </Grid>
+                           
+            </Grid>       
         </>
     )
 };
