@@ -348,56 +348,51 @@ function AddProduct2() {
               <br />
             </Grid>
           </form>
-         
-         
-
         </Collapse>
-
       </div>
-      
+      <br/>
         <Grid container
         justifyContent={"center"}
         direction={"column"}>
-          <Card>
+        
         <Grid item>
         <Typography style={{color:"red"}}>Kindly upload images below before clicking the add product button</Typography>
-        <Typography>Image 1:</Typography>
-          
+        <Typography>Image 1</Typography>
           <UploadFile
                   url={url1}
                   setUrl={setUrl1}/>          
             </Grid>
             <Grid item xs={12}>
-            <Typography>Image 2:</Typography>
+            <Typography>Image 2</Typography>
             <UploadFile
               url={url2}
               setUrl={setUrl2}/>
             </Grid>
             <Grid item>
-            <Typography>Image 3:</Typography>
+            <Typography>Image 3</Typography>
             <UploadFile
               url={url3}
               setUrl={setUrl3}/>
             </Grid>
             <Grid item>
-            <Typography>Image 4:</Typography>
+            <Typography>Image 4</Typography>
             <UploadFile
               url={url4}
               setUrl={setUrl4}/>
             </Grid>
             <Grid item>
-            <Typography>Image 5:</Typography>
+            <Typography>Image 5</Typography>
             <UploadFile
               url={url5}
               setUrl={setUrl5}/>
             </Grid>
             <Grid item>
-            <Typography>Image 6:</Typography>
+            <Typography>Image 6</Typography>
             <UploadFile
               url={url6}
               setUrl={setUrl6}/>
             </Grid>
-            </Card>
+            
         </Grid>
       <Notification
             notify={notify}

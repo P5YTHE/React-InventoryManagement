@@ -3,6 +3,7 @@ import { getDownloadURL,ref, uploadBytesResumable } from "@firebase/storage";
 import { storage } from '../firebase';
 import {useState} from "react";
 import { Box } from "@mui/material";
+import Button from '@mui/material/Button';
 
 
 const UploadFile=(props)=>{
@@ -28,6 +29,7 @@ const UploadFile=(props)=>{
         })
       });
       };
+      console.log(url);
 
     const formHandler = (e)=>{
         e.preventDefault();
@@ -43,9 +45,9 @@ const UploadFile=(props)=>{
         <Box>  
          <form onSubmit={formHandler}> 
           <input  type="file" className="input"></input>
-          <button type="submit" size="big"  variant="contained" style={{backgroundColor:"#379bff",color:"white"}}>
+          <Button type="submit" size="medium"  variant="contained">
               Upload
-          </button>
+          </Button>
          </form>                
         </Box><br/>
         </>
