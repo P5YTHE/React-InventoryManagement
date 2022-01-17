@@ -1,18 +1,13 @@
-import * as React from 'react';
-import { Button, Card } from "@material-ui/core";
-import TextField from '@mui/material/TextField';
-import CategoryGrid from "./CategoryGrid";
-import Box from '@mui/material/Box';
-import AddCategory from './AddCategory';
+import * as React from "react";
+import AddCategory from "./AddCategory";
 
 
-
+//Component for Add category page container
 const AddCategoryPage = () => {
-    return(
-        
-        <>           
-            <AddCategory/>
-        </>
-        )
+  return (
+    <>
+      <AddCategory />
+    </>
+  );
 };
 export default AddCategoryPage;

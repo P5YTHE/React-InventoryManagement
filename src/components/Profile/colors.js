@@ -1,4 +1,4 @@
-// color for profile page 
+// color for profile page
 const themeColors = {
   white: {
     main: "#FFFFFF",

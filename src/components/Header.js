@@ -1,5 +1,4 @@
 import {
-  Badge,
   Divider,
   IconButton,
   makeStyles,
@@ -27,6 +26,8 @@ const useStyles = makeStyles((theme) => ({
     color: "black",
   },
 }));
+
+//Component for Header
 function Header({ auth }) {
   const classes = useStyles();
   const navigate = useNavigate();
@@ -47,7 +48,7 @@ function Header({ auth }) {
         <Typography
           variant="h6"
           style={{
-            cursor: 'pointer'
+            cursor: "pointer",
           }}
           className={classes.title}
           onClick={() => navigate("/")}

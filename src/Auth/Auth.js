@@ -37,12 +37,7 @@ class Auth extends Component {
   // set local storage with auth tokens and expiry
   setSession = (authResult) => {
     const expiresAt = authResult.expiresIn * 1000 + new Date().getTime();
-    // console.log(
-    //   "id token:" +
-    //     authResult.idToken +
-    //     ", access token:" +
-    //     authResult.accessToken
-    // );
+
     localStorage.setItem("access_token", authResult.accessToken);
     localStorage.setItem("id_token", authResult.idToken);
     localStorage.setItem("expires_at", expiresAt);

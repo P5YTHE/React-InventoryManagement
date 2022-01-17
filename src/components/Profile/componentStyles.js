@@ -4,7 +4,7 @@ import themeColors from "./colors";
 const componentStyles = () => ({
   containerRoot: {
     margin: "0",
-    padding: '0'
+    padding: "0",
   },
   gridItemRoot: {
     marginBottom: "0!important",

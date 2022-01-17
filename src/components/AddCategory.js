@@ -1,19 +1,13 @@
 import * as React from "react";
-
-import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { Button, Container } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import { useNavigate } from "react-router";
-import axios, { Axios } from "axios";
+import axios from "axios";
 import { useState } from "react";
-import Auth from "../Auth/Auth";
 import { makeStyles } from "@material-ui/core/styles";
 import { getAuthorizationHeader } from "../utilities";
 import Notification from "./Notification";
 import { Grid } from "@material-ui/core";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 
 const useStyles = makeStyles((theme) => ({
   GridStyles: {
@@ -32,6 +26,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+//Component for Adding category
 function AddCategory() {
   const classes = useStyles();
 
@@ -134,7 +130,6 @@ function AddCategory() {
             <Notification notify={notify} setNotify={setNotify} />
           </div>
         </Grid>
-        
       </Grid>
     </>
   );

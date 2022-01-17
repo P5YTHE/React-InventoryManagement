@@ -17,18 +17,13 @@ import { ProfileScreen } from "./screens/ProfileScreen";
 import Auth from "./Auth/Auth";
 import Callback from "./Auth/Callback";
 import ProductsScreen from "./screens/ProductsScreen";
-import { getDownloadURL,ref, uploadBytesResumable } from "@firebase/storage";
-import { useState } from "react";
-import AddProduct from "./components/AddProduct";
 import { CssBaseline } from "@mui/material";
-import Checkout from './components/AddProductDesign';
-import SizesInput from "./components/SizesInput";
+import Checkout from './components/AddProductUI';
+
 import EditProducts from "./components/EditProduct";
 import ErrorPage  from "./components/ErrorPage";
 
-
-
-
+//useStyles used to style components
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
     marginTop: theme.spacing(3),
@@ -37,8 +32,7 @@ const useStyles = makeStyles((theme) => ({
     minHeight:"95vh",
   },
   root: {
-    minHeight:"100vh",
-    // backgroundImage:'url(https://cdnb.artstation.com/p/assets/images/images/043/059/331/4k/zeto-cg-0001.jpg?1636189610)',
+    minHeight:"100vh",    
     backgroundRepeat: 'no-repeat',
     backgrondSize:'cover',
   }
@@ -48,34 +42,6 @@ function App() {
 
   const navigate = useNavigate();
   const auth = new Auth(navigate);
-
-  // const [progress,setProgress]=useState(0);
-  // const [product, setProduct]=useState(null);
-
-
-  // const formHandler = (e)=>{
-  //   e.preventDefault();
-  //   const file= e.target[0].files[0];
-  //   uploadFiles(file);
-  // }
-  
-  
-  // const uploadFiles = (file) => {
-  //   if(!file) return;
-  //   const storageRef = ref(storage, `/files/${file.name}`);
-  //   const uploadTask = uploadBytesResumable(storageRef,file);
-  //   uploadTask.on("state_changed",(snapshot)=>{
-  //     const prog = Math.round((snapshot.bytesTransferred/snapshot.totalBytes)*100);
-    
-  //   setProgress(prog);
-
-    
-  // },(err)=>console.log(err),
-  // ()=>{
-  //   getDownloadURL(uploadTask.snapshot.ref).then(url=>console.log(url))
-  // });
-  // };
-
 
   const Theme = createMuiTheme({
     palette: {
@@ -99,17 +65,14 @@ function App() {
                 <Route path='/addcategories' element={<AddCategoryScreen />} />
                 <Route  path='/callback' element={<Callback auth={auth}/> } />
                 <Route path='/products' element={<ProductsScreen/>} /> 
-                <Route path='/products/addProduct' element={<Checkout/>}/>
-                <Route path='/products/editProduct/:id' element={<EditProducts/>}/>
-                <Route path='/addProduct/addSize' element={<SizesInput/>} />
-                <Route path='/error' element={<ErrorPage/>} />
-                
+                <Route path='/products/AddProductUI' element={<Checkout/>}/>
+                <Route path='/products/editProduct/:id' element={<EditProducts/>}/>                
+                <Route path='/error' element={<ErrorPage/>} />                
               </Routes>
             </Container>
           <Footer />
         </ThemeProvider>
     </div>
-
   );
 }
 

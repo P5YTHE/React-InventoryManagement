@@ -2,12 +2,11 @@ import axios from "axios";
 import { getAuthorizationHeader, getStatesArray } from "../../utilities";
 
 export const getProfileDetails = async () => {
-    const { data } = await axios.get(
-      `https://localhost:7249/api/userprofiles`,
-      getAuthorizationHeader()
-    );
-    return data;
-
+  const { data } = await axios.get(
+    `https://localhost:7249/api/userprofiles`,
+    getAuthorizationHeader()
+  );
+  return data;
 };
 
 export const getStateByCountry = async (selectedCountry) => {
@@ -27,11 +26,10 @@ export const getStateByCountry = async (selectedCountry) => {
 };
 
 export const updateProfileAsync = async (profile) => {
-  
-    const res = await axios.put(
-      "https://localhost:7249/api/userprofiles",
-      profile,
-      getAuthorizationHeader()
-    );
-    return res;
+  const res = await axios.put(
+    "https://localhost:7249/api/userprofiles",
+    profile,
+    getAuthorizationHeader()
+  );
+  return res;
 };
