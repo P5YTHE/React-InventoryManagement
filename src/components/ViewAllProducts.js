@@ -15,7 +15,7 @@ const ViewAllProducts = () => {
     const[searchTerm,setSearchTerm]=useState('');
     const[loading,setLoading]=useState(false);
     const[pageNumber,setPageNumber]=useState(0);
-    const productsPerPage=10;
+    const productsPerPage=9;
     const pagesVisited=pageNumber*productsPerPage;
     const navigate = useNavigate();
     
@@ -64,7 +64,7 @@ const ViewAllProducts = () => {
 const pageCount = Math.ceil(filteredProducts.length/productsPerPage);   
 
 const handleAddProduct = () =>{
-    navigate('/addProductDesign');
+    navigate('/products/addProduct');
 }
 
 const changePage = ({selected}) => {    

@@ -10,15 +10,15 @@ export const sections = [
 
 export const featuredPosts = [
   {
-    title: "Login",    
+    title: "Group 4",    
     description:
-      "Login with existing account",     
+      "Group members:Tamandeep Singh Ghunia, Bipin Advani, Dishank Machkar, Komal Patil, Sashank Tare",     
         
   },
   {
-    title: "Sign up",    
+    title: "Technologies used:",    
     description:
-      "Create a merchant account",
+      "C#-Dotnet(Visual Studio), React Js(Visual Studio Code), Swagger, SQL(Microsoft SQL server)",
      
   },
 ];
