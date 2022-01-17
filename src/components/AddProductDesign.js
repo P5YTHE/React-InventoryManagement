@@ -47,11 +47,11 @@ function getStepContent(step) {
 
 const theme = createTheme();
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="right" ref={ref} {...props} />;
+});
+
 export default function Checkout() {
-  const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction="right" ref={ref} {...props} />;
-  });
-  
     const [open, setOpen] = React.useState(false);
   
     const handleClickOpen = () => {
@@ -94,6 +94,7 @@ export default function Checkout() {
              2.Upload product pictures<br/>
              3.Click on Add Product button<br/>
              4.If product has more sizes select checkbox and follow the steps below</p>
+             <br/>
           <Typography variant="p" style={{color:"#444444"}}><CreateIcon fontSize="small"/>Add Size</Typography>
           <p style={{color:"#585858"}}>1.Follw the steps above to Add Product first and click Add Product<br/>
              2.Size details form will appear<br/>
@@ -142,7 +143,6 @@ export default function Checkout() {
                       Back
                     </Button>
                   )} */}
-
                   <Button
                     variant="contained"
                     onClick={handleNext}
