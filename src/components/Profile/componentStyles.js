@@ -1,9 +1,10 @@
 import themeColors from "./colors";
 
+// classes for profile page
 const componentStyles = () => ({
   containerRoot: {
     margin: "0",
-    padding: '0'
+    padding: "0",
   },
   gridItemRoot: {
     marginBottom: "0!important",

@@ -4,17 +4,18 @@ import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 
+//Component for Footer
 const useStyles = makeStyles((theme) => ({
   footer: {
     backgroundColor: "#379bff",
-    marginTop: theme.spacing(2) ,
+    marginTop: theme.spacing(2),
 
     padding: theme.spacing(3, 0),
     position: "relative",
 
-    left:"0",
-    bottom:"0",
-    width:"100%"
+    left: "0",
+    bottom: "0",
+    width: "100%",
   },
 }));
 

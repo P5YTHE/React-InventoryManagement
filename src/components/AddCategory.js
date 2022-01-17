@@ -1,133 +1,137 @@
-import * as React from 'react';
-
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import { Button} from "@material-ui/core";
+import * as React from "react";
+import TextField from "@mui/material/TextField";
+import { Button } from "@material-ui/core";
 import { useNavigate } from "react-router";
-import axios, { Axios } from 'axios';
-import {useState} from 'react';
-import Auth from "../Auth/Auth"
+import axios from "axios";
+import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { getAuthorizationHeader } from '../utilities'
-import Notification from './Notification';
-import {Grid} from "@material-ui/core";
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
+import { getAuthorizationHeader } from "../utilities";
+import Notification from "./Notification";
+import { Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-    form : {
-    padding:10,
+  GridStyles: {
+    justify: "center",
+    spacing: 0,
+    direction: "row",
+    alignItems: "center",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+  },
+  gridContent: {
+    width: "50vh",
+    margin: "0px",
   },
 }));
 
+
+//Component for Adding category
 function AddCategory() {
+  const classes = useStyles();
 
-    const classes = useStyles();
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
-    
+  const categoryUrl = "https://localhost:7157/api/Categories";
+  const [categoryData, setCategoryData] = useState({
+    categoryName: "",
+  });
 
-    const categoryUrl='https://localhost:7157/api/Categories';
-    const[categoryData,setCategoryData]=useState({
-      categoryName: "",
-    });
+  const [notify, setNotify] = useState({
+    isOpen: false,
+    message: "",
+    type: "",
+  });
 
+  function handle(e) {
+    const { name, value } = e.target;
+    const newData = {
+      ...categoryData,
+      [name]: value,
+    };
 
-    const[notify,setNotify] = useState({isOpen:false,message:'',type:''});
-    
+    setCategoryData(newData);
+    console.log(newData);
+  }
 
-    function handle(e){
-      const { name , value } = e.target;
-      const newData={
-        ...categoryData,
-      [name] : value
-      }
-      
-      setCategoryData(newData)
-      console.log(newData)
-    }
-
-    function handleSubmit(e){
-      e.preventDefault();
-      axios.post(categoryUrl,{
-        categoryName: categoryData.categoryName,
-        
-      },getAuthorizationHeader()
-      // {
-      //   headers: {
-      //     Authorization: `Bearer ${Auth.getAccessToken()}`,
-      //   }
-      // } 
+  function handleSubmit(e) {
+    e.preventDefault();
+    axios
+      .post(
+        categoryUrl,
+        {
+          categoryName: categoryData.categoryName,
+        },
+        getAuthorizationHeader()
       )
-      .then(res=>{              
-        res.status === 201 ? (setNotify({
-          isOpen:true,
-          message:'Operation successful',
-          type:'success'
-        } ) ) : (setNotify({
-          isOpen:true,
-          message:'Error Encountered, check logs for more information',
-          type:'error'
-        } ) ) 
-      }).catch(err=>{
-        console.log(err)
+      .then((res) => {
+        res.status === 201
+          ? setNotify({
+              isOpen: true,
+              message: "Operation successful",
+              type: "success",
+            })
+          : setNotify({
+              isOpen: true,
+              message: "Error Encountered, check logs for more information",
+              type: "error",
+            });
       })
-    }
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   return (
     <>
-    <Grid
-     spacing={0}
-     direction="row"
-     alignItems="center"
-     justify="center">
-      <Grid item xs={6}>
-    <div className={classes.Box}>
-      <div>
-        <h3 >Add Category</h3>
-      </div>
-      
-    <form onSubmit={handleSubmit}>
-    {/* <Box
-    component="form"
-    sx={{
-      '& .MuiTextField-root': { m: 1, width: '25ch' },
-    }}
-    noValidate
-    autoComplete="off"
-  > */}
-    <div>
-      <TextField
-        onChange={(e) => handle(e)}
-        required
-        name="categoryName"
-        label="Category Name"
-        value={categoryData.categoryName}
-      />
-    </div>
-    {/* </Box> */}
-    <br/>
-    <div>
-    <Button type="submit" size="small" variant="contained" color="inherit" style={{ color: "white",backgroundColor:"#379bff" }}
-    // onClick={()=>{navigate("/categories")}}
-    >Save</Button>
-    <Button onClick={()=>navigate('/Categories')} style={{color:"white",backgroundColor:"#379bff",padding:"5px"}}>Back to categories page</Button>
-    </div>    
-    
-    </form>
-    <Notification 
-    notify={notify} 
-    setNotify={setNotify}
-    />
-  </div>
-  </Grid>
-  <Grid item xs={6}>
-     
-  </Grid>
-  </Grid>
- 
-  </>
+      <Grid className={classes.GridStyles}>
+        <Grid>
+          <div>
+            <div>
+              <h3>ADD CATEGORY</h3>
+            </div>
+            <br />
+            <form onSubmit={handleSubmit}>
+              <div>
+                <TextField
+                  className={classes.gridContent}
+                  onChange={(e) => handle(e)}
+                  required
+                  name="categoryName"
+                  label="Category Name"
+                  value={categoryData.categoryName}
+                />
+              </div>
+
+              <br />
+              <br />
+              <div>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="inherit"
+                  style={{ color: "white", backgroundColor: "#379bff" }}
+                >
+                  Save
+                </Button>
+              </div>
+              <br />
+              <div>
+                <Button
+                  onClick={() => navigate("/Categories")}
+                  style={{ color: "white", backgroundColor: "#379bff" }}
+                >
+                  Back to categories page
+                </Button>
+              </div>
+            </form>
+
+            <Notification notify={notify} setNotify={setNotify} />
+          </div>
+        </Grid>
+      </Grid>
+    </>
   );
 }
 

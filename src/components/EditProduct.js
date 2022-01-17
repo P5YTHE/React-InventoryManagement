@@ -1,23 +1,13 @@
 import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import Toolbar from '@mui/material/Toolbar';
 import Paper from '@mui/material/Paper';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
-import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import AddProduct2 from './AddProduct2';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import axios, { Axios } from 'axios';
+import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { getAuthorizationHeader } from '../utilities';
 import Auth from "../Auth/Auth";
@@ -25,15 +15,13 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import FormControl from "@mui/material/FormControl";
-import Alert from '@mui/material/Alert';
-import SizesInput from './SizesInput';
-import Collapse from '@mui/material/Collapse';
-import { styled } from '@mui/material/styles';
 import { useParams } from 'react-router-dom';
 import Notification from './Notification'
 
 const theme = createTheme();
 
+
+//Component for Editing Products
 function EditProducts() {
 
   let { id } = useParams();
@@ -133,52 +121,7 @@ function EditProducts() {
         console.log(err)
       })
   }
-  //post product end
 
-  //     console.log(newProductId);
-  //     //post size
-  //     const sizeUrl='https://localhost:7177/api/Sizes/CreateSize';
-  //     const[sizeData,setSizeData]=useState({
-  //         productId:newProductId,
-  //         sizeName:"",
-  //         sizePrice:""
-  //     })
-
-
-
-
-  //     function handleSize(e){
-  //         const newData={...sizeData}
-  //         newData[e.target.id]=e.target.value
-  //         setSizeData(newData)
-  //         console.log(newData)
-  //       }
-
-
-  //       function handleSizeSubmit(e){
-  //         e.preventDefault();
-  //         console.log(newProductId);
-  //         axios.post(sizeUrl,{
-  //           productId:newProductId,
-  //           sizeName:sizeData.sizeName,
-  //           sizePrice:sizeData.sizePrice
-  //         },{
-  //           headers: {
-  //             Authorization: `Bearer ${Auth.getAccessToken()}`,
-  //           }
-  //         } 
-  //         )
-  //         .then(res=>{
-  //           setSizeData({
-  //       productId:newProductId,
-  //       sizeName:"",
-  //       sizePrice:""
-  //   });
-  //           console.log(res)
-  //         }).catch(err=>{
-  //           console.log(err)
-  //         })
-  //       }
 
 
   //post size end
@@ -354,20 +297,7 @@ function EditProducts() {
                     placeholder="Enter Product description" />
                 </Grid>
 
-                {/* <Grid item xs={12}>
-          
-             control={<Checkbox  onChange={(e)=>setSizeExist(e.target.checked)} id="sizesExist" />}
-            <div>
-                  <ExpandMore
-                   expand={expanded}
-                   onClick={handleExpandClick}
-                   aria-expanded={expanded}
-                   aria-label="show more">
-                 </ExpandMore> <label>Product has different sizes</label>
-          </div>
-            
-          
-        </Grid> */}
+                
                 <Grid item xs={12} align="center">
                   <Button type="submit" size="medium" variant="contained">
                     Update
@@ -387,8 +317,5 @@ function EditProducts() {
     </ThemeProvider>
   );
 }
-
-
-
 
 export default EditProducts;
