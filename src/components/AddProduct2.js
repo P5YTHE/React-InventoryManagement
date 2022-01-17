@@ -109,7 +109,7 @@ function AddProduct2() {
     }
     ).then((res) => res.status === 201 ? (setNotify({
       isOpen: true,
-      message: 'Successful!',
+      message: 'Product was added successfully',
       type: 'success'
     })) : (setNotify({
       isOpen: true,
@@ -156,7 +156,7 @@ function AddProduct2() {
     }
     ).then((res) => res.status === 201 ? (setNotify({
       isOpen: true,
-      message: 'Successful!',
+      message: 'Size added successfully',
       type: 'success'
     })) : (setNotify({
       isOpen: true,
@@ -337,6 +337,7 @@ function AddProduct2() {
                   value={sizeData.sizePrice}
                   size="small"
                   label="Size Price"
+                  type="number"
                   placeholder="Enter size price" />
               </Grid>
               <Grid item xs={12}>
@@ -366,7 +367,7 @@ function AddProduct2() {
                   url={url1}
                   setUrl={setUrl1}/>          
             </Grid>
-            <Grid item>
+            <Grid item xs={12}>
             <Typography>Image 2:</Typography>
             <UploadFile
               url={url2}
@@ -401,8 +402,7 @@ function AddProduct2() {
       <Notification
             notify={notify}
             setNotify={setNotify}
-          />
-          
+          />    
 
 
     </React.Fragment>
