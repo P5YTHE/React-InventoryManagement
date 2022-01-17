@@ -17,7 +17,6 @@ import { ProfileScreen } from "./screens/ProfileScreen";
 import Auth from "./Auth/Auth";
 import Callback from "./Auth/Callback";
 import ProductsScreen from "./screens/ProductsScreen";
-import EditProfileScreen from "./screens/EditProfileScreen";
 import { getDownloadURL,ref, uploadBytesResumable } from "@firebase/storage";
 import { useState } from "react";
 import AddProduct from "./components/AddProduct";
