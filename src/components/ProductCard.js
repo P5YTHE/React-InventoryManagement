@@ -19,7 +19,7 @@ import Viewsingleproduct1 from './ViewSingleProduct1';
 import { Backdrop, List, ListItem } from '@mui/material';
 import Notification from './Notification'
 
-
+import {Link} from 'react-router-dom';
 
 const ProductCard = (props) => {
   
@@ -36,6 +36,7 @@ const ProductCard = (props) => {
         root: {    
           minWidth: 345,
           maxWidth: 345,
+          // minHeight: 500,
           cursor:"pointer",
           boxShadow: "0 2px 10px skyblue",
           transition: "transform 200ms ease-in",
@@ -132,7 +133,11 @@ const ProductCard = (props) => {
 
 <ButtonGroup variant="text" aria-label="text button group" >
     
-<Button size="small" >Edit</Button>
+    <Link to={"editProduct/"+props.productId}>
+      <Button size="small" >Edit</Button>
+    </Link>
+
+
 {/* <Button size="small"  color="error" >Delete</Button> */}
 
 </ButtonGroup>  
