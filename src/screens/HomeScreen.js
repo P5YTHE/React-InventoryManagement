@@ -14,6 +14,12 @@ const HomeScreen = () => {
           style={{ width: "100%" }}
         ></img>
       </div>
+      <div style={{ width: "100%" }}>
+        <img
+          src="https://i.ibb.co/YpvjrKN/Second.png"
+          style={{ width: "100%" }}
+        ></img>
+      </div>
 
       <FeaturedPost />
 

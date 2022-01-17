@@ -107,7 +107,7 @@ export default function Checkout() {
                   Add Size
                 </Typography>
                 <p style={{ color: "#585858" }}>
-                  1.Follw the steps above to Add Product first and click Add
+                  1.Follow the steps above to Add Product first and click Add
                   Product
                   <br />
                   2.Size details form will appear
