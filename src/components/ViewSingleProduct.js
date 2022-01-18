@@ -47,7 +47,7 @@ const SizesPart = () => {
 
   const displaySizes = filteredSizes.map((size) => {
     return (
-      <TableRow>
+      <TableRow style={{backgroundColor:"#DCD4D2"}}>
         <TableCell align="left">{size.sizeName}</TableCell>
         <TableCell align="left">{size.sizePrice}</TableCell>
       </TableRow>
@@ -57,8 +57,8 @@ const SizesPart = () => {
   if (hasSizes) {
     return (
       <>
-        <TableRow>
-          <TableCell align="left" color>
+        <TableRow style={{backgroundColor:"#DCD4D2"}}>
+          <TableCell align="left">
             Size
           </TableCell>
           <TableCell align="left">Price</TableCell>
@@ -174,7 +174,7 @@ function SwipeableTextMobileStepper() {
                       height: 400,
                       display: "block",
                       maxWidth: 600,
-                      overflow: "hidden",
+                      overflow: "scroll",
                       width: "100%",
                     }}
                     src={step.imgPath}
@@ -218,14 +218,14 @@ const ViewSingleProduct = (props) => {
   productKey = product.productId;
 
   return (
-    <Paper sx={{ p: 1, maxWidth: "100%", flexGrow: 1 }}>
-      <Grid container spacing={5}>
+    <Paper sx={{ p: 1, maxWidth: "100%", flexGrow: 2 }}>
+      <Grid container spacing={5} justifyContent={"center"}>
         <Grid item>
           <SwipeableTextMobileStepper />
         </Grid>
         <Grid item xs={12} sm container>
           <Grid item xs container direction="column" spacing={5}>
-            <Grid item xs>
+            <Grid item xs spacing={2}>
               <TableContainer component={Paper}>
                 <Table
                   sx={{ minWidth: "100%", maxWidth: "50%", padding: "10px" }}

@@ -4,12 +4,14 @@ import { storage } from "../firebase";
 import { useState } from "react";
 import { Box } from "@mui/material";
 import Button from "@mui/material/Button";
+import DoneIcon from '@mui/icons-material/Done';
 
 
 //Component for Uploading files to firebase storage bucket
 const UploadFile = (props) => {
   const { url, setUrl } = props;
   const [progress, setProgress] = useState(0);
+  const [tick,setTick]=useState(false);
 
   //for uploading files
   const uploadFiles = (file) => {
@@ -21,19 +23,34 @@ const UploadFile = (props) => {
       (snapshot) => {
         const prog = Math.round(
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
-
+        );        
         setProgress(prog);
       },
       (err) => console.log(err),
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
           setUrl(url);
+          setTick(true);
         });
       }
     );
   };
   console.log(url);
+  
+
+  const handleTick=()=>{
+    if(tick)
+    {
+      return(
+        <DoneIcon/>
+      )
+    }
+    else{
+      return(
+        <></>
+      )
+    }
+  }
 
   const formHandler = (e) => {
     e.preventDefault();
@@ -51,7 +68,8 @@ const UploadFile = (props) => {
           <Button type="submit" size="medium" variant="contained">
             Upload
           </Button>
-        </form>
+          {tick?<DoneIcon/>:<></>}
+        </form>        
       </Box>
       <br />
     </>

@@ -63,9 +63,9 @@ const ProductCard = (props) => {
     axios
       .delete(url, getAuthorizationHeader())
       .then((res) =>
-        res.status === 200
+        (res.status === 200)||(res.status === 204)||(res.status===201)
           ? axios.delete(urlSizeDelete, getAuthorizationHeader()).then((res) =>
-              res.status === 204
+          (res.status === 200)||(res.status === 204)||(res.status===201)
                 ? setNotify({
                     isOpen: true,
                     message: "Operation successful",
