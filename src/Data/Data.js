@@ -10,7 +10,7 @@ export const featuredPosts = [
   {
     title: "Group 4",    
     description:
-      "Group members:Tamandeep Singh Ghunia, Bipin Advani, Dishank Machkar, Komal Patil, Sashank Tare",     
+      "Group members:Tamandeep Singh Ghunia, Bipin Advani, Dishank Machkar, Komal Patil, Shashank Tare",     
         
   },
   {
