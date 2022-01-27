@@ -18,10 +18,10 @@ const AlertDialog = (props) => {
     setOpen(false);
   };
 
-  const performActions = e => {
-      handleClose();
-      clickHandler(e);
-  }
+  const performActions = (e) => {
+    handleClose();
+    clickHandler(e);
+  };
 
   return (
     <div>
@@ -41,8 +41,13 @@ const AlertDialog = (props) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={performActions} >{dialogButton}</Button>
-          <Button onClick={handleClose} variant="contained" color="primary" autoFocus>
+          <Button onClick={performActions}>{dialogButton}</Button>
+          <Button
+            onClick={handleClose}
+            variant="contained"
+            color="primary"
+            autoFocus
+          >
             Cancel
           </Button>
         </DialogActions>

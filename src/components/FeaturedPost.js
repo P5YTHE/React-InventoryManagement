@@ -1,78 +1,94 @@
-import {  
-  Card,  
-  CardContent,
-  makeStyles,
-  Typography,
-} from "@material-ui/core";
+import { Card, CardContent, makeStyles, Typography } from "@material-ui/core";
+import Divider from "@mui/material/Divider";
+import { Grid } from "@mui/material";
 
 const useStyles = makeStyles({
   cover: {
-    // backgroundImage: `url(https://i.ibb.co/YDpcKCg/Dark-Warehouses-1.jpg) `,
-    backgroundColor:"#379bff",
-    backgroundPosition: "center",   
-    height: "200%",
-    backgroundPosition: "center",        
-    padding: "35px 25px",
+    backgroundImage: `url(https://media.istockphoto.com/photos/warehouse-manager-picture-id1270901360?b=1&k=20&m=1270901360&s=170667a&w=0&h=Wam2slOkUWwKZNA0qcBljjy3b5HbFmB8mWVNMKh5GwE=) `,
+    backgroundPosition: "center",
+
+    backgroundPosition: "center",
+    padding: "35px 35px",
+    margin: "10px 10px",
     whiteSpace: "nowrap",
-    height: "125vw", 
-    width: "90%"  
+    height: "20vw",
+    width: "100%",
+
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+    backgroundSize: "cover",
+
+    borderSpacing: "35px",
   },
   title: {
     fontSize: 50,
-    fontFamily: "Russo One",
-    color:"white",
-    textAlign:"center",
-    textShadow:"2px 0px grey",
+    fontFamily: "Secular One",
+    fontWeight: "bold",
+    color: "#379bff",
   },
   textContainer: {
-    color: "Black",
-    alignContent:"center",    
-    textShadow:"2px 0px grey",
+    color: "white",
+    alignContent: "center",
+    textShadow: "2px 0px black",
+    fontFamily: "Poppins",
+    color: "black",
+    textShadow: "1px 0px grey",
+    width: "100%",
+    borderSpacing: "35px",
   },
-  innerBlock : {
-    backgroundColor:"white",
+  innerBlock: {
+    backgroundColor: "white",
     fontSize: 50,
-    fontFamily: "Russo One",
-    boxShadow: "4px 4px white"
+    width: "100%",
+    fontFamily: "Poppins",
+    borderSpacing: "35px",
   },
-  innerContent: {
+
+  newStyle: {
     fontSize: 25,
-    fontFamily: "Roboto",
-    color:"black",    
-    textAlign:"center",
-  }
+    fontFamily: "Poppins",
+    color: "black",
+    textShadow: "1px 0px grey",
+  },
+  newStyle2: {},
 });
 
+//Homepage Component
 const FeaturedPost = () => {
-  const classes = useStyles();  
+  const classes = useStyles();
 
   return (
-    <>    
-    <Card className={classes.cover}>
-      <CardContent className={classes.textContainer} >
-        <div></div>
-        <Typography className={classes.title} gutterBottom>
-        <Typography className={classes.title} gutterBottom>
-          INVENTORY TRACK
-          </Typography>
-        <Card>
-          <CardContent className={classes.innerBlock} gutterBottom>
-          
-        <Typography className={classes.innerContent}>
-         Inventory management system helps to keep track of the product inventory          
-        </Typography>
-        <Typography className={classes.innerContent}>         
-         in your warehouse/factory with an interactive Ui and 
-        </Typography>
-        <Typography className={classes.innerContent}>         
-        ease of access to the database.
-        </Typography>
+    <>
+      <Grid>
+        <Card className={classes.cover}>
+          <CardContent className={classes.newStyle}>
+            <Typography className={classes.title} gutterBottom>
+              <Card>
+                <CardContent className={classes.innerBlock} gutterBottom>
+                  <Typography
+                    className={classes.title}
+                    align="center"
+                    gutterBottom
+                  >
+                    INVENTORY MANAGEMENT
+                  </Typography>
+                  <Divider variant="string" textAlign="Center"></Divider>
+                  <Typography className={classes.newStyle} align="center">
+                    Inventory management system helps to keep track of the
+                    product inventory
+                  </Typography>
+                  <Typography className={classes.newStyle} align="center">
+                    in your warehouse/factory with an interactive Ui and
+                  </Typography>
+                  <Typography className={classes.newStyle} align="center">
+                    ease of access to the database.
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Typography>
           </CardContent>
         </Card>
-        <img src=""></img>
-        </Typography>       
-      </CardContent>      
-    </Card>
+      </Grid>
     </>
   );
 };

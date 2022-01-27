@@ -1,17 +1,12 @@
 import axios from "axios";
-import {getAuthorizationHeader, getStatesArray} from '../../utilities'
+import { getAuthorizationHeader, getStatesArray } from "../../utilities";
 
 export const getProfileDetails = async () => {
-  try {
-    const { data } = await axios.get(
-      `https://localhost:7249/api/userprofiles`,
-      getAuthorizationHeader()
-    );
-    return data;
-  } catch (err) {
-    console.log(`API ${err}`);
-    return err;
-  }
+  const { data } = await axios.get(
+    `https://localhost:7249/api/userprofiles`,
+    getAuthorizationHeader()
+  );
+  return data;
 };
 
 export const getStateByCountry = async (selectedCountry) => {
@@ -31,14 +26,10 @@ export const getStateByCountry = async (selectedCountry) => {
 };
 
 export const updateProfileAsync = async (profile) => {
-  try {
-    const res = await axios.put(
-      "https://localhost:7249/api/userprofiles",
-      profile,
-      getAuthorizationHeader()
-    );
-    return res;
-  } catch (err) {
-    console.log(err);
-  }
+  const res = await axios.put(
+    "https://localhost:7249/api/userprofiles",
+    profile,
+    getAuthorizationHeader()
+  );
+  return res;
 };

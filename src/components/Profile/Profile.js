@@ -26,10 +26,14 @@ import { countriesList } from "../../Data/CountriesList";
 import AlertDialog from "./AlertDialog";
 import { getDownloadURL, ref, uploadBytesResumable } from "@firebase/storage";
 import { storage } from "../../firebase";
+import Notification from "../Notification";
+import Loading from "./Loading";
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
 
 const useStyles = makeStyles(componentStyles);
 
-const Profile = () => {
+const Profile = ({ auth }) => {
   const classes = useStyles();
 
   const initProfile = {
@@ -46,23 +50,76 @@ const Profile = () => {
   };
   const navigate = useNavigate();
   const [profile, setProfile] = useState(initProfile);
-  let selectedCountry = profile.userCountry;
   const [statesList, setStatesList] = useState(null);
   const [isChanged, setIsChanged] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [notify, setNotify] = useState({
+    isOpen: false,
+    message: "",
+    type: "",
+  });
+  let selectedCountry = profile.userCountry;
 
+  // loading profile details
   useEffect(() => {
-    getProfileDetails().then((data) => setProfile(data));
+    getProfileDetails(auth)
+      .then((data) => {
+        setProfile(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log("Error while loading profile details : " + err);
+        navigate("/error");
+      });
   }, []);
 
+  // geting list of states for selected country
+  if (!statesList && selectedCountry) {
+    getStateByCountry(selectedCountry).then((data) => setStatesList(data));
+  }
+
+  // handle changes of value of form fields
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setProfile({
       ...profile,
       [name]: value,
     });
+    if (name === "userCountry") {
+      getStateByCountry(value).then((data) => setStatesList(data));
+    }
     setIsChanged(true);
+    validate({ [name]: value });
   };
 
+  // Real time validation of user inputs
+  const validate = (obj = profile) => {
+    let messages = { ...errors };
+    if ("userFirstName" in obj) {
+      messages.userFirstName = /^&|^[a-zA-Z]*$/.test(obj.userFirstName)
+        ? ""
+        : "First name must only have alphabets";
+    }
+    if ("userLastName" in obj) {
+      messages.userLastName = /^[a-zA-Z]*$/.test(obj.userLastName)
+        ? ""
+        : "Last name must only have alphabets";
+    }
+    if ("userPhoneNo" in obj) {
+      messages.userPhoneNo =
+        obj.userPhoneNo.length == 10 || obj.userPhoneNo == ""
+          ? ""
+          : "Phone number must have 10 digits";
+    }
+    setErrors(messages);
+
+    if (obj == profile) {
+      return Object.values(messages).every((value) => value == "");
+    }
+  };
+
+  // upload profile image file to firebase and generate image url
   const uploadFiles = (file) => {
     if (!file) return;
     const storageRef = ref(storage, `/files/${file.name}`);
@@ -86,21 +143,41 @@ const Profile = () => {
     );
   };
 
+  // handle update profile api response
   const updateProfile = () => {
-    updateProfileAsync(profile).then((res) => {
-      console.log(res);
-      res?.status === 200 ? navigate("/profile") : navigate("/error");
-    });
+    updateProfileAsync(profile)
+      .then((res) => {
+        navigate("/profile");
+        setNotify({
+          isOpen: true,
+          message: "Profile updated successfully !!!",
+          type: "success",
+        });
+      })
+      .catch((err) => {
+        console.log("Error while updating profile : " + err);
+        setNotify({
+          isOpen: true,
+          message: "Error occured while updating profile",
+          type: "error",
+        });
+      });
   };
 
-  if (!statesList && selectedCountry) {
-    getStateByCountry(selectedCountry).then((data) => setStatesList(data));
-  }
-
+  // when update profile form is submited, validate and proceed
   const formHandler = (e) => {
-    updateProfile();
+    if (validate()) {
+      updateProfile();
+    } else {
+      setNotify({
+        isOpen: true,
+        message: "Enter valid fields to submit changes",
+        type: "warning",
+      });
+    }
   };
 
+  //handler to upload images
   const uploadHandler = (e) => {
     e.preventDefault();
     console.log(e, e.target[0], e.target[0].files[0]);
@@ -111,6 +188,7 @@ const Profile = () => {
 
   return (
     <>
+      {loading && <Loading />}
       <Paper elevation={6}>
         <Container
           maxWidth="lg"
@@ -119,13 +197,14 @@ const Profile = () => {
           classes={{ root: classes.containerRoot }}
         >
           <Grid container>
+            <Notification notify={notify} setNotify={setNotify} />
             <Grid
               item
               xs={12}
               xl={8}
               component={Box}
               marginBottom="2rem"
-              classes={{ root: classes.gridItemRoot + " " + classes.order2 }}
+              classes={{ root: classes.gridItemRoot }}
             >
               <Card
                 classes={{
@@ -196,6 +275,8 @@ const Profile = () => {
                             name="userFirstName"
                             value={profile.userFirstName}
                             handleChange={handleOnChange}
+                            error={!!errors.userFirstName}
+                            helperText={errors.userFirstName}
                           />
                           <GridComp
                             textField
@@ -204,6 +285,8 @@ const Profile = () => {
                             name="userLastName"
                             value={profile.userLastName}
                             handleChange={handleOnChange}
+                            error={!!errors.userLastName}
+                            helperText={errors.userLastName}
                           />
                         </Grid>
                         <Grid container>
@@ -214,6 +297,9 @@ const Profile = () => {
                             name="userPhoneNo"
                             value={profile.userPhoneNo}
                             handleChange={handleOnChange}
+                            type="number"
+                            error={!!errors.userPhoneNo}
+                            helperText={errors.userPhoneNo}
                           />
                           <GridComp
                             radioButton
@@ -233,6 +319,7 @@ const Profile = () => {
                             name="userEmail"
                             value={profile.userEmail}
                             handleChange={handleOnChange}
+                            disabled
                           />
                         </Grid>
                       </Grid>

@@ -1,5 +1,4 @@
 import {
-  Badge,
   Divider,
   IconButton,
   makeStyles,
@@ -27,6 +26,8 @@ const useStyles = makeStyles((theme) => ({
     color: "black",
   },
 }));
+
+//Component for Header
 function Header({ auth }) {
   const classes = useStyles();
   const navigate = useNavigate();
@@ -36,16 +37,24 @@ function Header({ auth }) {
   return (
     <>
       <Toolbar>
-        <SideDrawer>
-          <IconButton>
-            <MenuIcon className={classes.icon} />
-          </IconButton>
-        </SideDrawer>
+        {auth.isAuthenticated() && (
+          <SideDrawer>
+            <IconButton>
+              <MenuIcon className={classes.icon} />
+            </IconButton>
+          </SideDrawer>
+        )}
 
-        <Typography variant="h6" className={classes.title} onClick={() => navigate("/")}>Inventory Track</Typography>
-        
-
-        {/* Login/signup/logout buttons */}
+        <Typography
+          variant="h6"
+          style={{
+            cursor: "pointer",
+          }}
+          className={classes.title}
+          onClick={() => navigate("/")}
+        >
+          Inventory Track
+        </Typography>
 
         <ButtonGroup
           variant="contained"
@@ -71,6 +80,5 @@ function Header({ auth }) {
     </>
   );
 }
-
 
 export default Header;

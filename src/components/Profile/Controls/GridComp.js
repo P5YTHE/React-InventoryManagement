@@ -19,7 +19,7 @@ import TextFieldComp from "./TextField";
 const useStyles = makeStyles(componentStyles);
 
 export const GridComp = ({
-    gridSize='4',
+  gridSize = "4",
   formLabel,
   name,
   value,
@@ -29,6 +29,7 @@ export const GridComp = ({
   radioButton,
   dropdownList,
   radioList,
+  ...otherProps
 }) => {
   const classes = useStyles();
   return (
@@ -49,6 +50,7 @@ export const GridComp = ({
                 name={name}
                 value={value}
                 onChange={handleChange}
+                {...otherProps}
               />
             )}
 
@@ -70,7 +72,7 @@ export const GridComp = ({
               </FormControl>
             )}
             {radioButton && (
-              <RadioGroup name={name} value={value} onChange={handleChange}>
+              <RadioGroup row name={name} value={value} onChange={handleChange}>
                 {radioList?.map((item, index) => (
                   <FormControlLabel
                     key={index}
@@ -78,7 +80,7 @@ export const GridComp = ({
                     label={item.label}
                     control={<Radio />}
                     style={{
-                        color: themeColors.gray[900]
+                      color: themeColors.gray[900],
                     }}
                   />
                 ))}
