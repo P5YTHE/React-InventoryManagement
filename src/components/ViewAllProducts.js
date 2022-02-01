@@ -11,7 +11,7 @@ import { useNavigate } from "react-router";
 
 //Component for viewing all products
 const ViewAllProducts = () => {
-  const url = "https://localhost:7075/api/Products";
+  const url = "https://localhost:44314/api/Products";
   const [products, setProduct] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(false);

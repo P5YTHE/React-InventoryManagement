@@ -11,7 +11,7 @@ class Auth extends Component {
       domain: "dev-tapp.us.auth0.com",
       clientID: "aTtr5NFcQFHgQC3UQ8Qov5eKfS1loV7y",
       redirectUri: "http://localhost:3000/callback",
-      audience: "https://localhost:7261",
+      audience: "https://localhost:44314",
       responseType: "token id_token",
       scope: this.requestedScopes,
     });

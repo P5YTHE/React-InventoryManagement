@@ -35,7 +35,7 @@ function EditProducts() {
   const [categoryId, setCategoryId] = useState('');
 
   //to fetch catgory in dropdown list
-  const categoryUrl = 'https://localhost:7157/api/Categories';
+  const categoryUrl = 'https://localhost:44314/api/Categories';
   const [category, setCategory] = useState([]);
 
   useEffect(() => {
@@ -48,8 +48,8 @@ function EditProducts() {
   const [newProductId, setNewProductId] = useState('');
 
   //to post product
-  const productGetUrl = 'https://localhost:7075/api/Products/';
-  const productPutUrl = 'https://localhost:7075/api/Products/';
+  const productGetUrl = 'https://localhost:44314/api/Products/';
+  const productPutUrl = 'https://localhost:44314/api/Products/';
   const [productData, setProductData] = useState({
     productId: "",
     merchantId: "",
