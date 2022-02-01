@@ -44,7 +44,7 @@ function AddProduct() {
   const [categoryId, setCategoryId] = useState("");
 
   //to fetch catgory in dropdown list
-  const categoryUrl = "https://localhost:7157/api/Categories";
+  const categoryUrl = "https://localhost:44314/api/Categories";
   const [category, setCategory] = useState([]);
   const [url1, setUrl1] = useState("");
   const [url2, setUrl2] = useState("");
@@ -64,7 +64,7 @@ function AddProduct() {
   const [newProductId, setNewProductId] = useState("");
 
   //to post product
-  const productUrl = "https://localhost:7075/api/Products";
+  const productUrl = "https://localhost:44314/api/Products";
   const [productData, setProductData] = useState({
     productId: "",
     productName: "",
@@ -140,7 +140,7 @@ function AddProduct() {
   console.log(newProductId);
 
   //post size
-  const sizeUrl = "https://localhost:7177/api/Sizes/CreateSize";
+  const sizeUrl = "https://localhost:44314/api/Sizes/CreateSize";
   const [sizeData, setSizeData] = useState({
     productId: newProductId,
     sizeName: "",

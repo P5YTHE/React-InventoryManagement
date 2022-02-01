@@ -12,7 +12,7 @@ import ViewCategoryProducts from "./ViewCategoryProducts";
 
 //Component for Categories viewing
 const CategoryGrid = () => {
-  const urlGetCategory = "https://localhost:7157/api/Categories";
+  const urlGetCategory = "https://localhost:44314/api/Categories";
 
   const [categories, setCategory] = useState([]);
   const [selectCategory, setSelectCategory] = useState(0);

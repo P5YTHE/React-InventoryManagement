@@ -3,7 +3,7 @@ import { getAuthorizationHeader, getStatesArray } from "../../utilities";
 
 export const getProfileDetails = async () => {
   const { data } = await axios.get(
-    `https://localhost:7249/api/userprofiles`,
+    `https://localhost:44314/api/userprofiles`,
     getAuthorizationHeader()
   );
   return data;
@@ -27,7 +27,7 @@ export const getStateByCountry = async (selectedCountry) => {
 
 export const updateProfileAsync = async (profile) => {
   const res = await axios.put(
-    "https://localhost:7249/api/userprofiles",
+    "https://localhost:44314/api/userprofiles",
     profile,
     getAuthorizationHeader()
   );

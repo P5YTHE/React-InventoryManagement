@@ -33,7 +33,7 @@ function AddCategory() {
 
   const navigate = useNavigate();
 
-  const categoryUrl = "https://localhost:7157/api/Categories";
+  const categoryUrl = "https://localhost:44314/api/Categories";
   const [categoryData, setCategoryData] = useState({
     categoryName: "",
   });

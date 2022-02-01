@@ -32,8 +32,8 @@ const ProductCard = (props) => {
     type: "",
   });
 
-  const url = `https://localhost:7075/api/Products/${productkey}`;
-  const urlSizeDelete = `https://localhost:7177/api/Sizes/DeleteSizesByProductId/${productkey}`;
+  const url = `https://localhost:44314/api/Products/${productkey}`;
+  const urlSizeDelete = `https://localhost:44314/api/Sizes/DeleteSizesByProductId/${productkey}`;
 
   const useStyles = makeStyles((theme) => ({
     root: {

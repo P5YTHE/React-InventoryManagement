@@ -30,7 +30,7 @@ let productKey = "";
 
 //Component for rendering sizes and their prices
 const SizesPart = () => {
-  const url = "https://localhost:7177/api/Sizes/GetSizes";
+  const url = "https://localhost:44314/api/Sizes/GetSizes";
   const [sizes, setSizes] = useState([]);
 
   useEffect(() => {
