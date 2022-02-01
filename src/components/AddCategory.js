@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-//Component for Adding category
+//Component for Adding category djkdj
 function AddCategory() {
   const classes = useStyles();
 
